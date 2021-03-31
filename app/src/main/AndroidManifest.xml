@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.androidtown.Floremo">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,19 +12,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TP">
-        <activity android:name=".TodayFlower"></activity>
+
+<<<<<<< HEAD
+        <activity android:name=".TodayFlower" />
         <activity android:name=".ShowRecord" />
         <activity android:name=".Analysis" />
         <activity android:name=".setting" />
         <activity android:name=".addRecord" />
         <activity android:name=".login" />
         <activity android:name=".JoinActivity">
+=======
+        <activity android:name="org.androidtown.Floremo.MainActivity">
+>>>>>>> d8365c1bb91f96a23187d8db1f46de189ee51aa9
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="org.androidtown.Floremo.LoginActivity"/>
+        <activity android:name="org.androidtown.Floremo.JoinActivity"/>
+
     </application>
 
 </manifest>

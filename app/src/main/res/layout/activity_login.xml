@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <TextView
@@ -11,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:gravity="center"
-        android:text="회원가입"
+        android:text="로그인"
         android:textColor="#090909"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -41,28 +40,11 @@
             android:hint="비밀번호"
             android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/passwordCheckEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:ems="10"
-            android:hint="비밀번호 확인"
-            android:inputType="textPassword" />
-
         <Button
-            android:id="@+id/joinButton"
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="회원가입"
-            android:textSize="18sp"
-            app:backgroundTint="#8BC34A" />
-
-        <Button
-            android:id="@+id/gotoLoginButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="로그인으로 이동"
+            android:text="로그인"
             android:textSize="18sp"
             app:backgroundTint="#8BC34A" />
     </LinearLayout>
