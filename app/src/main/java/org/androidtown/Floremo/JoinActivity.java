@@ -3,6 +3,8 @@ package org.androidtown.Floremo;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,12 +32,20 @@ public class JoinActivity extends AppCompatActivity {
         //onCreate() 메서드에서 FirebaseAuth 인스턴스를 초기화합니다.
         mAuth = FirebaseAuth.getInstance();
 
-        Button button = findViewById(R.id.joinButton);
+        Button button = findViewById(R.id.joinButton); //회원가입 버튼 객체 생성 및 클릭 리스너
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("클릭", "클릭");
+                //Log.e("클릭", "클릭");
                 joinMember();
+            }
+        });
+
+        Button button2 = findViewById(R.id.gotoLoginButton); //로그인으로 이동 버튼 객체 생성 및 클릭 리스너
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startLoginActivity(); //로그인 페이지로 이동
             }
         });
     }
@@ -53,23 +63,59 @@ public class JoinActivity extends AppCompatActivity {
     {
         String email = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
         String password = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
+        String passwordCheck = ((EditText)findViewById(R.id.passwordCheckEditText)).getText().toString();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //성공 시 UI 로직
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            //실패 시 UI 로직
-                        }
-                    }
-                });
+        if(email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0) { //editText에 입력되면
+            if (password.equals(passwordCheck)) //비밀번호와 비밀번호 확인 모두 일치하면 회원가입 완료
+            {
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    //Log.d(TAG, "createUserWithEmail:success");
+                                    startToast("회원가입 성공");
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    //성공 시 UI 로직
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    //Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                    if (task.getException() != null) //로그인 중 에러 발생 시 메세지 출력
+                                    {
+                                        startToast(task.getException().toString());
+                                    }
+
+                                    //실패 시 UI 로직
+                                }
+                            }
+                        });
+            } else {
+                //비밀번호와 비밀번호 확인이 불일치 하다면 토스트 메세지 출력
+                startToast("비밀번호가 일치하지 않습니다!");
+            }
+        } else {//editText에 입력 안됨
+                startToast("이메일 또는 비밀번호를 입력해주세요.");
+            }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1); //메인에서 로그아웃 하고 뒤로가기했는데 또 메인 뜨는 일 없게 강제종료
+    }
+
+    private void startToast(String msg)
+    {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void startLoginActivity()
+    {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 }
+
