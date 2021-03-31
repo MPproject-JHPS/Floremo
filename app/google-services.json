@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1056896468094",
+    "project_id": "floremoproject",
+    "storage_bucket": "floremoproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056896468094:android:1699270b3101077470c42f",
+        "android_client_info": {
+          "package_name": "org.androidtown.Floremo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056896468094-k0mgbsjqncpcn7do8j8fhlvven5bruct.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTlkDT1F0IZy6y7L0Orw-aAvdvytZ4pYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056896468094-k0mgbsjqncpcn7do8j8fhlvven5bruct.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
