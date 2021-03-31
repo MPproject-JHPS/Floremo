@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.androidtown.Floremo">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TP">
-        <activity android:name="org.androidtown.Floremo.JoinActivity">
+        <activity android:name=".TodayFlower"></activity>
+        <activity android:name=".ShowRecord" />
+        <activity android:name=".Analysis" />
+        <activity android:name=".setting" />
+        <activity android:name=".addRecord" />
+        <activity android:name=".login" />
+        <activity android:name=".JoinActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
