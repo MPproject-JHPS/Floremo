@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        String nickName = intent.getStringExtra("name"); //구글 로그인으로부터 닉네임 전달받음
+        userName.setText(nickName);
+
         if(FirebaseAuth.getInstance().getCurrentUser() == null) //현재 로그인된 유저가 있는지 확인
         {
             startJoinActivity(); //로그인이 안되어 있으면 회원가입 화면으로 이동
