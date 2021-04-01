@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class JoinActivity extends AppCompatActivity {
     private static final String TAG = "JoinActivity";
@@ -61,11 +63,13 @@ public class JoinActivity extends AppCompatActivity {
     //createUserWithEmailAndPassword 메서드를 사용하여 이메일 주소와 비밀번호를 가져와 유효성을 검사한 후 신규 사용자를 만드는 새 createAccount 메서드를 만듭니다.
     private void joinMember()
     {
+        String name = ((EditText)findViewById(R.id.nameEditText)).getText().toString();
         String email = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
         String password = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
         String passwordCheck = ((EditText)findViewById(R.id.passwordCheckEditText)).getText().toString();
 
-        if(email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0) { //editText에 입력되면
+        if(name.length() > 0 && email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0) { //editText에 입력되면
+
             if (password.equals(passwordCheck)) //비밀번호와 비밀번호 확인 모두 일치하면 회원가입 완료
             {
                 mAuth.createUserWithEmailAndPassword(email, password)
@@ -77,6 +81,24 @@ public class JoinActivity extends AppCompatActivity {
                                     //Log.d(TAG, "createUserWithEmail:success");
                                     startToast("회원가입 성공");
                                     FirebaseUser user = mAuth.getCurrentUser();
+
+                                    //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(name)
+                                            .build();
+
+                                    user.updateProfile(profileUpdates)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Log.d(TAG, "사용자 이름 등록됨.");
+                                                    }
+                                                }
+                                            });
+                                    startLoginActivity(); //로그인 페이지로 이동
+                                    finish(); //입력한 정보 삭제하기
+
                                     //성공 시 UI 로직
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -95,7 +117,7 @@ public class JoinActivity extends AppCompatActivity {
                 startToast("비밀번호가 일치하지 않습니다!");
             }
         } else {//editText에 입력 안됨
-                startToast("이메일 또는 비밀번호를 입력해주세요.");
+                startToast("정보를 입력해주세요.");
             }
     }
 
@@ -117,5 +139,6 @@ public class JoinActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
 }
 

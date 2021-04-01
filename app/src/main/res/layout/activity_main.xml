@@ -14,4 +14,12 @@
         android:textSize="18dp"
         app:backgroundTint="#090909" />
 
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:textSize="24sp" />
+
 </LinearLayout>

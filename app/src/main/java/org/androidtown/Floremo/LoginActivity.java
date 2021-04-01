@@ -91,10 +91,22 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startJoinActivity(); //뒤로가기 누르면 회원가입 화면으로
+    }
+
     private void startMainActivity()
     {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 로그인 후 메인으로 가면 뒤로가기 시 다시 로그인정보가 들어 있는 화면이 아닌 앱꺼지기
+        startActivity(intent);
+    }
+
+    private void startJoinActivity()
+    {
+        Intent intent = new Intent(this, JoinActivity.class);
         startActivity(intent);
     }
 }
