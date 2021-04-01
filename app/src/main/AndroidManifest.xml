@@ -13,17 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TP">
 
-<<<<<<< HEAD
         <activity android:name=".TodayFlower" />
         <activity android:name=".ShowRecord" />
         <activity android:name=".Analysis" />
         <activity android:name=".setting" />
         <activity android:name=".addRecord" />
         <activity android:name=".login" />
-        <activity android:name=".JoinActivity">
-=======
         <activity android:name="org.androidtown.Floremo.MainActivity">
->>>>>>> d8365c1bb91f96a23187d8db1f46de189ee51aa9
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
