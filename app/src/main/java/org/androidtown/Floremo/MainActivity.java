@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.drawerlayout);
 
         Button button = findViewById(R.id.logoutButton); //로그아웃 버튼
         button.setOnClickListener(new View.OnClickListener() {
