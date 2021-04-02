@@ -14,6 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -25,6 +31,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -35,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private SignInButton googleButton;
     private GoogleApiClient googleApiClient; //구글 api 클라이언트 객체
     private static final int REQ_SIGN_GOOGLE = 100; //구긓 로그인 결과 코드
+    private CallbackManager mCallbackManager;
 
 
     @Override
@@ -55,28 +63,73 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
+
+
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build(); //구글 사인 버튼 누를 때 기본적인 옵션 세팅
 
-            googleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this, this)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
-                    .build();
-            googleButton = findViewById(R.id.googleButton);
-            googleButton.setOnClickListener(new View.OnClickListener() { //구글 로그인 버튼 누르면
-                @Override
-                public void onClick(View v) {
-                    Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                    startActivityForResult(intent, REQ_SIGN_GOOGLE); //인증을 받고 다시 돌아옴옴
-               }
-            });
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
+                .build();
+        googleButton = findViewById(R.id.googleButton);
+        googleButton.setOnClickListener(new View.OnClickListener() { //구글 로그인 버튼 누르면
+            @Override
+            public void onClick(View v) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent, REQ_SIGN_GOOGLE); //인증을 받고 다시 돌아옴옴
+            }
+        });
+
+        // Initialize Facebook Login button
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginButton loginButton = findViewById(R.id.facebookButton);
+        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+            }
+        });
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        //Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            startToast("로그인 성공");
+                            startMainActivity(); //로그인 성공 시 메인 화면으로 이동
+
+                        } else {
+                            startToast("로그인 실패");
+                        }
+                    }
+                });
     }
 
     @Override //구글 로그인 인증을 요청했을 때 결과 값을 되돌려 받는 곳
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        mCallbackManager.onActivityResult(requestCode, resultCode, data); //<- 페이스북
 
         if(requestCode == REQ_SIGN_GOOGLE)
         {
@@ -97,13 +150,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) //로그인에 성공
                         {
-                            Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                             startToast("로그인 성공");
                             Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
                             intent2.putExtra("name", account.getDisplayName());
                             startActivity(intent2);
                         }else{ //로그인 실패
-                            Log.d(TAG, "?????????????????????????????????????????");
                             startToast("로그인 실패");
                         }
                     }
