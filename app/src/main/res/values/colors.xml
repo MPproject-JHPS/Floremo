@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--  https://color.adobe.com/ko/create/color-wheel 참고  -->
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +10,27 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--  앱 테마1 색깔  -->
+    <color name="bg_a">#FFF280</color>
+    <color name="bg_b">#E8D174</color>
+    <color name="bg_c">#FFDC8B</color>
+    <color name="bg_d">#E8BA74</color>
+    <color name="bg_e">#FFBB80</color>
+
+    <!--  앱 테마2 색깔  -->
+    <color name="bg_f">#806E46</color>
+    <color name="bg_g">#FFF4D9</color>
+    <color name="bg_h">#FFDC8B</color>
+    <color name="bg_i">#807A6C</color>
+    <color name="bg_j">#CCB070</color>
+
+    <!--감정 색깔 5가지-->
+    <color name="anger">#F07FB8</color>
+    <color name="joy">#EBC581</color>
+    <color name="disgust">#93E075</color>
+    <color name="sadness">#75CEFA</color>
+    <color name="Fear">#E29FF0</color>
+
+
 </resources>
