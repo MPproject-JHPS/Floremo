@@ -12,11 +12,11 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--  앱 테마1 색깔  -->
-    <color name="bg_a">#FFF280</color>
-    <color name="bg_b">#E8D174</color>
-    <color name="bg_c">#FFDC8B</color>
-    <color name="bg_d">#E8BA74</color>
-    <color name="bg_e">#FFBB80</color>
+    <color name="bg_a">#FFF7C2</color>
+    <color name="bg_b">#E8DBB0</color>
+    <color name="bg_c">#FFEFCE</color>
+    <color name="bg_d">#E8CFB0</color>
+    <color name="bg_e">#FFDBC2</color>
 
     <!--  앱 테마2 색깔  -->
     <color name="bg_f">#806E46</color>
