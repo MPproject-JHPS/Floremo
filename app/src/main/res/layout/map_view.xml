@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    //주소
+    <TextView
+        android:id="@+id/addressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:text="주소 (도로명 주소 예: 봉은사로 54)" />
+
+    //주소입력창
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/addressTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="23dp"
+        android:ems="12" />
+
+    //검색버튼
+    <Button
+        android:id="@+id/addressSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/address"
+        android:layout_alignRight="@+id/address"
+        android:layout_marginTop="11dp"
+        android:layout_marginRight="-116dp"
+        android:text="검색"
+        app:backgroundTint="#BFF8D0AB" />
+
+    //지도출력
+    <com.naver.maps.map.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></com.naver.maps.map.MapView>
+
+
+</RelativeLayout>
