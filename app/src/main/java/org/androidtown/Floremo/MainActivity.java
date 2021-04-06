@@ -34,11 +34,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);;
+
+        //로딩화면 열기
+        Intent intent = new Intent(this, LoadingActivity.class);
+        startActivity(intent);
 
         TextView userName = findViewById(R.id.name);
-
-        Intent intent = getIntent();
         String nickName = intent.getStringExtra("name"); //구글 로그인으로부터 닉네임 전달받음
         userName.setText(nickName);
 
