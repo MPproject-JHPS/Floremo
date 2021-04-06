@@ -23,7 +23,7 @@ public class DrawerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drawer);
 
         TextView userName = findViewById(R.id.name);
-        Button button = findViewById(R.id.btn_logOut); //로그아웃 버튼
+        Button button = findViewById(R.id.logoutButton); //로그아웃 버튼
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
