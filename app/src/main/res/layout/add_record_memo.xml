@@ -4,7 +4,7 @@
     android:id="@+id/recordMemo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFEFCE"
+    android:background="@color/bg_c"
     android:orientation="vertical">
 
     <LinearLayout
