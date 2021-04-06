@@ -29,11 +29,32 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private View drawerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView userName = findViewById(R.id.name);
+
+        Intent intent = getIntent();
+        String nickName = intent.getStringExtra("name"); //구글 로그인으로부터 닉네임 전달받음
+        userName.setText(nickName);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) //현재 로그인된 유저가 있는지 확인
+        {
+            startJoinActivity(); //로그인이 안되어 있으면 회원가입 화면으로 이동
+        }else { //현재 로그인 되어 있다면
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                for (UserInfo profile : user.getProviderData()) {
+                    // 사용자 이름 가져오기
+                    String name = profile.getDisplayName();
+                    userName.setText(name);
+                }
+            }
+        }
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerView = (View) findViewById(R.id.drawer);
@@ -50,6 +71,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
+            }
+        });
+
+
+        Button button = findViewById(R.id.btn_logout); //로그아웃 버튼
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startJoinActivity(); //로그아웃되면 회원가입 화면으로 이동
             }
         });
 
@@ -96,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private void startJoinActivity()
+    {
+        Intent intent = new Intent(this, JoinActivity.class);
+        startActivity(intent);
+    }
 
 }
 

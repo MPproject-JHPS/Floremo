@@ -1,7 +1,5 @@
 package org.androidtown.Floremo;
 
-
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,13 +41,12 @@ public class addRecordMemo extends AppCompatActivity {
             }
         });
 
-
         location = findViewById(R.id.locationButton);
         location.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-                startActivity(intent);
+               // Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                //startActivity(intent);
             }
         });
 
