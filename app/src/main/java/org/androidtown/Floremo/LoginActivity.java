@@ -18,6 +18,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -36,6 +38,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = "LoginActivity";
     private FirebaseAuth mAuth; //파이어베이스 인스턴스 선언
@@ -43,11 +48,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private GoogleApiClient googleApiClient; //구글 api 클라이언트 객체
     private static final int REQ_SIGN_GOOGLE = 100; //구긓 로그인 결과 코드
     private CallbackManager mCallbackManager;
-
+    private Button facebookButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext()); // 페이스북 SDK 초기화 (setContentView 보다 먼저 실행되어야합니다. )
         setContentView(R.layout.activity_login);
 
         // Initialize Firebase Auth
@@ -85,23 +91,29 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = findViewById(R.id.facebookButton);
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        facebookButton = (Button)findViewById(R.id.facebookButton);
+        facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "user_friends"));
+                LoginManager.getInstance().registerCallback(mCallbackManager,
+                        new FacebookCallback<LoginResult>() {
+                            @Override
+                            public void onSuccess(LoginResult loginResult) {
+                                Log.e("onSuccess", "onSuccess");
+                                handleFacebookAccessToken(loginResult.getAccessToken());
+                            }
 
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-            }
+                            @Override
+                            public void onCancel() {
+                                Log.e("onCancel", "onCancel");
+                            }
 
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
+                            @Override
+                            public void onError(FacebookException exception) {
+                                Log.e("onError", "onError " + exception.getLocalizedMessage());
+                            }
+                        });
             }
         });
     }
