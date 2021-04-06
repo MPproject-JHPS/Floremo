@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private View drawerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerView = (View) findViewById(R.id.drawer);
-
         Button btn_open = (Button) findViewById(R.id.btn_open);
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        Button plusButton = (Button) findViewById(R.id.plusButton);
+        plusButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), addRecordMemo.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

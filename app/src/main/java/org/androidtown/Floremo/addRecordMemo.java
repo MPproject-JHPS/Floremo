@@ -1,5 +1,7 @@
 package org.androidtown.Floremo;
 
+
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,37 +12,50 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.io.InputStream;
+import android.net.Uri;
 
 public class addRecordMemo extends AppCompatActivity {
     ImageView image;
+    private ImageButton location;
+    private final int GET_GALLERY_IMAGE = 200;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.add_record_memo);
         checkSelfPermission();
+
         image = findViewById(R.id.image);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent,101);
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent. setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent, GET_GALLERY_IMAGE);
             }
         });
+
+
+        location = findViewById(R.id.locationButton);
+        location.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
+
     public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions,
                                           @NonNull int[] grantResults) {
         if(requestCode==1){
@@ -48,7 +63,7 @@ public class addRecordMemo extends AppCompatActivity {
             for(int i =0; i<length; i++){
                 if(grantResults[i]== PackageManager.PERMISSION_GRANTED){
                     //동의
-                    Log.d("MainActivity","권한 허용 : " +permissions[i]);
+                    Log.d("addRecordMemo","권한 허용 : " +permissions[i]);
                 }
             }
         }
@@ -77,21 +92,11 @@ public class addRecordMemo extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode,
                                     @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 101 && resultCode == RESULT_OK) {
-            try {
-                InputStream is = getContentResolver().openInputStream(data.getData());
-                Bitmap bm = BitmapFactory.decodeStream(is);
-                is.close();
-                image.setImageBitmap(bm);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (requestCode == 101 && resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "취소", Toast.LENGTH_LONG).show();
+        if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            Uri selectedImageUri = data.getData();
+            image.setImageURI(selectedImageUri);
         }
     }
-    /*public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }*/
+
 }

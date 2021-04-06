@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
 <!--        //navigation menu 열기-->
 
@@ -24,10 +24,12 @@
             app:backgroundTint="@color/bg_d" />
 
         <Button
+            android:id="@+id/plusButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="plus"
-            app:backgroundTint="@color/bg_d"/>
+            android:layout_gravity="center"
+            app:backgroundTint="@color/bg_d" />
 
     </LinearLayout>
 

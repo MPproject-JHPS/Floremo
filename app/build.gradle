@@ -10,6 +10,7 @@ android {
         applicationId "org.androidtown.Floremo"
         minSdkVersion 16
         targetSdkVersion 30
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
 
@@ -29,7 +30,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -47,7 +47,12 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
-
+    // 네이버 지도 SDK
+    implementation 'com.naver.maps:map-sdk:3.11.0'
+    //네이버 지도 위치추적
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    //멀티 덱스 설정
+    implementation 'androidx.multidex:multidex:2.0.1'
 }
 
 apply plugin: 'com.android.application'
