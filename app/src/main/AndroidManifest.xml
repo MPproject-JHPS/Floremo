@@ -19,7 +19,6 @@
         <activity android:name=".Analysis" />
         <activity android:name=".setting" />
         <activity android:name=".addRecord" />
-        <activity android:name=".login" />
         <activity android:name="org.androidtown.Floremo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
