@@ -20,6 +20,6 @@
             android:text="open"
             app:backgroundTint="@color/bg_d" />
 
-
     </LinearLayout>
+    <include layout="@layout/activity_drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>
