@@ -102,6 +102,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button recordingButton = (Button) findViewById(R.id.recordingButton);
+        recordingButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), Recording.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

@@ -34,7 +34,7 @@
         <activity android:name=".setting" />
         <activity android:name=".MapActivity" />
         <activity android:name=".addRecordMemo" />
-        <activity android:name=".addRecord" />
+        <activity android:name=".Recording" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -73,6 +73,9 @@
             </intent-filter>
         </activity>
 
+
+        //Save
+        <activity android:name=".Save"></activity>
     </application>
 
 </manifest>
