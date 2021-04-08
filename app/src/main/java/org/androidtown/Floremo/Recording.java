@@ -27,13 +27,11 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     Button next;
     ViewFlipper flipper;
 
-
     ImageView img1;
     ImageView img2;
     ImageView img3;
     ImageView img4;
     ImageView img5;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,6 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         flipper = (ViewFlipper) findViewById(R.id.flipper);
         prev = (Button) findViewById(R.id.prev);
@@ -59,7 +56,6 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
         this.InitializeView();
         this.InitializeListener();
-
 
         final TextView tv1 = (TextView)findViewById(R.id.textView1);
         SeekBar sb1  = (SeekBar) findViewById(R.id.seekBar1);
@@ -141,9 +137,6 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img5.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
             }
         });
-
-
-
     }
 
     @Override
@@ -168,7 +161,6 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         if(v == prev) {
             flipper.showPrevious();
         }
-
         else if(v == next) {
             flipper.showNext();
         }
