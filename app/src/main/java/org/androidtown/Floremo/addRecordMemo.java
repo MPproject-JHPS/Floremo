@@ -13,24 +13,47 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.storage.StorageManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.net.Uri;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.Date;
+
 public class addRecordMemo extends AppCompatActivity {
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseDatabase mFirebaseDataBase;
     ImageView image;
     private ImageButton location;
     private final int GET_GALLERY_IMAGE = 200;
+    private Button saveButton;
+    private EditText etContent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record_memo);
+        mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
+        mFirebaseDataBase = FirebaseDatabase.getInstance();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference().child("folder_name");
         checkSelfPermission();
 
         image = findViewById(R.id.image);
@@ -53,6 +76,15 @@ public class addRecordMemo extends AppCompatActivity {
             }
         });
 
+        saveButton = findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                saveMemo();
+
+            }
+        });
+        etContent = findViewById(R.id.content);
 
     }
 
@@ -99,4 +131,24 @@ public class addRecordMemo extends AppCompatActivity {
         }
     }
 
+    private void saveMemo(){
+        String text = etContent.getText().toString();
+        if(text.isEmpty()){ //텍스트를 입력하지 않으면 저장할 수 없다
+            Snackbar.make(etContent, "메모를 입력하세요", Snackbar.LENGTH_LONG).show();
+            return;
+        }
+        Memo memo = new Memo();
+        memo.setTxt(etContent.getText().toString());
+        memo.setCreateDate(new Date());
+        mFirebaseDataBase.getReference("memos/" +mFirebaseUser.getUid()).push()
+                .setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Snackbar.make(etContent, "메모가 저장되었습니다.", Snackbar.LENGTH_LONG).show();
+            }
+        });
+        /*Glide.with(getApplicationContext()).lode(storageReference).into(image);*/
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
 }
