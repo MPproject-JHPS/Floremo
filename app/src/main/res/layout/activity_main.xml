@@ -15,13 +15,11 @@
         android:orientation="vertical">
 
 <!--        //navigation menu 열기-->
-
-        <Button
-            android:id="@+id/btn_open"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="open"
-            app:backgroundTint="@color/bg_d" />
+        <include
+            android:id="@+id/toolbar_main"
+            layout="@layout/toolbar_main"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="81dp"/>
 
 
         <Button

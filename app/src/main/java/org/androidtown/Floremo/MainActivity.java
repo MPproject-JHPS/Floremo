@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerView = (View) findViewById(R.id.drawer);
-        Button btn_open = (Button) findViewById(R.id.btn_open);
+        ImageButton btn_open = (ImageButton) findViewById(R.id.navigation_menu);
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
