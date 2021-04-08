@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -26,7 +28,12 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     ViewFlipper flipper;
 
 
-    TextView testText;
+    ImageView img1;
+    ImageView img2;
+    ImageView img3;
+    ImageView img4;
+    ImageView img5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +51,16 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         prev.setOnClickListener(this);
         next.setOnClickListener(this);
 
+        img1 = (ImageView) findViewById(R.id.img1);
+        img2 = (ImageView) findViewById(R.id.img2);
+        img3 = (ImageView) findViewById(R.id.img3);
+        img4 = (ImageView) findViewById(R.id.img4);
+        img5 = (ImageView) findViewById(R.id.img5);
 
         this.InitializeView();
         this.InitializeListener();
 
 
-        testText = findViewById(R.id.testText);
         final TextView tv1 = (TextView)findViewById(R.id.textView1);
         SeekBar sb1  = (SeekBar) findViewById(R.id.seekBar1);
         final TextView tv2 = (TextView)findViewById(R.id.textView2);
@@ -67,7 +78,11 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                testText.setTextColor(Color.argb(progress, 240, 127, 184));
+                img1.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
             }
         });
 
@@ -77,7 +92,11 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                testText.setTextColor(Color.argb(progress, 235, 197, 129));
+                img1.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
             }
         });
 
@@ -87,7 +106,11 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                testText.setTextColor(Color.argb(progress, 147, 224, 117));
+                img1.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
             }
         });
 
@@ -97,7 +120,11 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                testText.setTextColor(Color.argb(progress, 117, 206, 250));
+                img1.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
             }
         });
 
@@ -107,9 +134,16 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                testText.setTextColor(Color.argb(progress, 226, 159, 240));
+                img1.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
             }
         });
+
+
+
     }
 
     @Override
