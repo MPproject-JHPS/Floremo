@@ -36,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
+
         setContentView(R.layout.activity_main);
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
-=======
+
         setContentView(R.layout.activity_main);;
 
         //로딩화면 열기
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
->>>>>>> e99d3f07cf5a08af2523a64cf93673a577e22c68
+
 
         if(mFirebaseUser == null){//null인 경우엔 보고있는 해당 창을 닫고 login activity를 열도록 한다.
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -117,9 +117,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
 
-=======
         Button recordingButton = (Button) findViewById(R.id.recordingButton);
         recordingButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -128,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
->>>>>>> e99d3f07cf5a08af2523a64cf93673a577e22c68
+
     }
 
 

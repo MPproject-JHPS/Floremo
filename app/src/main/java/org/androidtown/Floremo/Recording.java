@@ -138,7 +138,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu:
-                Intent NewActivity = new Intent(getApplicationContext(), Save.class);
+                Intent NewActivity = new Intent(getApplicationContext(), addRecordMemo.class);
                 startActivity(NewActivity);
                 break;
         }
