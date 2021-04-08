@@ -86,14 +86,13 @@
                         android:layout_height="0dp"
                         android:layout_weight="3"
                         android:layout_gravity="center"
-                        android:src="@drawable/image1"
+                        android:src="@drawable/flower1"
                         android:id="@+id/img1" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="1번째페이지"
                         android:textColor="#ff0000"
                         android:textSize="24dp"
                         android:layout_gravity="center"
@@ -110,14 +109,13 @@
                         android:layout_height="0dp"
                         android:layout_weight="3"
                         android:layout_gravity="center"
-                        android:src="@drawable/image2"
+                        android:src="@drawable/flower2"
                         android:id="@+id/img2" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="2번째페이지"
                         android:textColor="#1eef67"
                         android:textSize="24dp"
                         android:layout_gravity="center"
@@ -134,14 +132,13 @@
                         android:layout_height="0dp"
                         android:layout_weight="3"
                         android:layout_gravity="center"
-                        android:src="@drawable/image3"
+                        android:src="@drawable/flower3"
                         android:id="@+id/img3" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="3번째페이지"
                         android:textColor="#68c7e4"
                         android:textSize="24dp"
                         android:layout_gravity="center"
@@ -158,14 +155,13 @@
                         android:layout_height="0dp"
                         android:layout_weight="3"
                         android:layout_gravity="center"
-                        android:src="@drawable/image4"
+                        android:src="@drawable/flower4"
                         android:id="@+id/img4" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="4번째페이지"
                         android:textColor="#8441C6"
                         android:textSize="24dp"
                         android:layout_gravity="center"
@@ -182,14 +178,13 @@
                         android:layout_height="0dp"
                         android:layout_weight="3"
                         android:layout_gravity="center"
-                        android:src="@drawable/image5"
+                        android:src="@drawable/flower5"
                         android:id="@+id/img5" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="5번째페이지"
                         android:textColor="#80BF52"
                         android:textSize="24dp"
                         android:layout_gravity="center"
