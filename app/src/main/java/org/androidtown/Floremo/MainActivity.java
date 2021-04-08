@@ -31,13 +31,40 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mFirebaseUser;
     private DrawerLayout drawerLayout;
     private View drawerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
         setContentView(R.layout.activity_main);
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
+=======
+        setContentView(R.layout.activity_main);;
+
+        //로딩화면 열기
+        Intent intent = new Intent(this, LoadingActivity.class);
+        startActivity(intent);
+
+        TextView userName = findViewById(R.id.name);
+        String nickName = intent.getStringExtra("name"); //구글 로그인으로부터 닉네임 전달받음
+        userName.setText(nickName);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) //현재 로그인된 유저가 있는지 확인
+        {
+            startJoinActivity(); //로그인이 안되어 있으면 회원가입 화면으로 이동
+        }else { //현재 로그인 되어 있다면
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                for (UserInfo profile : user.getProviderData()) {
+                    // 사용자 이름 가져오기
+                    String name = profile.getDisplayName();
+                    userName.setText(name);
+                }
+            }
+        }
+>>>>>>> e99d3f07cf5a08af2523a64cf93673a577e22c68
 
         if(mFirebaseUser == null){//null인 경우엔 보고있는 해당 창을 닫고 login activity를 열도록 한다.
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -62,6 +89,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        Button button = findViewById(R.id.btn_logout); //로그아웃 버튼
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startJoinActivity(); //로그아웃되면 회원가입 화면으로 이동
+            }
+        });
+
         drawerLayout.addDrawerListener(listener);
         drawerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -80,7 +117,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
 
+=======
+        Button recordingButton = (Button) findViewById(R.id.recordingButton);
+        recordingButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), Recording.class);
+                startActivity(intent);
+            }
+        });
+>>>>>>> e99d3f07cf5a08af2523a64cf93673a577e22c68
     }
 
 
@@ -109,6 +157,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private void startJoinActivity()
+    {
+        Intent intent = new Intent(this, JoinActivity.class);
+        startActivity(intent);
+    }
 
 }
 

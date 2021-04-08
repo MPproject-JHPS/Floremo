@@ -23,6 +23,7 @@
             android:text="open"
             app:backgroundTint="@color/bg_d" />
 
+
         <Button
             android:id="@+id/plusButton"
             android:layout_width="wrap_content"
@@ -30,6 +31,15 @@
             android:text="plus"
             android:layout_gravity="center"
             app:backgroundTint="@color/bg_d" />
+
+        <Button
+            android:id="@+id/recordingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="recording"
+            android:layout_gravity="center"
+            app:backgroundTint="@color/bg_d" />
+
 
     </LinearLayout>
 

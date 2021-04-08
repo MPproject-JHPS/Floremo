@@ -50,20 +50,35 @@
         android:orientation="vertical"
         android:layout_weight="1">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <!--닉네임 받아오기-->
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="님 반갑습니다"
+                android:textSize="15sp" />
+        </LinearLayout>
 
         <!--        /*원래는 app:backgroundTint=#090909"이었는데 app이 빨간색으로 변하여 android라고 바꿔줌 */-->
     </LinearLayout>
 
-
-    <!--닉네임 받아오기-->
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text=""
-        android:textColor="@color/black"
-        android:textSize="24sp" />
 
     <Button
         android:id="@+id/btn_logout"
