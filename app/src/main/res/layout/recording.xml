@@ -206,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Red:"
+                    android:text="Emotion1"
                     tools:ignore="MissingConstraints"
                     />
 
@@ -230,7 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Green:"
+                    android:text="Emotion2"
                     tools:ignore="MissingConstraints" />
 
                 <SeekBar
@@ -251,7 +251,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Blue:"
+                    android:text="Emotion3"
                     tools:ignore="MissingConstraints" />
 
                 <SeekBar
@@ -272,7 +272,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Red:"
+                    android:text="Emotion4"
                     tools:ignore="MissingConstraints" />
 
                 <SeekBar
@@ -293,7 +293,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Red:"
+                    android:text="Emotion5"
                     tools:ignore="MissingConstraints" />
 
                 <SeekBar
@@ -310,7 +310,8 @@
                 android:layout_below="@+id/seekBarView5"
                 android:text="Test text"
                 android:layout_gravity="center"
-                android:textSize="30sp" />
+                android:textSize="50sp"
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 
