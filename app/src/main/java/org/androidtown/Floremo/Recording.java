@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,14 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     Button prev;
     Button next;
     ViewFlipper flipper;
+
+
+    TextView testText;
+    private int rgb_r;
+    private int rgb_g;
+    private int rgb_b;
+    private int sum = 155;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,57 +54,93 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         this.InitializeListener();
 
 
+
+        testText = findViewById(R.id.testText);
+
+
         final TextView tv1 = (TextView)findViewById(R.id.textView1);
         SeekBar sb1  = (SeekBar) findViewById(R.id.seekBar1);
+        final TextView tv2 = (TextView)findViewById(R.id.textView2);
+        SeekBar sb2  = (SeekBar) findViewById(R.id.seekBar2);
+        final TextView tv3 = (TextView)findViewById(R.id.textView3);
+        SeekBar sb3  = (SeekBar) findViewById(R.id.seekBar3);
+        final TextView tv4 = (TextView)findViewById(R.id.textView4);
+        SeekBar sb4  = (SeekBar) findViewById(R.id.seekBar4);
+        final TextView tv5 = (TextView)findViewById(R.id.textView5);
+        SeekBar sb5  = (SeekBar) findViewById(R.id.seekBar5);
 
         sb1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
-                tv1.setText("onStop TrackingTouch");
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
-                tv1.setText("onStart TrackingTouch");
+
             }
-            public void onProgressChanged(SeekBar seekBar, int progress,
-                                          boolean fromUser) {
-                tv1.setText("onProgressChanged : " + progress);
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                rgb_r = progress + sum;
+                rgb_g = sb2.getProgress();
+                if(rgb_g > 0) {
+                    rgb_g += sum;
+                }
+
+                rgb_b = sb3.getProgress();
+                if(rgb_b > 0) {
+                    rgb_b += sum;
+                }
+
+                testText.setTextColor(Color.rgb(rgb_r, rgb_g, rgb_b));
             }
         });
 
-        final TextView tv2 = (TextView)findViewById(R.id.textView2);
-        SeekBar sb2  = (SeekBar) findViewById(R.id.seekBar2);
+
 
         sb2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
-                tv2.setText("onStop TrackingTouch");
+
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
-                tv2.setText("onStart TrackingTouch");
+
             }
-            public void onProgressChanged(SeekBar seekBar, int progress,
-                                          boolean fromUser) {
-                tv2.setText("onProgressChanged : " + progress);
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                rgb_r = sb1.getProgress();
+                if(rgb_r > 0) {
+                    rgb_r += sum;
+                }
+
+                rgb_g = progress + sum;
+
+                rgb_b = sb3.getProgress();
+                if(rgb_b > 0) {
+                    rgb_b += sum;
+                }
+                testText.setTextColor(Color.rgb(rgb_r, rgb_g, rgb_b));
             }
         });
 
-
-        final TextView tv3 = (TextView)findViewById(R.id.textView3);
-        SeekBar sb3  = (SeekBar) findViewById(R.id.seekBar3);
 
         sb3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
-                tv3.setText("onStop TrackingTouch");
+
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
-                tv3.setText("onStart TrackingTouch");
+
             }
-            public void onProgressChanged(SeekBar seekBar, int progress,
-                                          boolean fromUser) {
-                tv3.setText("onProgressChanged : " + progress);
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                rgb_r = sb1.getProgress();
+                if(rgb_r > 0) {
+                    rgb_r += sum;
+                }
+                rgb_g = sb2.getProgress();
+                if(rgb_g > 0) {
+                    rgb_g += sum;
+                }
+                rgb_b = progress + sum;
+
+                testText.setTextColor(Color.rgb(rgb_r, rgb_g, rgb_b));
             }
         });
 
-        final TextView tv4 = (TextView)findViewById(R.id.textView4);
-        SeekBar sb4  = (SeekBar) findViewById(R.id.seekBar4);
+
 
         sb4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -110,8 +155,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             }
         });
 
-        final TextView tv5 = (TextView)findViewById(R.id.textView5);
-        SeekBar sb5  = (SeekBar) findViewById(R.id.seekBar5);
+
 
         sb5.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {

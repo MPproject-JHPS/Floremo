@@ -194,90 +194,123 @@
 
             </ViewFlipper>
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Progress Gage"
-                tools:ignore="MissingConstraints"
-                android:layout_below="@+id/prev" />
-
-            <SeekBar
-                android:id="@+id/seekBar1"
+            <LinearLayout
+                android:id="@+id/seekBarView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="200"
-                android:progress="50"
-                android:layout_below="@+id/textView1"/>
+                android:orientation="horizontal"
+                android:layout_below="@+id/prev">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Progress Gage"
-                tools:ignore="MissingConstraints"
-                android:layout_below="@+id/seekBar1" />
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Red:"
+                    tools:ignore="MissingConstraints"
+                    />
 
-            <SeekBar
-                android:id="@+id/seekBar2"
+                <SeekBar
+                    android:id="@+id/seekBar1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/seekBarView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="200"
-                android:progress="50"
-                android:layout_below="@+id/textView2"/>
+                android:orientation="horizontal"
+                android:layout_below="@+id/seekBarView1">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Progress Gage"
-                tools:ignore="MissingConstraints"
-                android:layout_below="@+id/seekBar2" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Green:"
+                    tools:ignore="MissingConstraints" />
 
-            <SeekBar
-                android:id="@+id/seekBar3"
+                <SeekBar
+                    android:id="@+id/seekBar2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/seekBarView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="200"
-                android:progress="50"
-                android:layout_below="@+id/textView3"/>
+                android:orientation="horizontal"
+                android:layout_below="@+id/seekBarView2">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Progress Gage"
-                tools:ignore="MissingConstraints"
-                android:layout_below="@+id/seekBar3" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Blue:"
+                    tools:ignore="MissingConstraints" />
 
-            <SeekBar
-                android:id="@+id/seekBar4"
+                <SeekBar
+                    android:id="@+id/seekBar3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/seekBarView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="200"
-                android:progress="50"
-                android:layout_below="@+id/textView4"/>
+                android:orientation="horizontal"
+                android:layout_below="@+id/seekBarView3">
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Progress Gage"
-                tools:ignore="MissingConstraints"
-                android:layout_below="@+id/seekBar4" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Red:"
+                    tools:ignore="MissingConstraints" />
 
-            <SeekBar
-                android:id="@+id/seekBar5"
+                <SeekBar
+                    android:id="@+id/seekBar4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/seekBarView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="200"
-                android:progress="50"
-                android:layout_below="@+id/textView5"/>
+                android:orientation="horizontal"
+                android:layout_below="@+id/seekBarView4">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Red:"
+                    tools:ignore="MissingConstraints" />
+
+                <SeekBar
+                    android:id="@+id/seekBar5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/testText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/seekBarView5"
+                android:text="Test text"
+                android:layout_gravity="center"
+                android:textSize="30sp" />
 
         </RelativeLayout>
 
