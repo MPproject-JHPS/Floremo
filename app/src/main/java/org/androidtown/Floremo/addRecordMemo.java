@@ -27,11 +27,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import com.bumptech.glide.Glide;
+import com.google.firebase.storage.UploadTask;
 
 public class addRecordMemo extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -42,7 +47,8 @@ public class addRecordMemo extends AppCompatActivity {
     private final int GET_GALLERY_IMAGE = 200;
     private Button saveButton;
     private EditText etContent;
-
+    private DatabaseReference database;
+    Uri selectedImageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +56,7 @@ public class addRecordMemo extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
         mFirebaseDataBase = FirebaseDatabase.getInstance();
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference().child("folder_name");
+        database = mFirebaseDataBase.getReference();
         checkSelfPermission();
 
         image = findViewById(R.id.image);
@@ -68,8 +73,8 @@ public class addRecordMemo extends AppCompatActivity {
         location.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-               // Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-                //startActivity(intent);
+               Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+               startActivity(intent);
             }
         });
 
@@ -78,6 +83,7 @@ public class addRecordMemo extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 saveMemo();
+                clickUpload();
 
             }
         });
@@ -117,15 +123,39 @@ public class addRecordMemo extends AppCompatActivity {
         }
     }
 
+    //사진 선택하기
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
-            Uri selectedImageUri = data.getData();
+            selectedImageUri = data.getData();
             image.setImageURI(selectedImageUri);
         }
+    }
+
+
+    //firebase storage에 업로드하기
+    public void clickUpload(){
+        //FirebaseStorage를 통해 관리하는 객체 얻어오기
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imageRef = storageRef.child("images");
+        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        StorageReference fileRef = userRef.child(filename);
+
+        //참조객체를 통해 이미지 파일 업로드하기
+        //업로드가 성공적으로 되면 images라는 폴더에 uid 폴더가 생성된다.
+        //uid 폴더 안에 uid+날짜시간분초로 파일 이름이 생성된다.
+        UploadTask uploadTask = fileRef.putFile(selectedImageUri);
+        uploadTask.addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(addRecordMemo.this, "success storage upload", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void saveMemo(){
@@ -144,8 +174,8 @@ public class addRecordMemo extends AppCompatActivity {
                 Snackbar.make(etContent, "메모가 저장되었습니다.", Snackbar.LENGTH_LONG).show();
             }
         });
-        /*Glide.with(getApplicationContext()).lode(storageReference).into(image);*/
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
+
     }
 }
