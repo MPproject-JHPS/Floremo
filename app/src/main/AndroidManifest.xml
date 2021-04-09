@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.androidtown.Floremo">
 
-    //외부 저장소 읽기, 쓰기, 인터넷 접근, 위치 허용 권한
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    //멀티덱스 설정
     <application
         android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -19,11 +17,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TP">
-
-        <activity android:name=".LoadingActivity"
+        <activity android:name=".SettingsActivity"></activity>
+        <activity
+            android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
-        //네이버 API 키값
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="kvmf3zixre" />
@@ -31,7 +29,6 @@
         <activity android:name=".TodayFlower" />
         <activity android:name=".ShowRecord" />
         <activity android:name=".Analysis" />
-        <activity android:name=".setting" />
         <activity android:name=".MapActivity" />
         <activity android:name=".addRecordMemo" />
         <activity android:name=".Recording" />
@@ -72,10 +69,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
-
-        //Save
-        <activity android:name=".Save"></activity>
+        <activity android:name=".Save" />
     </application>
 
 </manifest>
