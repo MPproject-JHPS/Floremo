@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TP">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".TodayFlowerActivity"></activity>
+        <activity android:name=".AnalysisActivity" />
+        <activity android:name=".SettingsActivity" />
         <activity
             android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
@@ -26,9 +28,7 @@
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="kvmf3zixre" />
 
-        <activity android:name=".TodayFlower" />
         <activity android:name=".ShowRecord" />
-        <activity android:name=".Analysis" />
         <activity android:name=".MapActivity" />
         <activity android:name=".addRecordMemo" />
         <activity android:name=".Recording" />

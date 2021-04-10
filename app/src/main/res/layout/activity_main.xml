@@ -49,20 +49,76 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/main_part1"
+            android:id="@+id/main_part1_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="3">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="2">
 
+            <ImageView
+                android:padding="0dp"
+                android:src="@drawable/emo_char1"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_height="80dp"
+                android:layout_width="80dp"/>
+
+            <ImageView
+                android:padding="0dp"
+                android:src="@drawable/emo_char2"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_height="80dp"
+                android:layout_width="80dp"/>
+
+            <ImageView
+                android:padding="0dp"
+                android:src="@drawable/emo_char3"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_height="80dp"
+                android:layout_width="80dp"/>
+
+            <ImageView
+                android:padding="0dp"
+                android:src="@drawable/emo_char4"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_height="80dp"
+                android:layout_width="80dp"/>
+
+            <ImageView
+                android:padding="0dp"
+                android:src="@drawable/emo_char5"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_height="80dp"
+                android:layout_width="80dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/main_part1_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="5">
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/main_part2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="3">
+            android:padding="10dp"
+            android:layout_weight="2">
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오늘의 Floremo는 어떤가요?"/>
 
             <Button
                 android:id="@+id/flowerButton"
@@ -71,14 +127,7 @@
                 android:layout_gravity="center"
                 android:text="flower"
                 app:backgroundTint="@color/bg_d" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/main_part3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="2">
 
             <Button
                 android:id="@+id/recordingButton"
@@ -88,6 +137,61 @@
                 android:text="recording"
                 app:backgroundTint="@color/bg_d" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/main_part3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:paddingTop="30dp"
+            android:layout_weight="2">
+
+            <ImageButton
+                android:id="@+id/emotion_vase1"
+                android:padding="0dp"
+                android:src="@drawable/emotion_vase"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_height="100dp"
+                android:layout_width="80dp"/>
+
+            <ImageButton
+                android:id="@+id/emotion_vase2"
+                android:padding="0dp"
+                android:src="@drawable/emotion_vase"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_height="100dp"
+                android:layout_width="80dp"/>
+
+            <ImageButton
+                android:id="@+id/emotion_vase3"
+                android:padding="0dp"
+                android:src="@drawable/emotion_vase"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_height="100dp"
+                android:layout_width="80dp"/>
+
+            <ImageButton
+                android:id="@+id/emotion_vase4"
+                android:padding="0dp"
+                android:src="@drawable/emotion_vase"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_height="100dp"
+                android:layout_width="80dp"/>
+
+            <ImageButton
+                android:id="@+id/emotion_vase5"
+                android:padding="0dp"
+                android:src="@drawable/emotion_vase"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_height="100dp"
+                android:layout_width="80dp"/>
         </LinearLayout>
     </LinearLayout>
 

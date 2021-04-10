@@ -138,6 +138,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btn_todayFlower = (Button) findViewById(R.id.btn_todayFlower);
+        btn_todayFlower.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TodayFlowerActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btn_analysis = (Button) findViewById(R.id.btn_analysis);
+        btn_analysis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AnalysisActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
