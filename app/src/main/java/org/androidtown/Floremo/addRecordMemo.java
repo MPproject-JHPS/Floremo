@@ -3,6 +3,7 @@ package org.androidtown.Floremo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -15,11 +16,14 @@ import android.os.storage.StorageManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.net.Uri;
 
@@ -45,20 +49,30 @@ public class addRecordMemo extends AppCompatActivity {
     ImageView image;
     private ImageButton location;
     private final int GET_GALLERY_IMAGE = 200;
-    private Button saveButton;
     private EditText etContent;
     private DatabaseReference database;
     Uri selectedImageUri;
+    private TextView textView_Date;
+    private TextView textDate;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record_memo);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
         mFirebaseDataBase = FirebaseDatabase.getInstance();
         database = mFirebaseDataBase.getReference();
         checkSelfPermission();
 
+       /* textView_Date = (TextView)findViewById(R.id.textView_date);
+        textDate = (TextView)findViewById(R.id.textView_date);*/
+
+        //textDate.setText(textView_Date.getText().toString());
         image = findViewById(R.id.image);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,17 +92,18 @@ public class addRecordMemo extends AppCompatActivity {
             }
         });
 
-        saveButton = findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
+        etContent = findViewById(R.id.content);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu:
                 saveMemo();
                 clickUpload();
-
-            }
-        });
-        etContent = findViewById(R.id.content);
-
+                break;
+        }
+        return true;
     }
 
     public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions,
@@ -135,6 +150,13 @@ public class addRecordMemo extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
 
     //firebase storage에 업로드하기
     public void clickUpload(){

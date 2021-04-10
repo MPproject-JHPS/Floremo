@@ -146,28 +146,22 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu:
-//                Intent NewActivity = new Intent(getApplicationContext(), addRecordMemo.class);
-//                startActivity(NewActivity);
-//                break;
-//        }
-//        return true;
-//    }
-
-    //홈 화면으로 가는 뒤로 가기 버튼
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+        switch (item.getItemId()) {
+            case R.id.menu:
+                Intent NewActivity = new Intent(getApplicationContext(), addRecordMemo.class);
+                startActivity(NewActivity);
+                break;
+            case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
                 finish();
-                return true;
-            }
+                break;
         }
-        return super.onOptionsItemSelected(item);
+
+
+        return true;
     }
+
 
     public void onClick(View v) {
         if(v == prev) {
