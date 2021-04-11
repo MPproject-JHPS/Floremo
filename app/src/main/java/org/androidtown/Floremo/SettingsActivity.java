@@ -1,18 +1,55 @@
 package org.androidtown.Floremo;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class SettingsActivity extends AppCompatActivity {
+    private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
+
+        Button button = findViewById(R.id.withdraw); //회원탈퇴 버튼
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(SettingsActivity.this);
+                dialog  .setTitle("회원 탈퇴")
+                        .setMessage("탈퇴 하시겠습니까?")
+                        .setPositiveButton("탈퇴", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                revokeAccess();
+                                startJoinActivity(); //회원탈퇴 되면 회원가입 화면으로 이동
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(SettingsActivity.this, "취소했습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        }).create().show();
+
+
+            }
+        });
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -29,5 +66,17 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void revokeAccess()
+    {
+        mFirebaseAuth.getCurrentUser().delete();
+    }
+
+
+    private void startJoinActivity() //회원가입 화면으로
+    {
+        Intent intent = new Intent(this, JoinActivity.class);
+        startActivity(intent);
     }
 }
