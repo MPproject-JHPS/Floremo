@@ -25,6 +25,7 @@
             android:id="@+id/main_part0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <!--닉네임 받아오기-->
@@ -34,8 +35,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:gravity="right"
                 android:text=""
-                android:textSize="19sp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -44,7 +46,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="님 반갑습니다"
-                android:textSize="15sp" />
+                android:textSize="25sp" />
 
         </LinearLayout>
 

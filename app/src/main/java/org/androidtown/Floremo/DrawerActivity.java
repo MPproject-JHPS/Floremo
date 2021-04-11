@@ -23,6 +23,7 @@ public class DrawerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
 
+
     }
 
     private void startJoinActivity()
