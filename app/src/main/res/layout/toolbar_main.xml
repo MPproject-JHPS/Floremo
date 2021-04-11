@@ -19,12 +19,12 @@
 
     <ImageButton
         android:id="@+id/floremo_logo"
-        android:padding="0dp"
-        android:src="@drawable/floremo_logo"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_width="40dp" />
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo" />
 
 
     <ImageButton
