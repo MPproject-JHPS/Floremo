@@ -84,7 +84,7 @@
                 android:layout_margin="5dp"
                 android:ems="10"
                 android:hint="email@email.com"
-                android:inputType="textPersonName" />
+                android:inputType="textEmailAddress" />
         </LinearLayout>
 
 
