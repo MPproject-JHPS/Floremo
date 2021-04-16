@@ -30,6 +30,7 @@
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:onClick="OnClickHandler"
                 android:adjustViewBounds="true"
                 android:maxWidth="50dp"
@@ -47,28 +48,42 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Today's Date"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 tools:ignore="MissingConstraints"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="70dp" />
+                android:layout_marginLeft="148dp"
+                android:layout_marginTop="90dp" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/prev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="PREVIOUS"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="400dp"/>
+                android:text="PREV"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="250dp"
+                android:adjustViewBounds="true"
+                android:maxWidth="75dp"
+                android:maxHeight="75dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/previous"
+                app:backgroundTint="@color/bg_c"
+                tools:ignore="MissingConstraints"
+                android:onClick="onClick"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Next"
-                android:layout_marginLeft="300dp"
-                android:layout_marginTop="400dp"/>
+                android:text="NEXT"
+                android:layout_marginLeft="285dp"
+                android:layout_marginTop="250dp"
+                android:adjustViewBounds="true"
+                android:maxWidth="75dp"
+                android:maxHeight="75dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/next"
+                app:backgroundTint="@color/bg_c"
+                tools:ignore="MissingConstraints"
+                android:onClick="onClick"/>
 
             <ViewFlipper
                 android:id="@+id/flipper"
@@ -188,7 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/prev">
+                android:layout_marginTop="430dp">
                 <TextView
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
@@ -197,7 +212,7 @@
                     android:text="Emotion1"
                     android:textColor="#F07FB8"
                     tools:ignore="MissingConstraints"
-                    />
+                    android:layout_marginLeft="10dp"/>
                 <SeekBar
                     android:id="@+id/seekBar1"
                     android:layout_width="match_parent"
@@ -210,7 +225,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/seekBarView1">
+                android:layout_marginTop="465dp">
 
                 <TextView
                     android:id="@+id/textView2"
@@ -219,7 +234,8 @@
                     android:gravity="center"
                     android:text="Emotion2"
                     android:textColor="#EBC581"
-                    tools:ignore="MissingConstraints" />
+                    tools:ignore="MissingConstraints"
+                    android:layout_marginLeft="10dp"/>
 
                 <SeekBar
                     android:id="@+id/seekBar2"
@@ -232,7 +248,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/seekBarView2">
+                android:layout_marginTop="500dp">
 
                 <TextView
                     android:id="@+id/textView3"
@@ -241,7 +257,8 @@
                     android:gravity="center"
                     android:text="Emotion3"
                     android:textColor="#93E075"
-                    tools:ignore="MissingConstraints" />
+                    tools:ignore="MissingConstraints"
+                    android:layout_marginLeft="10dp"/>
 
                 <SeekBar
                     android:id="@+id/seekBar3"
@@ -254,7 +271,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/seekBarView3">
+                android:layout_marginTop="535dp">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -263,7 +280,8 @@
                     android:gravity="center"
                     android:text="Emotion4"
                     android:textColor="#75CEFA"
-                    tools:ignore="MissingConstraints" />
+                    tools:ignore="MissingConstraints"
+                    android:layout_marginLeft="10dp"/>
 
                 <SeekBar
                     android:id="@+id/seekBar4"
@@ -276,7 +294,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/seekBarView4">
+                android:layout_marginTop="570dp">
 
                 <TextView
                     android:id="@+id/textView5"
@@ -285,7 +303,8 @@
                     android:gravity="center"
                     android:text="Emotion5"
                     android:textColor="#E29FF0"
-                    tools:ignore="MissingConstraints" />
+                    tools:ignore="MissingConstraints"
+                    android:layout_marginLeft="10dp"/>
 
                 <SeekBar
                     android:id="@+id/seekBar5"

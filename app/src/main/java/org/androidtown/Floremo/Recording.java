@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -23,8 +24,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     private TextView textView_Date;
     private DatePickerDialog.OnDateSetListener callbackMethod;
 
-    Button prev;
-    Button next;
+    ImageButton prev;
+    ImageButton next;
     ViewFlipper flipper;
 
     ImageView img1;
@@ -43,8 +44,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         flipper = (ViewFlipper) findViewById(R.id.flipper);
-        prev = (Button) findViewById(R.id.prev);
-        next = (Button) findViewById(R.id.next);
+        prev = (ImageButton) findViewById(R.id.prev);
+        next = (ImageButton) findViewById(R.id.next);
         prev.setOnClickListener(this);
         next.setOnClickListener(this);
 
@@ -142,7 +143,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_toolbar, menu);
+        menuInflater.inflate(R.menu.recording_menu, menu);
         return true;
     }
 
@@ -184,7 +185,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
             {
-                textView_Date.setText(year + "년" + (monthOfYear+1) + "월" + dayOfMonth + "일");
+                textView_Date.setText(year + "년 " + (monthOfYear+1) + "월 " + dayOfMonth + "일");
             }
         };
     }
