@@ -40,7 +40,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".DrawerActivity"/>
         <activity android:name=".JoinActivity" />
 
         <meta-data
