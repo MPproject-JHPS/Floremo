@@ -52,7 +52,6 @@ public class addRecordMemo extends AppCompatActivity {
     private EditText etContent;
     private DatabaseReference database;
     Uri selectedImageUri;
-    private TextView textView_Date;
     private TextView textDate;
 
 
@@ -68,11 +67,15 @@ public class addRecordMemo extends AppCompatActivity {
         mFirebaseDataBase = FirebaseDatabase.getInstance();
         database = mFirebaseDataBase.getReference();
         checkSelfPermission();
+        textDate = findViewById(R.id.textDate);
 
-       /* textView_Date = (TextView)findViewById(R.id.textView_date);
-        textDate = (TextView)findViewById(R.id.textView_date);*/
+        //Recording class에서 선택한 날짜 가져오기
+        Intent passedIntent = getIntent();
+        if(passedIntent != null){
+            String date = passedIntent.getStringExtra("date");
+            textDate.setText(date);
+        }
 
-        //textDate.setText(textView_Date.getText().toString());
         image = findViewById(R.id.image);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,15 +98,19 @@ public class addRecordMemo extends AppCompatActivity {
         etContent = findViewById(R.id.content);
     }
 
+    //툴바 선택 (DB 저장, 뒤로가기 버튼)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu:
                 saveMemo();
                 clickUpload();
-                break;
+                return true;
+            case android.R.id.home: //toolbar의 back키 눌렀을 때 동작. recording으로 돌아가기
+                onBackPressed();
+                return true;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions,

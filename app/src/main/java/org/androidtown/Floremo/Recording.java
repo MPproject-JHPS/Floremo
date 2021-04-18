@@ -152,7 +152,9 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         switch (item.getItemId()) {
             case R.id.menu:
                 Intent NewActivity = new Intent(getApplicationContext(), addRecordMemo.class);
-                startActivity(NewActivity);
+                NewActivity.putExtra("date", textView_Date.getText().toString());
+                setResult(RESULT_OK, NewActivity);
+                startActivityForResult(NewActivity,1);
                 break;
             case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
                 finish();
