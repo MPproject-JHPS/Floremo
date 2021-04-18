@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoadingActivity.class);
         startActivity(intent);
 
-        TextView userName = findViewById(R.id.name);
+        TextView userName = findViewById(R.id.nickname);
         TextView userName2 = findViewById(R.id.name2);
 
         String nickName = intent.getStringExtra("name"); //구글 로그인으로부터 닉네임 전달받음
@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        Button plusButton = (Button) findViewById(R.id.flowerButton);
+        //감정꽃밭
+        ImageButton plusButton = (ImageButton) findViewById(R.id.emotion_vase1);
         plusButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -125,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        Button recordingButton = (Button) findViewById(R.id.recordingButton);
+        //감정 추가하기
+        ImageButton recordingButton = (ImageButton) findViewById(R.id.recordingButton);
         recordingButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //환경설정
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //navigation drawer에 있는 버튼
         Button btn_todayFlower = (Button) findViewById(R.id.btn_todayFlower);
         btn_todayFlower.setOnClickListener(new View.OnClickListener() {
             @Override

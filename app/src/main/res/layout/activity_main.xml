@@ -21,180 +21,208 @@
             tools:layout_editor_absoluteY="81dp" />
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/main_part0"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="31dp"
+            android:paddingTop="10dp">
 
             <!--닉네임 받아오기-->
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_centerHorizontal="true"
+                android:layout_toLeftOf="@id/word_spacing"
                 android:gravity="right"
                 android:text=""
-                android:textSize="30sp" />
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/word_spacing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:text="  "
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_toRightOf="@id/word_spacing"
                 android:layout_weight="1"
                 android:text="님 반갑습니다"
                 android:textSize="25sp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/main_part1_1"
+        <RelativeLayout
+            android:id="@+id/main_part1"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_weight="2">
+            >
 
-            <ImageView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_centerHorizontal="true"
+                android:text="지금까지 기록된 꽃은..."
+                android:textSize="25sp" />
+
+            <ImageButton
+                android:id="@+id/white_flower"
                 android:padding="0dp"
-                android:src="@drawable/emo_char1"
+                android:src="@drawable/white_flower"
+                android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:layout_height="80dp"
-                android:layout_width="80dp"/>
+                android:background="@android:color/transparent"
+                android:layout_height="280dp"
+                android:layout_width="280dp"/>
 
-            <ImageView
-                android:padding="0dp"
-                android:src="@drawable/emo_char2"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:layout_height="80dp"
-                android:layout_width="80dp"/>
+            //위치는 white_flower 정중앙
+            <TextView
+                android:id="@+id/myImageViewText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/white_flower"
+                android:layout_alignTop="@id/white_flower"
+                android:layout_alignRight="@id/white_flower"
+                android:layout_alignBottom="@id/white_flower"
+                android:layout_margin="1dp"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:gravity="center"
+                android:text="8 송이"
+                android:textColor="#39311F" />
 
-            <ImageView
-                android:padding="0dp"
-                android:src="@drawable/emo_char3"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:layout_height="80dp"
-                android:layout_width="80dp"/>
-
-            <ImageView
-                android:padding="0dp"
-                android:src="@drawable/emo_char4"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:layout_height="80dp"
-                android:layout_width="80dp"/>
-
-            <ImageView
-                android:padding="0dp"
-                android:src="@drawable/emo_char5"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:layout_height="80dp"
-                android:layout_width="80dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/main_part1_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_weight="5">
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/main_part2"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_weight="2">
+            android:padding="10dp">
 
             <TextView
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="오늘의 Floremo는 어떤가요?"/>
-
-            <Button
-                android:id="@+id/flowerButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="flower"
-                app:backgroundTint="@color/bg_d" />
+                android:layout_marginBottom="20dp"
+                android:text="오늘의 Floremo는 어떤가요?"
+                android:textSize="20dp" />
 
 
-            <Button
+            <ImageButton
                 android:id="@+id/recordingButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:text="recording"
-                app:backgroundTint="@color/bg_d" />
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_plus" />
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/main_part3"
+            android:layout_weight="2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:paddingTop="30dp"
-            android:layout_weight="2">
+            android:layout_height="18dp"
+            android:paddingTop="10dp">
+
+
+            <TextView
+                android:id="@+id/txt_floremo_graden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Floremo Garden"
+                android:textSize="20dp"
+                android:textStyle="italic" />
 
             <ImageButton
                 android:id="@+id/emotion_vase1"
-                android:padding="0dp"
-                android:src="@drawable/emotion_vase"
+                android:layout_width="64dp"
+                android:layout_height="80dp"
+                android:layout_margin="7dp"
                 android:adjustViewBounds="true"
+                android:layout_below="@id/txt_floremo_graden"
+                android:layout_toLeftOf="@id/emotion_vase2"
+                android:background="@android:color/transparent"
+                android:padding="0dp"
                 android:scaleType="fitCenter"
-                android:layout_height="100dp"
-                android:layout_width="80dp"/>
+                android:src="@drawable/emo_char1" />
 
             <ImageButton
                 android:id="@+id/emotion_vase2"
-                android:padding="0dp"
-                android:src="@drawable/emotion_vase"
+                android:layout_width="64dp"
+                android:layout_height="80dp"
+                android:layout_margin="7dp"
                 android:adjustViewBounds="true"
+                android:layout_below="@id/txt_floremo_graden"
+                android:layout_toLeftOf="@id/emotion_vase3"
+                android:background="@android:color/transparent"
+                android:padding="0dp"
                 android:scaleType="fitCenter"
-                android:layout_height="100dp"
-                android:layout_width="80dp"/>
+                android:src="@drawable/emo_char2" />
 
             <ImageButton
                 android:id="@+id/emotion_vase3"
-                android:padding="0dp"
-                android:src="@drawable/emotion_vase"
+                android:layout_width="64dp"
+                android:layout_height="80dp"
+                android:layout_margin="7dp"
                 android:adjustViewBounds="true"
+                android:layout_below="@id/txt_floremo_graden"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:padding="0dp"
                 android:scaleType="fitCenter"
-                android:layout_height="100dp"
-                android:layout_width="80dp"/>
+                android:src="@drawable/emo_char3" />
 
             <ImageButton
                 android:id="@+id/emotion_vase4"
-                android:padding="0dp"
-                android:src="@drawable/emotion_vase"
+                android:layout_width="64dp"
+                android:layout_height="80dp"
+                android:layout_margin="7dp"
                 android:adjustViewBounds="true"
+                android:layout_below="@id/txt_floremo_graden"
+                android:layout_toRightOf="@id/emotion_vase3"
+                android:background="@android:color/transparent"
+                android:padding="0dp"
                 android:scaleType="fitCenter"
-                android:layout_height="100dp"
-                android:layout_width="80dp"/>
+                android:src="@drawable/emo_char4" />
 
             <ImageButton
                 android:id="@+id/emotion_vase5"
-                android:padding="0dp"
-                android:src="@drawable/emotion_vase"
+                android:layout_width="64dp"
+                android:layout_height="80dp"
+                android:layout_margin="7dp"
                 android:adjustViewBounds="true"
+                android:layout_below="@id/txt_floremo_graden"
+                android:layout_toRightOf="@id/emotion_vase4"
+                android:background="@android:color/transparent"
+                android:padding="0dp"
                 android:scaleType="fitCenter"
-                android:layout_height="100dp"
-                android:layout_width="80dp"/>
-        </LinearLayout>
+                android:src="@drawable/emo_char5" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 
     <include layout="@layout/activity_drawer" />
