@@ -21,57 +21,54 @@
             tools:layout_editor_absoluteY="81dp" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/account_management"
+            android:background="@drawable/button_background"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
-            android:layout_centerInParent="true"
             android:layout_marginTop="67dp"
-            android:layout_marginEnd="157dp"
-            android:layout_marginRight="157dp"
+            android:layout_centerHorizontal="true"
             android:text="계정 관리" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/alarm"
+            android:background="@drawable/button_background"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="244dp"
-            android:layout_marginEnd="156dp"
-            android:layout_marginRight="156dp"
+            android:layout_below="@id/account_management"
+            android:layout_marginTop="90dp"
+            android:layout_centerHorizontal="true"
             android:text="알림 설정" />
 
         <Button
-            android:id="@+id/withdraw"
-            android:layout_width="wrap_content"
+            android:id="@+id/version_info"
+            android:background="@drawable/button_background"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="168dp"
-            android:layout_marginLeft="168dp"
-            android:layout_marginTop="507dp"
-            android:text="회원 탈퇴" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="166dp"
-            android:layout_marginLeft="166dp"
-            android:layout_marginTop="360dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/alarm"
+            android:layout_marginTop="90dp"
             android:text="버전 정보" />
 
         <Button
+            android:id="@+id/withdraw"
+            android:background="@drawable/button_background"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/version_info"
+            android:layout_marginTop="90dp"
+            android:text="회원 탈퇴" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="137dp"
-            android:layout_marginRight="137dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/bg_c"
+            android:layout_marginBottom="35dp"
             android:text="개인 정보 처리 방침"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:onClick="onClick"/>
 
     </RelativeLayout>
 

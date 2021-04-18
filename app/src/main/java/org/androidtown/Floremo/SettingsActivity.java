@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -78,5 +79,9 @@ public class SettingsActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, JoinActivity.class);
         startActivity(intent);
+    }
+
+    //개인정보처리방침
+    public void onClick(View view) {
     }
 }
