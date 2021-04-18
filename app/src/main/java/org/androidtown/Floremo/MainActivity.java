@@ -89,13 +89,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btn_close = (Button) findViewById(R.id.btn_close);
-        btn_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawers();
-            }
-        });
+        //네비게이션 메뉴 닫기 버튼 삭제
+//        Button btn_close = (Button) findViewById(R.id.btn_close);
+//        btn_close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                drawerLayout.closeDrawers();
+//            }
+//        });
 
 
         Button button = findViewById(R.id.btn_logout); //로그아웃 버튼
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //navigation drawer에 있는 버튼
-        Button btn_todayFlower = (Button) findViewById(R.id.btn_todayFlower);
+        TextView btn_todayFlower = (TextView) findViewById(R.id.btn_todayFlower);
         btn_todayFlower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btn_analysis = (Button) findViewById(R.id.btn_analysis);
+        TextView btn_analysis = (TextView) findViewById(R.id.btn_analysis);
         btn_analysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
