@@ -6,10 +6,11 @@
     android:layout_height="50dp"
     android:orientation="horizontal">
 
-    <TextView
+    <ImageView
         android:id="@+id/flowerImg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:src="@drawable/logo"/>
 
 </LinearLayout>

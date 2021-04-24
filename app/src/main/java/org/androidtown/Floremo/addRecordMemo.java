@@ -157,7 +157,7 @@ public class addRecordMemo extends AppCompatActivity {
         }
     }
 
-
+    //툴바 사용
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
@@ -182,17 +182,13 @@ public class addRecordMemo extends AppCompatActivity {
         uploadTask.addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(addRecordMemo.this, "success storage upload", Toast.LENGTH_SHORT).show();
+                Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void saveMemo(){
         String text = etContent.getText().toString();
-        if(text.isEmpty()){ //텍스트를 입력하지 않으면 저장할 수 없다
-            Snackbar.make(etContent, "메모를 입력하세요", Snackbar.LENGTH_LONG).show();
-            return;
-        }
         Memo memo = new Memo();
         memo.setTxt(etContent.getText().toString());
         memo.setCreateDate(new Date());
@@ -200,9 +196,10 @@ public class addRecordMemo extends AppCompatActivity {
                 .setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Snackbar.make(etContent, "메모가 저장되었습니다.", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
             }
         });
+
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
 
