@@ -30,10 +30,10 @@
             android:layout_centerHorizontal="true"
             android:text="계정 관리" />
 
-        <Button
+        <Switch
             android:id="@+id/alarm"
-            android:background="@drawable/button_background"
-            android:layout_width="300dp"
+            android:layout_width="150dp"
+            android:switchMinWidth="80dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/account_management"
             android:layout_marginTop="90dp"
