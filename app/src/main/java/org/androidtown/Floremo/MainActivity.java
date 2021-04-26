@@ -53,10 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
         TextView userName = findViewById(R.id.nickname);
         TextView userName2 = findViewById(R.id.name2);
+        TextView userEmail = findViewById(R.id.mail);
 
         String nickName = intent.getStringExtra("name"); //구글 로그인으로부터 닉네임 전달받음
         userName.setText(nickName);
-        userName2.setText(nickName);
+        //userName2.setText(nickName);
         if (FirebaseAuth.getInstance().getCurrentUser() == null) //현재 로그인된 유저가 있는지 확인
         {
             startJoinActivity(); //로그인이 안되어 있으면 회원가입 화면으로 이동
@@ -66,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
                 for (UserInfo profile : user.getProviderData()) {
                     // 사용자 이름 가져오기
                     String name = profile.getDisplayName();
-                    userName.setText(name);
+                    String email = profile.getEmail();
                     userName2.setText(name);
+                    userEmail.setText(email);
 
                 }
             }
