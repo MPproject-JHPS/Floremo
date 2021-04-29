@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/listItem"
     android:padding="5dp"
-    android:layout_width="50dp"
-    android:layout_height="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/flowerImg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:src="@drawable/logo"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:src="@drawable/ic_launcher_background"/>
 
 </LinearLayout>

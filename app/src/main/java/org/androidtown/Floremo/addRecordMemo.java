@@ -38,6 +38,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import com.bumptech.glide.Glide;
 import com.google.firebase.storage.UploadTask;
@@ -50,7 +51,7 @@ public class addRecordMemo extends AppCompatActivity {
     private ImageButton location;
     private final int GET_GALLERY_IMAGE = 200;
     private EditText etContent;
-    private DatabaseReference database;
+    private DatabaseReference databaseReference;
     Uri selectedImageUri;
     private TextView textDate;
 
@@ -65,7 +66,7 @@ public class addRecordMemo extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
         mFirebaseDataBase = FirebaseDatabase.getInstance();
-        database = mFirebaseDataBase.getReference();
+        databaseReference = mFirebaseDataBase.getReference();
         checkSelfPermission();
         textDate = findViewById(R.id.textDate);
 
@@ -166,7 +167,7 @@ public class addRecordMemo extends AppCompatActivity {
     }
 
     //firebase storage에 업로드하기
-    public void clickUpload(){
+    public void clickUpload() {
         //FirebaseStorage를 통해 관리하는 객체 얻어오기
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         StorageReference imageRef = storageRef.child("images");
@@ -183,6 +184,7 @@ public class addRecordMemo extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

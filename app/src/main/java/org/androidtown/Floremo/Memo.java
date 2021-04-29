@@ -6,6 +6,16 @@ import java.util.Date;
 public class Memo {
     private String txt;
     private Date createDate, updateDate;
+    private Long image;
+    private static Item instance;
+
+
+    public Long getImage(){
+        return image;
+    }
+    public void setImage(Long image){
+        this.image = image;
+    }
     public String getTxt(){
         return txt;
     }

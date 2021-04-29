@@ -15,84 +15,79 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder>{
 
+    //Item class를 arrayList에 담는다.
+    private Context context;
     private ArrayList<Item> mData;
 
-    // Data is passed into the constructor
-    public RecordAdapter(ArrayList<Item> mData) {
-            this.mData = mData;
+    // 데이터를 constructor에 집어넣는다.
+    public RecordAdapter(ArrayList<Item> mData, Context context) {
+        this.mData = mData;
+        this.context = context;
     }
 
-    // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView flowerimage;
-        //ImageButton del;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            flowerimage = itemView.findViewById(R.id.flowerImg);
-            //del = itemView.findViewById(R.id.btnDelete);
-        }
-
-        public void onBind(Item item){
-            //이미지 생성. 수정해야함!!!
-           //flowerimage.(item.getInstance().getImage());
-        }
-    }
-
-    // inflates the cell layout from xml when needed
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.record_list, parent, false);
-        return new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view);
+        return holder;
     }
 
-    // binds the data to the TextView in each cell
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-       holder.onBind(mData.get(position));
+        Glide.with(holder.itemView)
+                .load(mData.get(position).getFlowerImg())
+                .into(holder.flowerImg);
 
-       //롱클릭 이벤트
-       //길게 누르면 아이템 삭제.
-       holder.flowerimage.setTag(position);
-       holder.flowerimage.setOnLongClickListener(new View.OnLongClickListener(){
-           @Override
-           //데이터가 삭제되면 아이템을 지운다.
-           public boolean onLongClick(View v){
-               int btnPosition = (int) v.getTag();
-               AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
-               alert.setTitle("아이템 삭제");
-               String message = "기록을 삭제하시겠습니까?";
-               alert.setMessage(message);
-               alert.setPositiveButton("예", new DialogInterface.OnClickListener(){
-
-                   @Override
-                   public void onClick(DialogInterface dialog, int which){
-                       dialog.dismiss();
-                       mData.remove(btnPosition);
-                       notifyDataSetChanged();
-                   }
-               });
-               alert.show();
-               return true;
-           }
-       });
-
+//        //holder.onBind(mData.get(position));
+//
+//        //롱클릭 이벤트
+//        //길게 누르면 아이템 삭제.
+//        holder.flowerImg.setTag(position);
+//        holder.flowerImg.setOnLongClickListener(new View.OnLongClickListener(){
+//            @Override
+//            //데이터가 삭제되면 아이템을 지운다.
+//            public boolean onLongClick(View v){
+//                int btnPosition = (int) v.getTag();
+//                AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
+//                alert.setTitle("아이템 삭제");
+//                String message = "기록을 삭제하시겠습니까?";
+//                alert.setMessage(message);
+//                alert.setPositiveButton("예", new DialogInterface.OnClickListener(){
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which){
+//                        dialog.dismiss();
+//                        mData.remove(btnPosition);
+//                        notifyDataSetChanged();
+//                    }
+//                });
+//                alert.show();
+//                return true;
+//            }
+//        });
     }
 
-    @Override
-    public long getItemId(int position){return position;}
 
     @Override
-    public int getItemCount(){return mData.size();}
+    public int getItemCount(){
+        //mData가 null이 아니면 size를 가져오고 null이면 0을 리턴
+        return (mData != null ? mData.size() : 0);
+    }
 
-    public void addItem(Item item){
-        mData.add(item);
-        notifyDataSetChanged();
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView flowerImg;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.flowerImg = itemView.findViewById(R.id.flowerImg);
+        }
     }
 }
