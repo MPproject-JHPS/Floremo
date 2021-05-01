@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,9 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ShowRecord extends AppCompatActivity   {
+public class ShowRecord extends AppCompatActivity implements RecordAdapter.OnMemoListener {
 
-    private ArrayList<Item> arrayList;
+    private ArrayList<Memo> arrayList;
     private RecordAdapter mRecordAdapter;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -52,7 +53,7 @@ public class ShowRecord extends AppCompatActivity   {
 
         database = FirebaseDatabase.getInstance(); //파이어베이스 데이터베이스 연동
 
-        databaseReference = database.getReference("memos/"+ mFirebaseUser.getUid());
+        databaseReference = database.getReference("memos/" + mFirebaseUser.getUid());
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -60,9 +61,10 @@ public class ShowRecord extends AppCompatActivity   {
                 arrayList.clear(); //기존 배열리스트가 존재하지 않게 초기화
 
                 //반복문으로 데이터리스트 출력
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    Item item = snapshot.getValue(Item.class); //만들어뒀던 Item 객체에 데이터를 담는다
-                    arrayList.add(item); //담을 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Memo memo = snapshot.getValue(Memo.class); //만들어뒀던 Item 객체에 데이터를 담는다
+                    arrayList.add(memo); //담을 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+
                 }
                 mRecordAdapter.notifyDataSetChanged(); //리스트 저장 및 새로고침
             }
@@ -74,27 +76,18 @@ public class ShowRecord extends AppCompatActivity   {
             }
         });
 
-
         // column이 4인 gridView로 만들기
         int numberOfColumns = 4;
-        mRecordAdapter = new RecordAdapter(arrayList, this);
+        mRecordAdapter = new RecordAdapter(arrayList, this, this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
         recyclerView.setAdapter(mRecordAdapter); //리사이클러뷰에 adapter 연결
-
-        //"+"텍스트뷰를 눌렀을 때 동작하게 하기
-//        txt_itemAdd = findViewById(R.id.txt_itemAdd);
-//        txt_itemAdd.setClickable(true);
-//        txt_itemAdd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //mRecordAdapter.addItem(new Item(1));
-//                mRecordAdapter.notifyDataSetChanged();
-//            }
-//        });
     }
-//    private void displayMemoList(Memo memo){
-//        mRecordAdapter.addItem(new Item(1));
-//        mRecordAdapter.notifyDataSetChanged();
-//    }
 
+    @Override
+    public void onFlowerClick(int position) {
+        arrayList.get(position);
+        Intent intent = new Intent(this, RecordedMemo.class);
+        intent.putExtra("selected_memo", arrayList.get(position));
+        startActivity(intent);
+    }
 }

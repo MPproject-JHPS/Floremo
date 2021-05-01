@@ -55,7 +55,6 @@ public class addRecordMemo extends AppCompatActivity {
     Uri selectedImageUri;
     private TextView textDate;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
