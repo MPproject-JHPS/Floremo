@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     // 사용자 이름 가져오기
                     String name = profile.getDisplayName();
                     String email = profile.getEmail();
+                    userName.setText(name);
                     userName2.setText(name);
                     userEmail.setText(email);
 
