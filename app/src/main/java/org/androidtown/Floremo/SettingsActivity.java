@@ -57,19 +57,27 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         Switch alarm = findViewById(R.id.alarm);
+        SharedPreferences sharedPreferences = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        alarm.setChecked(sharedPreferences.getBoolean("Key", true)); // 처음 실행 시 true
+
         alarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences sharedPreferences = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
                 if(isChecked == true)
                 {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     // 알림 허용 상태
-                    editor.putBoolean("Key", alarm.isChecked());
+                    editor.putBoolean("Key", true);
+                    editor.apply();
+                    alarm.setChecked(true);
 
                 } else{
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     // 알림 해제 상태
-                    editor.putBoolean("Key", alarm.isChecked());
+                    editor.putBoolean("Key", false);
+                    editor.apply();
+                    alarm.setChecked(false);
+
                 }
             }
         });

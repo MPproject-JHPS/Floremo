@@ -30,8 +30,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         SharedPreferences sharedPreferences = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        boolean isDenied = sharedPreferences.getBoolean("Key", false);
-        if (isDenied) {
+        boolean switchOn = sharedPreferences.getBoolean("Key", false);
+        if (switchOn) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             //알림 눌렀을때 행위
