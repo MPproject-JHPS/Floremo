@@ -100,6 +100,31 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
+
+        Button account_management = findViewById(R.id.account_management);
+        account_management.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    account_management.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.bg_d));
+                } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                    account_management.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.transperent));
+                }
+                return false;
+            }
+        });
+        Button version_info = findViewById(R.id.version_info);
+        version_info.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    version_info.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.bg_d));
+                } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                    version_info.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.transperent));
+                }
+                return false;
+            }
+        });
     }
 
     @Override

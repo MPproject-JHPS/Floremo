@@ -20,16 +20,6 @@
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="81dp" />
 
-        <Button
-            android:id="@+id/account_management"
-            android:background="@drawable/button_background"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/alarm"
-            android:layout_marginTop="90dp"
-            android:layout_centerHorizontal="true"
-            android:text="계정 관리" />
-
         <Switch
             android:id="@+id/alarm"
             android:layout_width="150dp"
@@ -38,28 +28,42 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="67dp"
             android:switchMinWidth="80dp"
+            android:textStyle="bold"
             android:text="알림 설정" />
+
+
+        <Button
+            android:id="@+id/account_management"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/alarm"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"
+            android:background="#00ff0000"
+            android:text="계정 관리"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/version_info"
-            android:background="@drawable/button_background"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/account_management"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="90dp"
-            android:text="버전 정보" />
+            android:background="#00ff0000"
+            android:text="버전 정보"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/withdraw"
-            android:background="#00ff0000"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/version_info"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="90dp"
-            android:textStyle="bold"
-            android:text="회원 탈퇴" />
+            android:background="#00ff0000"
+            android:text="회원 탈퇴"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
