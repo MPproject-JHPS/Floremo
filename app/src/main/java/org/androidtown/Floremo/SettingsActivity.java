@@ -9,8 +9,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -36,6 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(SettingsActivity.this);
                 dialog  .setTitle("회원 탈퇴")
                         .setMessage("탈퇴 하시겠습니까?")
@@ -54,6 +57,17 @@ public class SettingsActivity extends AppCompatActivity {
                         }).create().show();
 
 
+            }
+        });
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    button.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.bg_d));
+                } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                    button.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.transperent));
+                }
+                return false;
             }
         });
         Switch alarm = findViewById(R.id.alarm);

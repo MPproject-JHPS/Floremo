@@ -25,6 +25,9 @@
     <color name="bg_i">#807A6C</color>
     <color name="bg_j">#CCB070</color>
 
+    <!--  투명 색깔  -->
+    <color name="transperent">#00ff0000</color>
+
     <!--감정 색깔 5가지-->
     <color name="anger">#F07FB8</color>
     <color name="joy">#EBC581</color>
