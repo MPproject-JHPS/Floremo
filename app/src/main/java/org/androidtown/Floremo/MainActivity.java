@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
 
-        setContentView(R.layout.activity_main);;
-
         //로딩화면 열기
         Intent intent = new Intent(this, LoadingActivity.class);
         startActivity(intent);

@@ -102,6 +102,12 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
         Button account_management = findViewById(R.id.account_management);
+        account_management.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startInfoActivity(); // 계정 관리 버튼 누르면 상세 페이지로 이동
+            }
+        });
         account_management.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -147,6 +153,12 @@ public class SettingsActivity extends AppCompatActivity {
     private void startJoinActivity() //회원가입 화면으로
     {
         Intent intent = new Intent(this, JoinActivity.class);
+        startActivity(intent);
+    }
+
+    private void startInfoActivity()
+    {
+        Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
     }
 
