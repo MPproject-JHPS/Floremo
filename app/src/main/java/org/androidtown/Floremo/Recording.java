@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 public class Recording extends AppCompatActivity implements View.OnClickListener {
@@ -33,6 +36,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     ImageView img3;
     ImageView img4;
     ImageView img5;
+    int check_sum = 0, c1=0, c2=0, c3=0, c4=0, c5=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,20 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
         sb1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
+                int a = sb1.getProgress();
+                if(a > 0)
+                {
+                    c1 = 1;
+                }else{
+                    c1 = 0;
+                }
+                check_sum = c1+c2+c3+c4+c5;
+                if(check_sum > 2)
+                {
+                    startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
+                    sb1.setProgress(0);
+
+                }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -80,11 +98,27 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img3.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
+
             }
         });
 
+
         sb2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
+                int a = sb2.getProgress();
+                if(a > 0)
+                {
+                    c2 = 1;
+                }else{
+                    c2 = 0;
+                }
+                check_sum = c1+c2+c3+c4+c5;
+                if(check_sum > 2)
+                {
+                    startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
+                    sb2.setProgress(0);
+
+                }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -99,6 +133,19 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
         sb3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
+                int a = sb3.getProgress();
+                if(a > 0)
+                {
+                    c3 = 1;
+                }else{
+                    c3 = 0;
+                }
+                check_sum = c1+c2+c3+c4+c5;
+                if(check_sum > 2)
+                {
+                    startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
+                    sb3.setProgress(0);
+                }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -113,6 +160,19 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
         sb4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
+                int a = sb4.getProgress();
+                if(a > 0)
+                {
+                    c2 = 1;
+                }else{
+                    c2 = 0;
+                }
+                check_sum = c1+c2+c3+c4+c5;
+                if(check_sum > 2)
+                {
+                    startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
+                    sb4.setProgress(0);
+                }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -127,6 +187,20 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
         sb5.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
+                int a = sb5.getProgress();
+                if(a > 0)
+                {
+                    c2 = 1;
+                }else{
+                    c2 = 0;
+                }
+                check_sum = c1+c2+c3+c4+c5;
+                if(check_sum > 2)
+                {
+                    startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
+                    sb5.setProgress(0);
+
+                }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -138,7 +212,12 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img5.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
             }
         });
+
+
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -165,6 +244,10 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         return true;
     }
 
+    private void startToast(String msg)
+    {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 
     public void onClick(View v) {
         if(v == prev) {
