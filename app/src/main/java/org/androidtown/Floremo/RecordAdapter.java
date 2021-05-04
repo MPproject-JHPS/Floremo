@@ -51,6 +51,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                 .load(mData.get(position).getFlowerImg())
                 .into(holder.flowerImg);
         holder.flowerImg.setTag(position);
+
+
     }
 
 
@@ -69,6 +71,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
             super(itemView);
             this.flowerImg = itemView.findViewById(R.id.flowerImg);
             this.onMemoListener = onMemoListener;
+//            this.editText = itemView.findViewById(R.id.content);
+//            this.
             itemView.setOnClickListener(this);
 
 
