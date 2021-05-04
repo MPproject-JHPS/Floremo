@@ -87,8 +87,11 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 {
                     startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
                     sb1.setProgress(0);
+                    check_sum--;
 
                 }
+//                TextView aa = findViewById(R.id.textView6);
+//                aa.setText(String.valueOf(c1));
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -117,6 +120,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 {
                     startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
                     sb2.setProgress(0);
+                    check_sum--;
 
                 }
             }
@@ -145,6 +149,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 {
                     startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
                     sb3.setProgress(0);
+                    check_sum--;
+
                 }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -172,6 +178,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 {
                     startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
                     sb4.setProgress(0);
+                    check_sum--;
+
                 }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -199,6 +207,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 {
                     startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
                     sb5.setProgress(0);
+                    check_sum--;
 
                 }
             }
