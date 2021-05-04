@@ -79,19 +79,25 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 if(a > 0)
                 {
                     c1 = 1;
+                    if(a == 0)
+                    {
+                        check_sum=0;
+                    }
                 }else{
                     c1 = 0;
                 }
+
                 check_sum = c1+c2+c3+c4+c5;
                 if(check_sum > 2)
                 {
                     startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
                     sb1.setProgress(0);
-                    check_sum--;
+                    c1=0;
 
+                }else if(check_sum == 0 )
+                {
+                    check_sum = 0;
                 }
-//                TextView aa = findViewById(R.id.textView6);
-//                aa.setText(String.valueOf(c1));
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -112,16 +118,24 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 if(a > 0)
                 {
                     c2 = 1;
+                    if(a == 0)
+                    {
+                        check_sum=0;
+                    }
                 }else{
                     c2 = 0;
                 }
+
                 check_sum = c1+c2+c3+c4+c5;
                 if(check_sum > 2)
                 {
                     startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
                     sb2.setProgress(0);
-                    check_sum--;
+                    c2=0;
 
+                }else if(check_sum == 0 )
+                {
+                    check_sum = 0;
                 }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -132,6 +146,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img3.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
+
             }
         });
 
@@ -141,16 +156,23 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 if(a > 0)
                 {
                     c3 = 1;
+                    if(a == 0)
+                    {
+                        check_sum=0;
+                    }
                 }else{
                     c3 = 0;
                 }
+
                 check_sum = c1+c2+c3+c4+c5;
                 if(check_sum > 2)
                 {
                     startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
                     sb3.setProgress(0);
-                    check_sum--;
-
+                    c3=0;
+                }else if(check_sum == 0 )
+                {
+                    check_sum = 0;
                 }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -161,6 +183,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img3.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+
             }
         });
 
@@ -169,17 +192,24 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 int a = sb4.getProgress();
                 if(a > 0)
                 {
-                    c2 = 1;
+                    c4 = 1;
+                    if(a == 0)
+                    {
+                        check_sum=0;
+                    }
                 }else{
-                    c2 = 0;
+                    c4 = 0;
                 }
+
                 check_sum = c1+c2+c3+c4+c5;
                 if(check_sum > 2)
                 {
                     startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
                     sb4.setProgress(0);
-                    check_sum--;
-
+                    c4=0;
+                }else if(check_sum == 0 )
+                {
+                    check_sum = 0;
                 }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -190,6 +220,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img3.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+
             }
         });
 
@@ -198,17 +229,24 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 int a = sb5.getProgress();
                 if(a > 0)
                 {
-                    c2 = 1;
+                    c5 = 1;
+                    if(a == 0)
+                    {
+                        check_sum=0;
+                    }
                 }else{
-                    c2 = 0;
+                    c5 = 0;
                 }
+
                 check_sum = c1+c2+c3+c4+c5;
                 if(check_sum > 2)
                 {
                     startToast("2가지 이상의 감정을 입력할 수 없습니다!") ;
                     sb5.setProgress(0);
-                    check_sum--;
-
+                    c5=0;
+                }else if(check_sum == 0 )
+                {
+                    check_sum = 0;
                 }
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -219,6 +257,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img3.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+
             }
         });
 
