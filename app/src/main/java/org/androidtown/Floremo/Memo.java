@@ -10,12 +10,14 @@ public class Memo implements Parcelable {
     private String txt;
     private Date createDate, updateDate;
     private String flowerImg;
+    private String imageUrl;
 
     public Memo(){}
 
     protected Memo(Parcel in) {
         txt = in.readString();
         flowerImg = in.readString();
+        imageUrl = in.readString();
     }
 
     public static final Creator<Memo> CREATOR = new Creator<Memo>() {
@@ -54,6 +56,9 @@ public class Memo implements Parcelable {
     public void setUpdateDate(Date updateDate){
         this.updateDate = updateDate;
     }
+    public String getImageUrl(){ return imageUrl; }
+    public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
+
 
     @Override
     public int describeContents() {
@@ -64,5 +69,6 @@ public class Memo implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(txt);
         dest.writeString(flowerImg);
+        dest.writeString(imageUrl);
     }
 }

@@ -28,6 +28,7 @@ import android.widget.Toast;
 import android.net.Uri;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,7 +55,7 @@ public class addRecordMemo extends AppCompatActivity {
     private DatabaseReference databaseReference;
     Uri selectedImageUri;
     private TextView textDate;
-
+    private static final String TAG = "addRecordMemo";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +70,14 @@ public class addRecordMemo extends AppCompatActivity {
         checkSelfPermission();
         textDate = findViewById(R.id.textDate);
 
+
         //Recording class에서 선택한 날짜 가져오기
         Intent passedIntent = getIntent();
         if(passedIntent != null){
             String date = passedIntent.getStringExtra("date");
             textDate.setText(date);
         }
+
 
         image = findViewById(R.id.image);
         image.setOnClickListener(new View.OnClickListener() {
@@ -103,8 +106,8 @@ public class addRecordMemo extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu:
-                saveMemo();
                 clickUpload();
+                saveMemo();
                 return true;
             case android.R.id.home: //toolbar의 back키 눌렀을 때 동작. recording으로 돌아가기
                 onBackPressed();
@@ -167,6 +170,32 @@ public class addRecordMemo extends AppCompatActivity {
 
     //firebase storage에 업로드하기
     public void clickUpload() {
+//        //FirebaseStorage를 통해 관리하는 객체 얻어오기
+//        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+//        StorageReference imageRef = storageRef.child("images");
+//        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+//        StorageReference fileRef = userRef.child(filename);
+//
+//        //참조객체를 통해 이미지 파일 업로드하기
+//        //업로드가 성공적으로 되면 images라는 폴더에 uid 폴더가 생성된다.
+//        //uid 폴더 안에 uid+날짜시간분초로 파일 이름이 생성된다.
+//        UploadTask uploadTask = fileRef.putFile(selectedImageUri);
+//        uploadTask.addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                Memo memo = new Memo();
+//                Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+//                Task<Uri> downloadUri = imageRef.getDownloadUrl();
+//                String imageReference = downloadUri.toString();
+//                databaseReference.child("memos").child(mFirebaseUser.getUid()).child("imageUri").setValue(imageReference);
+//                memo.setImageUrl(imageReference);
+//            }
+//        });
+    }
+
+    private void saveMemo(){
         //FirebaseStorage를 통해 관리하는 객체 얻어오기
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         StorageReference imageRef = storageRef.child("images");
@@ -174,30 +203,57 @@ public class addRecordMemo extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
+        Memo memo = new Memo();
 
         //참조객체를 통해 이미지 파일 업로드하기
         //업로드가 성공적으로 되면 images라는 폴더에 uid 폴더가 생성된다.
         //uid 폴더 안에 uid+날짜시간분초로 파일 이름이 생성된다.
         UploadTask uploadTask = fileRef.putFile(selectedImageUri);
-        uploadTask.addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                userRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Uri downloadUrl = uri;
+                        memo.setImageUrl(downloadUrl.toString());
+                    }
+                });
                 Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
-
             }
         });
-    }
+//        uploadTask.addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                //Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+//                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        Uri downloadUrl = uri;
+//                        memo.setImageUrl(downloadUrl.toString());
+//                        Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//        });
+//        Task<Uri> downloadUri = fileRef.getDownloadUrl();
+//        downloadUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                String imageReference = uri.toString();
+//                memo.setImageUrl(imageReference);
+//            }
+//        });
 
-    private void saveMemo(){
         String text = etContent.getText().toString();
-        Memo memo = new Memo();
         memo.setTxt(etContent.getText().toString());
         memo.setCreateDate(new Date());
         mFirebaseDataBase.getReference("memos/" +mFirebaseUser.getUid()).push()
                 .setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
+                //Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
             }
         });
 
