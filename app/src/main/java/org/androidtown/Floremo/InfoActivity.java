@@ -3,6 +3,7 @@ package org.androidtown.Floremo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -53,6 +54,17 @@ public class InfoActivity extends AppCompatActivity {
                 }
             });
         }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
+                finish();
+                break;
+        }
+        return true;
+    }
 
     private void startCheckActivity()
     {
