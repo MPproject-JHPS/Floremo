@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+
 public class RecordedMemo extends AppCompatActivity {
 
     private static final String TAG = "RecordedMemo";
@@ -26,7 +28,9 @@ public class RecordedMemo extends AppCompatActivity {
         if(getIntent().hasExtra("selected_memo")){
             Memo memo = getIntent().getParcelableExtra("selected_memo");
             editText.setText(memo.getTxt());
+            Glide.with(this)
+                    .load(memo.getImageUrl())
+                    .into(imageView);
         }
-
     }
 }

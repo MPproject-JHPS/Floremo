@@ -8,7 +8,7 @@ import java.util.Date;
 //database에 넣을 메모 class
 public class Memo implements Parcelable {
     private String txt;
-    private Date createDate, updateDate;
+    private String date;
     private String flowerImg;
     private String imageUrl;
 
@@ -16,6 +16,7 @@ public class Memo implements Parcelable {
 
     protected Memo(Parcel in) {
         txt = in.readString();
+        date = in.readString();
         flowerImg = in.readString();
         imageUrl = in.readString();
     }
@@ -35,26 +36,18 @@ public class Memo implements Parcelable {
     public String getFlowerImg(){
         return flowerImg;
     }
-    public void setFlowerImg(String flowerImg){
-        this.flowerImg = flowerImg;
-    }
+    public void setFlowerImg(String flowerImg){ this.flowerImg = flowerImg; }
     public String getTxt(){
         return txt;
     }
     public void setTxt(String txt){
         this.txt=txt;
     }
-    public Date getCreateDate(){
-        return createDate;
+    public String getDate(){
+        return date;
     }
-    public void setCreateDate(Date createDate){
-        this.createDate = createDate;
-    }
-    public Date getUpdateDate(){
-        return updateDate;
-    }
-    public void setUpdateDate(Date updateDate){
-        this.updateDate = updateDate;
+    public void setDate(String date){
+        this.date = date;
     }
     public String getImageUrl(){ return imageUrl; }
     public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
@@ -62,12 +55,12 @@ public class Memo implements Parcelable {
 
     @Override
     public int describeContents() {
-        return 0;
-    }
+        return 0; }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(txt);
+        dest.writeString(date);
         dest.writeString(flowerImg);
         dest.writeString(imageUrl);
     }

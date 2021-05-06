@@ -36,6 +36,8 @@ public class ShowRecord extends AppCompatActivity implements RecordAdapter.OnMem
     private DatabaseReference databaseReference;
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mFirebaseAuth;
+    private int flowerNumber;
+    private String emotionName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +52,21 @@ public class ShowRecord extends AppCompatActivity implements RecordAdapter.OnMem
 
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
-
         database = FirebaseDatabase.getInstance(); //파이어베이스 데이터베이스 연동
 
-        databaseReference = database.getReference("memos/" + mFirebaseUser.getUid());
+        // mainActivity에서 선택된 꽃밭 번호을 넘겨 받는다.
+        Intent passedIntent = getIntent();
+        if(passedIntent != null){
+            flowerNumber = passedIntent.getIntExtra("selected_flower", 1);
+        }
+
+        if(flowerNumber == 1){ emotionName = "happy"; }
+        else if(flowerNumber == 2){ emotionName = "surprised"; }
+        else if(flowerNumber == 3){ emotionName = "normal"; }
+        else if(flowerNumber == 4){ emotionName = "sad"; }
+        else if(flowerNumber == 5){ emotionName = "angry";}
+
+        databaseReference = database.getReference(mFirebaseUser.getUid() + "/memos/" + emotionName);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

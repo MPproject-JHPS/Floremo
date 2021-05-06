@@ -118,14 +118,57 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //감정꽃밭
-        ImageButton plusButton = (ImageButton) findViewById(R.id.emotion_vase1);
-        plusButton.setOnClickListener(new View.OnClickListener(){
+        ImageButton img_btn1 = (ImageButton) findViewById(R.id.emotion_vase1);
+        ImageButton img_btn2 = (ImageButton) findViewById(R.id.emotion_vase2);
+        ImageButton img_btn3 = (ImageButton) findViewById(R.id.emotion_vase3);
+        ImageButton img_btn4 = (ImageButton) findViewById(R.id.emotion_vase4);
+        ImageButton img_btn5 = (ImageButton) findViewById(R.id.emotion_vase5);
+
+        img_btn1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), ShowRecord.class);
+                intent.putExtra("selected_flower", 1);
                 startActivity(intent);
             }
         });
+
+        img_btn2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), ShowRecord.class);
+                intent.putExtra("selected_flower", 2);
+                startActivity(intent);
+            }
+        });
+
+        img_btn3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), ShowRecord.class);
+                intent.putExtra("selected_flower" ,3);
+                startActivity(intent);
+            }
+        });
+
+        img_btn4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), ShowRecord.class);
+                intent.putExtra("selected_flower", 4);
+                startActivity(intent);
+            }
+        });
+
+        img_btn5.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), ShowRecord.class);
+                intent.putExtra("selected_flower", 5);
+                startActivity(intent);
+            }
+        });
+
 
         //감정 추가하기
         ImageButton recordingButton = (ImageButton) findViewById(R.id.recordingButton);
