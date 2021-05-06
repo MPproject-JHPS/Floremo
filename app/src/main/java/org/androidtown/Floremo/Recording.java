@@ -2,16 +2,20 @@ package org.androidtown.Floremo;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +30,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
 
 public class Recording extends AppCompatActivity implements View.OnClickListener {
@@ -48,6 +57,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     SeekBar sb3;
     SeekBar sb4;
     SeekBar sb5;
+    OutputStream outputStream = null;
+
     int[] p = {0,0,0,0,0}; //각각의 시크바 진행도를 받아오는 array 변수
     int max1 = 0; // 제일 큰 값
     int max1_idx = 0; // 어떤 시크바가 제일 큰 값을 갖는지
@@ -66,6 +77,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         flipper = (ViewFlipper) findViewById(R.id.flipper);
         prev = (ImageButton) findViewById(R.id.prev);
         next = (ImageButton) findViewById(R.id.next);
+
         prev.setOnClickListener(this);
         next.setOnClickListener(this);
 
