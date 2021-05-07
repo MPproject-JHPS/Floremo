@@ -28,6 +28,7 @@ public class RecordedMemo extends AppCompatActivity {
         if(getIntent().hasExtra("selected_memo")){
             Memo memo = getIntent().getParcelableExtra("selected_memo");
             editText.setText(memo.getTxt());
+            textView.setText(memo.getDate());
             Glide.with(this)
                     .load(memo.getImageUrl())
                     .into(imageView);
