@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="메시지 알림">
+
+        <SwitchPreference
+            android:key="switch_alarm"
+            android:title="Push Alarm"
+            android:defaultValue="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="account_category"
+        android:title="계정 관리">
+
+        <EditTextPreference
+            android:dialogTitle="Enter your name"
+            android:key="edt_username"
+            android:summary="please enter your user name here!"
+            android:title="Username" />
+        <EditTextPreference
+            android:dialogTitle="Enter your password"
+            android:key="edt_password"
+            android:summary="please enter your password here!"
+            android:title="Password" />
+        <Preference
+            android:key="prf_withdraw"
+            android:summary="Click if you want to withdraw your account"
+            android:title="Withdraw" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="android_category"
+        android:title="앱 관리">
+
+        <Preference
+            android:key="prf_version"
+            android:summary="Information of androidlication's version"
+            android:title="Version" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

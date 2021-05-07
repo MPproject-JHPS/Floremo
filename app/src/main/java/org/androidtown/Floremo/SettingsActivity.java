@@ -34,8 +34,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
 
-        Button button = findViewById(R.id.withdraw); //회원탈퇴 버튼
-        button.setOnClickListener(new View.OnClickListener() {
+        Button btn_withdraw = findViewById(R.id.withdraw); //회원탈퇴 버튼
+        btn_withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -59,13 +59,13 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
-        button.setOnTouchListener(new View.OnTouchListener() {
+        btn_withdraw.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    button.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.bg_d));
+                    btn_withdraw.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.bg_d));
                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
-                    button.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.transperent));
+                    btn_withdraw.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.transperent));
                 }
                 return false;
             }

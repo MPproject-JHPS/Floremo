@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_c"
     android:orientation="horizontal"
+    android:id="@+id/settings_container"
     tools:context=".SettingsActivity">
 
 
