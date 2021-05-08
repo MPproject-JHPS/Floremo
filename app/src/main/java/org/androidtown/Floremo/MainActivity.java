@@ -26,15 +26,12 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.security.MessageDigest;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-    private FirebaseDatabase database;
     private DrawerLayout drawerLayout;
     private View drawerView;
     private long backBtnTime = 0; // 뒤로가기 버튼 누를 때 필요
@@ -47,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
-        database = FirebaseDatabase.getInstance();
 
         //로딩화면 열기
         Intent intent = new Intent(this, LoadingActivity.class);
@@ -262,10 +258,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // 유저가 기록한 메모의 개수 세기
-//    public void RecordsCount(){
-//        database = FirebaseDatabase.getInstance();
-//        database.getReference(mFirebaseUser.getUid() + "/memos/");
-//    }
 }
-

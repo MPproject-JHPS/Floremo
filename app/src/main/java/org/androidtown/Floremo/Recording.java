@@ -1,5 +1,6 @@
 package org.androidtown.Floremo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -14,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -30,12 +32,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 public class Recording extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,13 +67,16 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     ImageView img3;
     ImageView img4;
     ImageView img5;
+
+    String filename;
+
     int check_sum = 0, c1=0, c2=0, c3=0, c4=0, c5=0; // 감정 개수 관리하는 변수
     SeekBar sb1;
     SeekBar sb2;
     SeekBar sb3;
     SeekBar sb4;
     SeekBar sb5;
-    OutputStream outputStream = null;
+    OutputStream outputStream = null; //다른 부분
 
     int[] p = {0,0,0,0,0}; //각각의 시크바 진행도를 받아오는 array 변수
     int max1 = 0; // 제일 큰 값
@@ -65,10 +84,63 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     int max2 = 0; // 두번째로 큰 값
     int max2_idx = 0; // 어떤 시크바가 두번째로 큰 값을 갖는지
 
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseDatabase mFirebaseDataBase;
+
+    private DatabaseReference databaseReference;
+
+    ImageView testImageView;
+    Button testBtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recording);
+
+
+        mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
+        mFirebaseDataBase = FirebaseDatabase.getInstance();
+        databaseReference = mFirebaseDataBase.getReference();
+
+        testBtn = (Button) findViewById(R.id.testBtn);
+
+        testImageView = (ImageView) findViewById(R.id.testImageView);
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference imageRef = storageRef.child(filename);
+                StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
+
+                mFirebaseDataBase.getReference("flowerImages/").addValueEventListener(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (dataSnapshot.getKey().equals(filename)) {
+                                String image = dataSnapshot.getValue().toString();
+
+                                byte[] b = binaryStringToByteArray(image);
+                                ByteArrayInputStream is = new ByteArrayInputStream(b);
+                                Drawable reviewImage = Drawable.createFromStream(is, "testImageView");
+                                testImageView.setImageDrawable(reviewImage);
+                                startToast("테스트 버튼 작동");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -136,11 +208,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                img1.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
-//                img2.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
-//                img3.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
-//                img4.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
-//                img5.setColorFilter(Color.argb(progress+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
+
 
             }
         });
@@ -181,11 +249,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                img1.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
-//                img2.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
-//                img3.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
-//                img4.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
-//                img5.setColorFilter(Color.argb(progress+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
+
 
             }
         });
@@ -224,11 +288,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                img1.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
-//                img2.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
-//                img3.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
-//                img4.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
-//                img5.setColorFilter(Color.argb(progress+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+
 
             }
         });
@@ -267,11 +327,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                img1.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
-//                img2.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
-//                img3.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
-//                img4.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
-//                img5.setColorFilter(Color.argb(progress+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+
 
             }
         });
@@ -310,11 +366,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                img1.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
-//                img2.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
-//                img3.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
-//                img4.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
-//                img5.setColorFilter(Color.argb(progress+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+
 
             }
         });
@@ -332,15 +384,40 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu:
-                if(max1 == 0 && max2 == 0) // 바로 기록을 누르면
+                if (max1 == 0 && max2 == 0) // 바로 기록을 누르면
                 {
                     startToast("입력이 안되었습니다.");
                     break;
                 }
-                Intent NewActivity = new Intent(getApplicationContext(), addRecordMemo.class);
-                NewActivity.putExtra("date", textView_Date.getText().toString());
+                if (flipper.getDisplayedChild() == 0) {
+                    UploadFlower1();
+                    // break;
+                } else if (flipper.getDisplayedChild() == 1) {
+                    UploadFlower2();
+                    //break;
+                } else if (flipper.getDisplayedChild() == 2) {
+                    UploadFlower3();
+                    // break;
+                } else if (flipper.getDisplayedChild() == 3) {
+                    UploadFlower4();
+                    // break;
+                } else if (flipper.getDisplayedChild() == 4) {
+                    UploadFlower5();
+                    //  break;
+                }
+
+
+                Intent NewActivity = new Intent(getApplicationContext(), org.androidtown.Floremo.addRecordMemo.class);
+                Bundle myBundle = new Bundle();
+                myBundle.putString("filename", filename);
+                myBundle.putString("date", textView_Date.getText().toString());
+                myBundle.putInt("emotion", max1_idx); //0=happy, 1=sad, 2=angry, 3=surprised, 4=normal
+                NewActivity.putExtras(myBundle);
+
                 setResult(RESULT_OK, NewActivity);
-                startActivityForResult(NewActivity,1);
+                startActivityForResult(NewActivity, 1);
+
+
                 break;
             case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
                 finish();
@@ -467,4 +544,144 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         DatePickerDialog dialog = new DatePickerDialog(this, callbackMethod, 2021, 4, 1);
         dialog.show();
     }
+    //Realtime Database에 byteString 형태로 꽃 이미지 업로드
+    public void UploadFlower1() {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imageRef = storageRef.child("images");
+        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        StorageReference fileRef = userRef.child(filename);
+
+        img1.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(img1.getDrawingCache());
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] reviewImage = stream.toByteArray();
+        String simage = byteArrayToBinaryString(reviewImage);
+        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        startToast("꽃 이미지 저장");
+    }
+
+    public void UploadFlower2() {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imageRef = storageRef.child("images");
+        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        StorageReference fileRef = userRef.child(filename);
+
+        img2.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(img2.getDrawingCache());
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] reviewImage = stream.toByteArray();
+        String simage = byteArrayToBinaryString(reviewImage);
+        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        startToast("꽃 이미지 저장");
+    }
+
+    public void UploadFlower3() {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imageRef = storageRef.child("images");
+        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        StorageReference fileRef = userRef.child(filename);
+
+        img3.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(img3.getDrawingCache());
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] reviewImage = stream.toByteArray();
+        String simage = byteArrayToBinaryString(reviewImage);
+        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        startToast("꽃 이미지 저장");
+    }
+
+    public void UploadFlower4() {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imageRef = storageRef.child("images");
+        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        StorageReference fileRef = userRef.child(filename);
+
+        img4.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(img4.getDrawingCache());
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] reviewImage = stream.toByteArray();
+        String simage = byteArrayToBinaryString(reviewImage);
+        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        startToast("꽃 이미지 저장");
+    }
+
+    public void UploadFlower5() {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imageRef = storageRef.child("images");
+        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        StorageReference fileRef = userRef.child(filename);
+
+        img5.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(img5.getDrawingCache());
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] reviewImage = stream.toByteArray();
+        String simage = byteArrayToBinaryString(reviewImage);
+        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        startToast("꽃 이미지 저장");
+    }
+
+
+    // 바이너리 바이트 배열을 스트링으로
+    public static String byteArrayToBinaryString(byte[] b) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < b.length; ++i) {
+            sb.append(byteToBinaryString(b[i]));
+        }
+        return sb.toString();
+    }
+
+    // 바이너리 바이트를 스트링으로
+    public static String byteToBinaryString(byte n) {
+        StringBuilder sb = new StringBuilder("00000000");
+        for (int bit = 0; bit < 8; bit++) {
+            if (((n >> bit) & 1) > 0) {
+                sb.setCharAt(7 - bit, '1');
+            }
+        }
+        return sb.toString();
+    }
+
+    // 스트링을 바이너리 바이트 배열로
+    public static byte[] binaryStringToByteArray(String s) {
+        int count = s.length() / 8;
+        byte[] b = new byte[count];
+        for (int i = 1; i < count; ++i) {
+            String t = s.substring((i - 1) * 8, i * 8);
+            b[i - 1] = binaryStringToByte(t);
+        }
+        return b;
+    }
+
+    // 스트링을 바이너리 바이트로
+    public static byte binaryStringToByte(String s) {
+        byte ret = 0, total = 0;
+        for (int i = 0; i < 8; ++i) {
+            ret = (s.charAt(7 - i) == '1') ? (byte) (1 << i) : 0;
+            total = (byte) (ret | total);
+        }
+        return total;
+    }
+
+
+
 }
