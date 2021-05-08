@@ -113,7 +113,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onClick(View v) {
 
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference imageRef = storageRef.child(filename);
+                StorageReference imageRef = storageRef.child("images");
                 StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
 
                 mFirebaseDataBase.getReference("flowerImages/").addValueEventListener(new ValueEventListener() {
@@ -569,7 +569,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         StorageReference imageRef = storageRef.child("images");
         StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
 
         img2.setDrawingCacheEnabled(true);
@@ -588,7 +588,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         StorageReference imageRef = storageRef.child("images");
         StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
 
         img3.setDrawingCacheEnabled(true);
@@ -607,7 +607,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         StorageReference imageRef = storageRef.child("images");
         StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
 
         img4.setDrawingCacheEnabled(true);
@@ -626,7 +626,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         StorageReference imageRef = storageRef.child("images");
         StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
 
         img5.setDrawingCacheEnabled(true);

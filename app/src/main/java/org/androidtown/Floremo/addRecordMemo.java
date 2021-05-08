@@ -87,8 +87,8 @@ public class addRecordMemo extends AppCompatActivity {
             emotion = myBundle.getInt("emotion"); //happy, sad, ---
             String filename = myBundle.getString("filename");
             //textDate.setText("파일명: "+ filename); //파일명 잘 전달 받았는지 테스트
-            textDate.setText("감정: "+ emotion); //감정 잘 전달 받았는지 테스트
-            //textDate.setText(date);
+            //textDate.setText("감정: "+ emotion); //감정 잘 전달 받았는지 테스트
+            textDate.setText(date);
         }
 
 
