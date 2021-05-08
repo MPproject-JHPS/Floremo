@@ -248,7 +248,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:text="Soso"
+                    android:text="Angry"
                     android:textColor="#93E075"
                     tools:ignore="MissingConstraints" />
 
@@ -256,8 +256,8 @@
                     android:id="@+id/seekBar3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="52dp"
-                    android:layout_marginLeft="52dp" />
+                    android:layout_marginStart="46dp"
+                    android:layout_marginLeft="46dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -282,8 +282,8 @@
                     android:id="@+id/seekBar4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="61dp"
-                    android:layout_marginLeft="61dp" />
+                    android:layout_marginStart="58dp"
+                    android:layout_marginLeft="58dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -300,14 +300,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:text="Embarrassed"
+                    android:text="Soso"
                     android:textColor="#E29FF0"
                     tools:ignore="MissingConstraints" />
 
                 <SeekBar
                     android:id="@+id/seekBar5"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginLeft="50dp" />
             </LinearLayout>
 
         </RelativeLayout>

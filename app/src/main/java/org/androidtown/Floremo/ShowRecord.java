@@ -62,9 +62,9 @@ public class ShowRecord extends AppCompatActivity implements RecordAdapter.OnMem
 
         if(flowerNumber == 1){ emotionName = "happy"; }
         else if(flowerNumber == 2){ emotionName = "surprised"; }
-        else if(flowerNumber == 3){ emotionName = "normal"; }
+        else if(flowerNumber == 3){ emotionName = "angry"; }
         else if(flowerNumber == 4){ emotionName = "sad"; }
-        else if(flowerNumber == 5){ emotionName = "angry";}
+        else if(flowerNumber == 5){ emotionName = "soso";}
 
         databaseReference = database.getReference(mFirebaseUser.getUid() + "/memos/" + emotionName);
         databaseReference.addValueEventListener(new ValueEventListener() {
