@@ -30,8 +30,9 @@
             android:textSize="35dp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:layout_weight="1"
             android:orientation="horizontal">
@@ -61,38 +62,39 @@
         </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/aimg1"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:srcCompat="@drawable/analysis_flower" />
+            <ImageView
+                android:id="@+id/aimg1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:srcCompat="@drawable/analysis_flower" />
 
-        <ImageView
-            android:id="@+id/aimg2"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:srcCompat="@drawable/analysis_flower" />
+            <ImageView
+                android:id="@+id/aimg2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:srcCompat="@drawable/analysis_flower" />
 
-        <ImageView
-            android:id="@+id/aimg3"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:srcCompat="@drawable/analysis_flower" />
+            <ImageView
+                android:id="@+id/aimg3"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:srcCompat="@drawable/analysis_flower" />
 
-        <ImageView
-            android:id="@+id/aimg4"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:srcCompat="@drawable/analysis_flower" />
+            <ImageView
+                android:id="@+id/aimg4"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:srcCompat="@drawable/analysis_flower" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -158,8 +160,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:orientation="horizontal">
 
@@ -192,8 +195,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
@@ -227,8 +231,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
@@ -262,8 +267,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
@@ -297,8 +303,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
