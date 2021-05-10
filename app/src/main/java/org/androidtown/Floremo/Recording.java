@@ -672,13 +672,13 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             }
 
         }
-        if(max1 == 0 && max2 == 0) // 모두 0이면 검정색으로
+        if(max1 == 0 && max2 == 0) // 모두 0이면 초기화
         {
-            img1.setColorFilter(Color.BLACK , PorterDuff.Mode.SRC_IN);
-            img2.setColorFilter(Color.BLACK , PorterDuff.Mode.SRC_IN);
-            img3.setColorFilter(Color.BLACK , PorterDuff.Mode.SRC_IN);
-            img4.setColorFilter(Color.BLACK , PorterDuff.Mode.SRC_IN);
-            img5.setColorFilter(Color.BLACK , PorterDuff.Mode.SRC_IN);
+            img1.setColorFilter(null);
+            img2.setColorFilter(null);
+            img3.setColorFilter(null);
+            img4.setColorFilter(null);
+            img5.setColorFilter(null);
         }
     }
 
