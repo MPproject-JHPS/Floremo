@@ -1,13 +1,21 @@
 package org.androidtown.Floremo;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RecordedMemo extends AppCompatActivity {
 
@@ -15,7 +23,7 @@ public class RecordedMemo extends AppCompatActivity {
     EditText editText;
     ImageView imageView;
     TextView textView;
-
+    private FirebaseDatabase mFirebaseDataBase;
     @Override
     protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -32,5 +40,42 @@ public class RecordedMemo extends AppCompatActivity {
                     .load(memo.getImageUrl())
                     .into(imageView);
         }
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.recorded_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.menu_delete:
+                //
+            case R.id.menu_modify:
+                //
+                return true;
+            default:
+        return super.onOptionsItemSelected(item);}}
+
+    private void onDeleteContent(int position)
+    {
+//        mFirebaseDataBase.getReference().child("Content").child(uidList.get(position)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//                Toast.makeText(context, "삭제 성공", Toast.LENGTH_SHORT).show();
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                System.out.println("error: "+e.getMessage());
+//                Toast.makeText(context, "삭제 실패", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 }

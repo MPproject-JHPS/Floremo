@@ -120,6 +120,12 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         Button version_info = findViewById(R.id.version_info);
+        version_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startVInfoActivity(); // 버전 정보 버튼 누르면 상세 페이지로 이동
+            }
+        });
         version_info.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -159,6 +165,11 @@ public class SettingsActivity extends AppCompatActivity {
     private void startInfoActivity()
     {
         Intent intent = new Intent(this, InfoActivity.class);
+        startActivity(intent);
+    }
+    private void startVInfoActivity()
+    {
+        Intent intent = new Intent(this, VInfoActivity.class);
         startActivity(intent);
     }
 

@@ -113,7 +113,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onClick(View v) {
 
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference imageRef = storageRef.child(filename);
+                StorageReference imageRef = storageRef.child("images");
                 StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
 
                 mFirebaseDataBase.getReference("flowerImages/").addValueEventListener(new ValueEventListener() {
@@ -467,49 +467,218 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
         if(max1_idx == 0)
         {
-            img1.setColorFilter(Color.argb(max1+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
-            img2.setColorFilter(Color.argb(max1+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
-            img3.setColorFilter(Color.argb(max1+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
-            img4.setColorFilter(Color.argb(max1+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
-            img5.setColorFilter(Color.argb(max1+120, 240, 127, 184) , PorterDuff.Mode.SRC_IN);
+            if(max2 > 0 && max2_idx == 1) { //핑크 & 노랑
+
+                img1.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
+            }
+            else if(max2 > 0 && max2_idx == 2) { //핑크 & 연두색
+                img1.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
+            }
+            else if(max2 > 0 && max2_idx == 3){ //핑크 & 하늘색
+                img1.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
+
+            }
+            else if(max2 > 0 && max2_idx == 4){ //핑크 & 보라색
+                img1.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
+
+            }
+            else {
+                img1.setColorFilter(Color.argb(max1 + 120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max1 + 120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max1 + 120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max1 + 120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max1 + 120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
+
+            }
         }
         else if(max1_idx == 1)
         {
-            img1.setColorFilter(Color.argb(max1+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
-            img2.setColorFilter(Color.argb(max1+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
-            img3.setColorFilter(Color.argb(max1+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
-            img4.setColorFilter(Color.argb(max1+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
-            img5.setColorFilter(Color.argb(max1+120, 235, 197, 129) , PorterDuff.Mode.SRC_IN);
+            if(max2 > 0 && max2_idx == 0) { //max1_index: 노랑 & max2_index: 핑크
+
+                img1.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
+            }
+            else if(max2 > 0 && max2_idx == 2) { //max1_index: 노랑 & max2_index: 연두
+                img1.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
+            }
+            else if(max2 > 0 && max2_idx == 3){ //max1_index: 노랑 & max2_index: 하늘
+                img1.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
+
+            }
+            else if(max2 > 0 && max2_idx == 4){ //max1_index: 노랑 & max2_index: 보라
+                img1.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
+
+            }
+            else {
+                img1.setColorFilter(Color.argb(max1 + 120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max1 + 120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max1 + 120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max1 + 120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max1 + 120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
+
+            }
+
         }
         else if(max1_idx == 2)
         {
-            img1.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
-            img2.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
-            img3.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
-            img4.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
-            img5.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+            if(max2 > 0 && max2_idx == 0) { //max1_index: 연두 & max2_index: 핑크
+
+                img1.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
+            }
+            else if(max2 > 0 && max2_idx == 1) { //max1_index: 연두 & max2_index: 노랑
+                img1.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
+            }
+            else if(max2 > 0 && max2_idx == 3){ //max1_index: 연두 & max2_index: 하늘
+                img1.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
+
+            }
+            else if(max2 > 0 && max2_idx == 4){ //max1_index: 연두 & max2_index: 보라
+                img1.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
+
+            }
+            else {
+                img1.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
+
+            }
+
         }else if(max1_idx == 3)
         {
-            img1.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
-            img2.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
-            img3.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
-            img4.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
-            img5.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+            if(max2 > 0 && max2_idx == 0) { //max1_index: 하늘 & max2_index: 핑크
+                img1.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
+            }
+            else if(max2 > 0 && max2_idx == 1) { //max1_index: 하늘 & max2_index: 노랑
+                img1.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
+            }
+            else if(max2 > 0 && max2_idx == 2){ //max1_index: 하늘 & max2_index: 연두
+                img1.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
+
+            }
+            else if(max2 > 0 && max2_idx == 4){ //max1_index: 하늘 & max2_index: 보라
+                img1.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
+            }
+            else {
+                img1.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
+
+            }
+
         }else if(max1_idx == 4)
         {
-            img1.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
-            img2.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
-            img3.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
-            img4.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
-            img5.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+            if(max2 > 0 && max2_idx == 0) { //max1_index: 보라 & max2_index: 핑크
+                img1.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
+            }
+            else if(max2 > 0 && max2_idx == 1) { //max1_index: 보라 & max2_index: 노랑
+                img1.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
+            }
+            else if(max2 > 0 && max2_idx == 2){ //max1_index: 보라 & max2_index: 연두
+                img1.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
+
+            }
+            else if(max2 > 0 && max2_idx == 3){ //max1_index: 보라 & max2_index: 하늘
+                img1.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
+            }
+            else {
+                img1.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+                img2.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+                img3.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+                img4.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+                img5.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
+            }
+
         }
-        if(max1 == 0 && max2 == 0) // 모두 0이면 검정색으로
+        if(max1 == 0 && max2 == 0) // 모두 0이면 초기화
         {
-            img1.setColorFilter(Color.BLACK , PorterDuff.Mode.SRC_IN);
-            img2.setColorFilter(Color.BLACK , PorterDuff.Mode.SRC_IN);
-            img3.setColorFilter(Color.BLACK , PorterDuff.Mode.SRC_IN);
-            img4.setColorFilter(Color.BLACK , PorterDuff.Mode.SRC_IN);
-            img5.setColorFilter(Color.BLACK , PorterDuff.Mode.SRC_IN);
+            img1.setColorFilter(null);
+            img2.setColorFilter(null);
+            img3.setColorFilter(null);
+            img4.setColorFilter(null);
+            img5.setColorFilter(null);
         }
     }
 
@@ -569,7 +738,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         StorageReference imageRef = storageRef.child("images");
         StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
 
         img2.setDrawingCacheEnabled(true);
@@ -588,7 +757,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         StorageReference imageRef = storageRef.child("images");
         StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
 
         img3.setDrawingCacheEnabled(true);
@@ -607,7 +776,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         StorageReference imageRef = storageRef.child("images");
         StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
 
         img4.setDrawingCacheEnabled(true);
@@ -626,7 +795,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         StorageReference imageRef = storageRef.child("images");
         StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
 
         img5.setDrawingCacheEnabled(true);
