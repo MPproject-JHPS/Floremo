@@ -55,23 +55,31 @@ public class RecordedMemo extends AppCompatActivity {
     }
 
 
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.menu_delete:
-                onDeleteContent();
-            case R.id.menu_modify:
-                //
+        switch (item.getItemId()){
+            case android.R.id.home: { //toolbar의 back키 눌렀을 때 동작
+                finish();
                 return true;
-            default:
-        return super.onOptionsItemSelected(item);}}
+            }
+                case R.id.menu_delete:
+                    //int position = Position
+                case R.id.menu_modify:
+                    //
+                    return true;
+            }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void onDeleteContent(int position)
     {
 //        mFirebaseDataBase.getReference().child("Content").child(uidList.get(position)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
 //            @Override
 //            public void onSuccess(Void aVoid) {
-//                Toast.makeText(context, "삭제 성공", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(, "삭제 성공", Toast.LENGTH_SHORT).show();
 //            }
 //        }).addOnFailureListener(new OnFailureListener() {
 //            @Override

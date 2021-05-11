@@ -3,6 +3,7 @@ package org.androidtown.Floremo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -56,15 +58,21 @@ public class ShowRecord extends AppCompatActivity implements RecordAdapter.OnMem
 
         // mainActivity에서 선택된 꽃밭 번호을 넘겨 받는다.
         Intent passedIntent = getIntent();
-        if(passedIntent != null){
+        if (passedIntent != null) {
             flowerNumber = passedIntent.getIntExtra("selected_flower", 1);
         }
 
-        if(flowerNumber == 1){ emotionName = "happy"; }
-        else if(flowerNumber == 2){ emotionName = "surprised"; }
-        else if(flowerNumber == 3){ emotionName = "angry"; }
-        else if(flowerNumber == 4){ emotionName = "sad"; }
-        else if(flowerNumber == 5){ emotionName = "soso";}
+        if (flowerNumber == 1) {
+            emotionName = "happy";
+        } else if (flowerNumber == 2) {
+            emotionName = "surprised";
+        } else if (flowerNumber == 3) {
+            emotionName = "angry";
+        } else if (flowerNumber == 4) {
+            emotionName = "sad";
+        } else if (flowerNumber == 5) {
+            emotionName = "soso";
+        }
 
         databaseReference = database.getReference(mFirebaseUser.getUid() + "/memos/" + emotionName);
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -94,6 +102,21 @@ public class ShowRecord extends AppCompatActivity implements RecordAdapter.OnMem
         mRecordAdapter = new RecordAdapter(arrayList, this, this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
         recyclerView.setAdapter(mRecordAdapter); //리사이클러뷰에 adapter 연결
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
