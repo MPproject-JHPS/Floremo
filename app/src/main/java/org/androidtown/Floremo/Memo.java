@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 //database에 넣을 메모 class
 public class Memo implements Parcelable {
@@ -63,5 +65,14 @@ public class Memo implements Parcelable {
         dest.writeString(date);
         dest.writeString(flowerImg);
         dest.writeString(imageUrl);
+    }
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("txt", txt);
+//        result.put("date", date);
+//        result.put("flowerImg", flowerImg);
+//        result.put("imageUrl", imageUrl);
+        return result;
     }
 }

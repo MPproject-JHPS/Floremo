@@ -1,6 +1,8 @@
 package org.androidtown.Floremo;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -15,7 +17,13 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RecordedMemo extends AppCompatActivity {
 
@@ -23,22 +31,34 @@ public class RecordedMemo extends AppCompatActivity {
     EditText editText;
     ImageView imageView;
     TextView textView;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mFirebaseUser;
     private FirebaseDatabase mFirebaseDataBase;
+
+    private static final String TAG1 = "RecordedMemo";
+
     @Override
     protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
+        mFirebaseDataBase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = mFirebaseDataBase.getReference();
+
         setContentView(R.layout.add_record_memo);
 
         editText = findViewById(R.id.content);
         imageView = findViewById(R.id.image);
         textView = findViewById(R.id.textDate);
-
+        String text = editText.getText().toString();
+        Log.d(TAG1,text);
         if(getIntent().hasExtra("selected_memo")){
             Memo memo = getIntent().getParcelableExtra("selected_memo");
             editText.setText(memo.getTxt());
             Glide.with(this)
                     .load(memo.getImageUrl())
                     .into(imageView);
+            textView.setText(memo.getDate());
         }
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -57,11 +77,13 @@ public class RecordedMemo extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_delete:
                 //
-            case R.id.menu_modify:
-                //
                 return true;
-            default:
-        return super.onOptionsItemSelected(item);}}
+            case R.id.menu_modify:
+                updateMemo();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void onDeleteContent(int position)
     {
@@ -77,5 +99,18 @@ public class RecordedMemo extends AppCompatActivity {
 //                Toast.makeText(context, "삭제 실패", Toast.LENGTH_SHORT).show();
 //            }
 //        });
+    }
+
+    //메모 업데이트하기
+    public void updateMemo(){
+        String text = editText.getText().toString();
+        Log.d(TAG1,text);
+        Memo updateMemo = new Memo();
+        updateMemo.setTxt(text);
+        DatabaseReference mReference = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/angry");
+
+        //수정해야함!!
+        mReference.child("-M_9Zjmfksth8pWNo2xh").child("txt").setValue(text);
+
     }
 }
