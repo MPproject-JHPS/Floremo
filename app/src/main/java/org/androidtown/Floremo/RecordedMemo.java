@@ -1,11 +1,14 @@
 package org.androidtown.Floremo;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 
@@ -32,5 +35,26 @@ public class RecordedMemo extends AppCompatActivity {
                     .load(memo.getImageUrl())
                     .into(imageView);
         }
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.recorded_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.menu_delete:
+                //
+            case R.id.menu_delete:
+                //
+                return true;
+            default:
+        return super.onOptionsItemSelected(item);}}
 }

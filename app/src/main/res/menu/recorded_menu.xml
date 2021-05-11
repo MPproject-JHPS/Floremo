@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/menu_delete"
+        android:title="search"
+        android:icon="@drawable/white_flower"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/menu_modify"
+        android:title="search"
+        android:icon="@drawable/emo_char5"
+        app:showAsAction="always"
+        />
+
+</menu>
