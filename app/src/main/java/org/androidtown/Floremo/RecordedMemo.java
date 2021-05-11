@@ -43,6 +43,9 @@ public class RecordedMemo extends AppCompatActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
+
+
     }
 
     @Override
@@ -56,7 +59,7 @@ public class RecordedMemo extends AppCompatActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.menu_delete:
-                //
+                onDeleteContent();
             case R.id.menu_modify:
                 //
                 return true;
