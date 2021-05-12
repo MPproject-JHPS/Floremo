@@ -55,6 +55,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
     }
 
+    //위치 보내기
+    public int sendPosition(@NonNull ViewHolder holder){
+        return holder.getAdapterPosition();
+    }
 
     @Override
     public int getItemCount(){
@@ -62,7 +66,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         return (mData != null ? mData.size() : 0);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView flowerImg;
         EditText editText;
         ImageView img;

@@ -1,5 +1,6 @@
 package org.androidtown.Floremo;
 
+import android.icu.text.AlphabeticIndex;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.androidtown.Floremo.RecordAdapter;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -63,29 +65,31 @@ public class RecordedMemo extends AppCompatActivity {
                 finish();
                 return true;
             }
-                case R.id.menu_delete:
-                    //int position = Position
-                case R.id.menu_modify:
-                    //
-                    return true;
-            }
+                case R.id.menu_delete: {
 
+                }
+                case R.id.menu_modify: {
+
+                }
+            }
         return super.onOptionsItemSelected(item);
     }
 
 
+//보류
     private void onDeleteContent(int position)
     {
+//
 //        mFirebaseDataBase.getReference().child("Content").child(uidList.get(position)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
 //            @Override
 //            public void onSuccess(Void aVoid) {
-//                Toast.makeText(, "삭제 성공", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "삭제 성공", Toast.LENGTH_SHORT).show();
 //            }
 //        }).addOnFailureListener(new OnFailureListener() {
 //            @Override
 //            public void onFailure(@NonNull Exception e) {
 //                System.out.println("error: "+e.getMessage());
-//                Toast.makeText(context, "삭제 실패", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "삭제 실패", Toast.LENGTH_SHORT).show();
 //            }
 //        });
     }
