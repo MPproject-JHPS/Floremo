@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".TodayFlowerActivity"
+    android:id="@+id/todayFlower"
     android:background="@color/bg_c">
 
     <include
@@ -14,4 +15,30 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="81dp" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/bouquet"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="160dp"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bouquet_1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:textSize="50dp"
+            android:layout_below="@id/bouquet"
+            android:text="Click!"/>
+            #에니메이션 추가
+
+    </RelativeLayout>
 </LinearLayout>

@@ -108,6 +108,7 @@ public class ShowRecord extends AppCompatActivity implements RecordAdapter.OnMem
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
     }
 
+    //툴바 뒤로가기
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -124,6 +125,7 @@ public class ShowRecord extends AppCompatActivity implements RecordAdapter.OnMem
         arrayList.get(position);
         Intent intent = new Intent(this, RecordedMemo.class);
         intent.putExtra("selected_memo", arrayList.get(position));
+        intent.putExtra("emotion", emotionName);
         startActivity(intent);
     }
 }

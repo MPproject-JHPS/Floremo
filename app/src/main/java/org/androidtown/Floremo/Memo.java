@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 //database에 넣을 메모 class
 public class Memo implements Parcelable {
@@ -11,6 +13,7 @@ public class Memo implements Parcelable {
     private String date;
     private String flowerImg;
     private String imageUrl;
+    private String key;
 
     public Memo(){}
 
@@ -19,6 +22,7 @@ public class Memo implements Parcelable {
         date = in.readString();
         flowerImg = in.readString();
         imageUrl = in.readString();
+        key = in.readString();
     }
 
     public static final Creator<Memo> CREATOR = new Creator<Memo>() {
@@ -51,7 +55,8 @@ public class Memo implements Parcelable {
     }
     public String getImageUrl(){ return imageUrl; }
     public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
-
+    public String getKey(){ return key; }
+    public void setKey(String key){ this.key = key; }
 
     @Override
     public int describeContents() {
@@ -63,5 +68,15 @@ public class Memo implements Parcelable {
         dest.writeString(date);
         dest.writeString(flowerImg);
         dest.writeString(imageUrl);
+        dest.writeString(key);
     }
+
+//    public Map<String, Object> toMap(){
+//        HashMap<String, Object> result = new HashMap<>();
+//        result.put("txt", txt);
+//        result.put("date", date);
+//        result.put("flowerImg", flowerImg);
+//        result.put("imageUrl", imageUrl);
+//        return result;
+//    }
 }
