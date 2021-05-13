@@ -61,6 +61,7 @@ public class addRecordMemo extends AppCompatActivity {
     private String date;
 
     String filename;
+    String simage;
 
 
     @Override
@@ -85,9 +86,11 @@ public class addRecordMemo extends AppCompatActivity {
             Bundle myBundle = passedIntent.getExtras();
             String date = myBundle.getString("date");
             emotion = myBundle.getInt("emotion"); //happy, sad, ---
-            String filename = myBundle.getString("filename");
+            //String filename = myBundle.getString("filename");
+            //simage = myBundle.getString("simage");
             //textDate.setText("파일명: "+ filename); //파일명 잘 전달 받았는지 테스트
             //textDate.setText("감정: "+ emotion); //감정 잘 전달 받았는지 테스트
+            //textDate.setText("simage: "+ simage); //감정 잘 전달 받았는지 테스트
             textDate.setText(date);
         }
 
@@ -247,7 +250,7 @@ public class addRecordMemo extends AppCompatActivity {
 
                         Memo memo = new Memo();
                         Uri downloadUrl = uri;
-                        memo.setFlowerImg(downloadUrl.toString());
+                        memo.setFlowerImg("무야호");
                         memo.setImageUrl(downloadUrl.toString());
                         String text = etContent.getText().toString();
                         memo.setTxt(etContent.getText().toString());

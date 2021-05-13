@@ -69,6 +69,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     ImageView img5;
 
     String filename;
+    String simage;
 
     int check_sum = 0, c1=0, c2=0, c3=0, c4=0, c5=0; // 감정 개수 관리하는 변수
     SeekBar sb1;
@@ -409,7 +410,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
                 Intent NewActivity = new Intent(getApplicationContext(), org.androidtown.Floremo.addRecordMemo.class);
                 Bundle myBundle = new Bundle();
-                myBundle.putString("filename", filename);
+                //myBundle.putString("filename", filename);
+                //myBundle.putString("simage", simage);
                 myBundle.putString("date", textView_Date.getText().toString());
                 myBundle.putInt("emotion", max1_idx); //0=happy, 1=sad, 2=angry, 3=surprised, 4=normal
                 NewActivity.putExtras(myBundle);
@@ -728,8 +730,10 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] reviewImage = stream.toByteArray();
-        String simage = byteArrayToBinaryString(reviewImage);
-        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        simage = byteArrayToBinaryString(reviewImage);
+//        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+
+        //mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/surprised").child(filename).setValue(simage);
         startToast("꽃 이미지 저장");
     }
 
@@ -747,7 +751,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] reviewImage = stream.toByteArray();
-        String simage = byteArrayToBinaryString(reviewImage);
+        simage = byteArrayToBinaryString(reviewImage);
         mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
         startToast("꽃 이미지 저장");
     }
@@ -766,7 +770,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] reviewImage = stream.toByteArray();
-        String simage = byteArrayToBinaryString(reviewImage);
+        simage = byteArrayToBinaryString(reviewImage);
         mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
         startToast("꽃 이미지 저장");
     }
@@ -785,7 +789,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] reviewImage = stream.toByteArray();
-        String simage = byteArrayToBinaryString(reviewImage);
+        simage = byteArrayToBinaryString(reviewImage);
         mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
         startToast("꽃 이미지 저장");
     }
@@ -804,7 +808,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] reviewImage = stream.toByteArray();
-        String simage = byteArrayToBinaryString(reviewImage);
+        simage = byteArrayToBinaryString(reviewImage);
         mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
         startToast("꽃 이미지 저장");
     }
