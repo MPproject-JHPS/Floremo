@@ -99,7 +99,10 @@ public class RecordedMemo extends AppCompatActivity {
                 return true;
             }
                 case R.id.menu_delete: {
-
+                    //여기에 alert를 넣으면 더 좋을듯
+                    deleteMemo();
+                    finish();
+                    return true;
                 }
                 case R.id.menu_modify: {
                     updateMemo();
@@ -129,23 +132,16 @@ public class RecordedMemo extends AppCompatActivity {
 //        });
     }
 
-    //메모 업데이트하기
-//    public void updateMemo(){
-//        String text = editText.getText().toString();
-//        Log.d(TAG1,text);
-//
-//        Memo updateMemo = new Memo();
-//        updateMemo.setTxt(text);
-//        DatabaseReference mReference = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/angry");
-//
-//        //수정해야함!!
-//        mReference.child("-M_9Zjmfksth8pWNo2xh").child("txt").setValue(text).addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void unused) {
-//                Toast.makeText(getApplicationContext(), "메모가 수정되었습니다", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    private void deleteMemo(){
+        DatabaseReference mReference = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/"+emotion);
+        mReference.child(key).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getApplicationContext(), "메모가 삭제되었습니다", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
 
     public void updateMemo(){
@@ -156,8 +152,6 @@ public class RecordedMemo extends AppCompatActivity {
         updateMemo.setTxt(text);
         DatabaseReference mReference = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/"+emotion);
 
-
-        //수정해야함!!
         mReference.child(key).child("txt").setValue(text).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
