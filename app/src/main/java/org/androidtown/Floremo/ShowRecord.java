@@ -125,6 +125,7 @@ public class ShowRecord extends AppCompatActivity implements RecordAdapter.OnMem
         arrayList.get(position);
         Intent intent = new Intent(this, RecordedMemo.class);
         intent.putExtra("selected_memo", arrayList.get(position));
+        intent.putExtra("emotion", emotionName);
         startActivity(intent);
     }
 }

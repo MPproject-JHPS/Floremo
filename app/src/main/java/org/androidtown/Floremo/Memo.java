@@ -55,8 +55,8 @@ public class Memo implements Parcelable {
     }
     public String getImageUrl(){ return imageUrl; }
     public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
-    public String getKey(){ return imageUrl; }
-    public void setKey(String imageUrl){ this.imageUrl = imageUrl; }
+    public String getKey(){ return key; }
+    public void setKey(String key){ this.key = key; }
 
     @Override
     public int describeContents() {
@@ -71,12 +71,12 @@ public class Memo implements Parcelable {
         dest.writeString(key);
     }
 
-    public Map<String, Object> toMap(){
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("txt", txt);
+//    public Map<String, Object> toMap(){
+//        HashMap<String, Object> result = new HashMap<>();
+//        result.put("txt", txt);
 //        result.put("date", date);
 //        result.put("flowerImg", flowerImg);
 //        result.put("imageUrl", imageUrl);
-        return result;
-    }
+//        return result;
+//    }
 }

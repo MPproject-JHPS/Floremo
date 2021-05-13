@@ -1,5 +1,6 @@
 package org.androidtown.Floremo;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
@@ -40,7 +41,8 @@ public class RecordedMemo extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mFirebaseUser;
     private FirebaseDatabase mFirebaseDataBase;
-
+    String emotion;
+    String key;
     private static final String TAG1 = "RecordedMemo";
 
     @Override
@@ -65,11 +67,17 @@ public class RecordedMemo extends AppCompatActivity {
                     .load(memo.getImageUrl())
                     .into(imageView);
             textView.setText(memo.getDate());
+            key = memo.getKey();
+        }
+
+        Intent passedIntent = getIntent();
+        Bundle myBundle = passedIntent.getExtras();
+        if(getIntent().hasExtra("emotion")){
+            emotion = myBundle.getString("emotion");
         }
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
 
@@ -122,16 +130,40 @@ public class RecordedMemo extends AppCompatActivity {
     }
 
     //메모 업데이트하기
+//    public void updateMemo(){
+//        String text = editText.getText().toString();
+//        Log.d(TAG1,text);
+//
+//        Memo updateMemo = new Memo();
+//        updateMemo.setTxt(text);
+//        DatabaseReference mReference = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/angry");
+//
+//        //수정해야함!!
+//        mReference.child("-M_9Zjmfksth8pWNo2xh").child("txt").setValue(text).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void unused) {
+//                Toast.makeText(getApplicationContext(), "메모가 수정되었습니다", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+
+
     public void updateMemo(){
         String text = editText.getText().toString();
         Log.d(TAG1,text);
 
         Memo updateMemo = new Memo();
         updateMemo.setTxt(text);
-        DatabaseReference mReference = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/angry");
+        DatabaseReference mReference = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/"+emotion);
+
 
         //수정해야함!!
-        mReference.child("-M_9Zjmfksth8pWNo2xh").child("txt").setValue(text);
-
+        mReference.child(key).child("txt").setValue(text).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getApplicationContext(), "메모가 수정되었습니다", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 }
