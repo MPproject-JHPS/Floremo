@@ -1,5 +1,6 @@
 package org.androidtown.Floremo;
 
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,9 +20,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,6 +66,8 @@ public class RecordedMemo extends AppCompatActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+
+
     }
 
     @Override
@@ -105,6 +110,7 @@ public class RecordedMemo extends AppCompatActivity {
     public void updateMemo(){
         String text = editText.getText().toString();
         Log.d(TAG1,text);
+
         Memo updateMemo = new Memo();
         updateMemo.setTxt(text);
         DatabaseReference mReference = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/angry");

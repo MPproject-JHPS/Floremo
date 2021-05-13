@@ -13,6 +13,7 @@ public class Memo implements Parcelable {
     private String date;
     private String flowerImg;
     private String imageUrl;
+    private String key;
 
     public Memo(){}
 
@@ -21,6 +22,7 @@ public class Memo implements Parcelable {
         date = in.readString();
         flowerImg = in.readString();
         imageUrl = in.readString();
+        key = in.readString();
     }
 
     public static final Creator<Memo> CREATOR = new Creator<Memo>() {
@@ -53,7 +55,8 @@ public class Memo implements Parcelable {
     }
     public String getImageUrl(){ return imageUrl; }
     public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
-
+    public String getKey(){ return imageUrl; }
+    public void setKey(String imageUrl){ this.imageUrl = imageUrl; }
 
     @Override
     public int describeContents() {
@@ -65,6 +68,7 @@ public class Memo implements Parcelable {
         dest.writeString(date);
         dest.writeString(flowerImg);
         dest.writeString(imageUrl);
+        dest.writeString(key);
     }
 
     public Map<String, Object> toMap(){
