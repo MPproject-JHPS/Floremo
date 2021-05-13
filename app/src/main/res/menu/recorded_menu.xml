@@ -5,13 +5,13 @@
     <item
         android:id="@+id/menu_delete"
         android:title="search"
-        android:icon="@drawable/white_flower"
+        android:icon="@drawable/trashcan"
         app:showAsAction="always"
         />
     <item
         android:id="@+id/menu_modify"
         android:title="search"
-        android:icon="@drawable/emo_char5"
+        android:icon="@drawable/modify"
         app:showAsAction="always"
         />
 

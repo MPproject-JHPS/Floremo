@@ -2,6 +2,8 @@ package org.androidtown.Floremo;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+
+import android.icu.text.AlphabeticIndex;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.androidtown.Floremo.RecordAdapter;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -67,6 +70,8 @@ public class RecordedMemo extends AppCompatActivity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
+
 
     }
 
@@ -77,31 +82,41 @@ public class RecordedMemo extends AppCompatActivity {
     }
 
 
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.menu_delete:
-                //
+        switch (item.getItemId()){
+            case android.R.id.home: { //toolbar의 back키 눌렀을 때 동작
+                finish();
                 return true;
-            case R.id.menu_modify:
-                updateMemo();
-                return true;
-        }
+            }
+                case R.id.menu_delete: {
+
+                }
+                case R.id.menu_modify: {
+                    updateMemo();
+                    return true;
+                }
+            }
         return super.onOptionsItemSelected(item);
     }
 
+
+
+//보류
     private void onDeleteContent(int position)
     {
+//
 //        mFirebaseDataBase.getReference().child("Content").child(uidList.get(position)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
 //            @Override
 //            public void onSuccess(Void aVoid) {
-//                Toast.makeText(context, "삭제 성공", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "삭제 성공", Toast.LENGTH_SHORT).show();
 //            }
 //        }).addOnFailureListener(new OnFailureListener() {
 //            @Override
 //            public void onFailure(@NonNull Exception e) {
 //                System.out.println("error: "+e.getMessage());
-//                Toast.makeText(context, "삭제 실패", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "삭제 실패", Toast.LENGTH_SHORT).show();
 //            }
 //        });
     }
