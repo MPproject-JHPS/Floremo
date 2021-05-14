@@ -193,7 +193,7 @@ public class addRecordMemo extends AppCompatActivity {
         StorageReference imageRef = storageRef.child("images");
         StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filename = mFirebaseUser.getUid() + "_" + timeStamp;
+        String filename = mFirebaseUser.getUid() + "_" + timeStamp + "flower";
         StorageReference fileRef = userRef.child(filename);
 
         image2.setImageURI(uri_simage);
