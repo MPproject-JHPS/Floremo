@@ -66,8 +66,8 @@
 
         <ImageView
             android:id="@+id/image2"
-            android:layout_width="0dp"
-            android:layout_height="0dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
         <EditText
             android:id="@+id/content"
@@ -76,16 +76,7 @@
             android:inputType="textMultiLine"
             android:gravity="top"
             android:hint="내용을 입력하세요."
-            android:textColor="@color/black"></EditText>
+            android:textColor="@color/black"/>
     </LinearLayout>
 </LinearLayout>
-
-
-
-
-
-
-
-
-
 
