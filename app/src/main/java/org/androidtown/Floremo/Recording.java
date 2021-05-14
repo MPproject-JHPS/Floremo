@@ -16,8 +16,10 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -68,8 +70,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     ImageView img4;
     ImageView img5;
 
-    String filename;
-    String simage;
+    Uri uri_simage;
 
     int check_sum = 0, c1=0, c2=0, c3=0, c4=0, c5=0; // 감정 개수 관리하는 변수
     SeekBar sb1;
@@ -91,9 +92,6 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
     private DatabaseReference databaseReference;
 
-    ImageView testImageView;
-    Button testBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,41 +104,40 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         mFirebaseDataBase = FirebaseDatabase.getInstance();
         databaseReference = mFirebaseDataBase.getReference();
 
-        testBtn = (Button) findViewById(R.id.testBtn);
 
-        testImageView = (ImageView) findViewById(R.id.testImageView);
-        testBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference imageRef = storageRef.child("images");
-                StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
-
-                mFirebaseDataBase.getReference("flowerImages/").addValueEventListener(new ValueEventListener() {
-
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            if (dataSnapshot.getKey().equals(filename)) {
-                                String image = dataSnapshot.getValue().toString();
-
-                                byte[] b = binaryStringToByteArray(image);
-                                ByteArrayInputStream is = new ByteArrayInputStream(b);
-                                Drawable reviewImage = Drawable.createFromStream(is, "testImageView");
-                                testImageView.setImageDrawable(reviewImage);
-                                startToast("테스트 버튼 작동");
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
+        //색 변경된 꽃 이미지 잘 저장되었는지 불러와서 ImageView에 띄우는 테스트 버튼 핸들러
+//        testBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+//                StorageReference imageRef = storageRef.child("images");
+//                StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
+//
+//                mFirebaseDataBase.getReference("flowerImages/").addValueEventListener(new ValueEventListener() {
+//
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                            if (dataSnapshot.getKey().equals(filename)) {
+//                                String image = dataSnapshot.getValue().toString();
+//
+//                                byte[] b = binaryStringToByteArray(image);
+//                                ByteArrayInputStream is = new ByteArrayInputStream(b);
+//                                Drawable reviewImage = Drawable.createFromStream(is, "testImageView");
+//                                testImageView.setImageDrawable(reviewImage);
+//                                startToast("테스트 버튼 작동");
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//            }
+//        });
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -210,7 +207,6 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-
             }
         });
 
@@ -251,7 +247,6 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-
             }
         });
 
@@ -289,7 +284,6 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
 
             }
         });
@@ -329,7 +323,6 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-
             }
         });
 
@@ -368,7 +361,6 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-
             }
         });
 
@@ -392,26 +384,19 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 }
                 if (flipper.getDisplayedChild() == 0) {
                     UploadFlower1();
-                    // break;
                 } else if (flipper.getDisplayedChild() == 1) {
                     UploadFlower2();
-                    //break;
                 } else if (flipper.getDisplayedChild() == 2) {
                     UploadFlower3();
-                    // break;
                 } else if (flipper.getDisplayedChild() == 3) {
                     UploadFlower4();
-                    // break;
                 } else if (flipper.getDisplayedChild() == 4) {
                     UploadFlower5();
-                    //  break;
                 }
-
 
                 Intent NewActivity = new Intent(getApplicationContext(), org.androidtown.Floremo.addRecordMemo.class);
                 Bundle myBundle = new Bundle();
-                //myBundle.putString("filename", filename);
-                //myBundle.putString("simage", simage);
+                NewActivity.putExtra("uri_simage", uri_simage); //addRecordMemo 화면으로 꽃이미지 Uri 넘겨줌
                 myBundle.putString("date", textView_Date.getText().toString());
                 myBundle.putInt("emotion", max1_idx); //0=happy, 1=sad, 2=angry, 3=surprised, 4=normal
                 NewActivity.putExtras(myBundle);
@@ -419,14 +404,11 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 setResult(RESULT_OK, NewActivity);
                 startActivityForResult(NewActivity, 1);
 
-
                 break;
             case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
                 finish();
                 break;
         }
-
-
         return true;
     }
 
@@ -467,24 +449,26 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     }
     private void drawMaxColor() { // 제일 큰 값의 색상만 입힌다.
 
-        if(max1_idx == 0)
+        if(max1_idx == 0) //가장 큰 감정이 Happy일 때
         {
-            if(max2 > 0 && max2_idx == 1) { //핑크 & 노랑
-
+            if(max2 > 0 && max2_idx == 1) { //두번째로 큰 감정이 Surprised이고 그 값이 0보다 클 때
+                // max1_index: 핑크 & max2_index: 노랑
                 img1.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
             }
-            else if(max2 > 0 && max2_idx == 2) { //핑크 & 연두색
+            else if(max2 > 0 && max2_idx == 2) { //두번째로 큰 감정이 Angry이고 그 값이 0보다 클 때
+                // max1_index: 핑크 & max2_index: 연두색
                 img1.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
             }
-            else if(max2 > 0 && max2_idx == 3){ //핑크 & 하늘색
+            else if(max2 > 0 && max2_idx == 3){ //두번째로 큰 감정이 Sad이고 그 값이 0보다 클 때
+                //max1_index: 핑크 & max2_index: 하늘색
                 img1.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
@@ -492,7 +476,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img5.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
 
             }
-            else if(max2 > 0 && max2_idx == 4){ //핑크 & 보라색
+            else if(max2 > 0 && max2_idx == 4){ //두번째로 큰 감정이 Soso이고 그 값이 0보다 클 때
+                // max1_index: 핑크 & max2_index: 보라색
                 img1.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
@@ -500,7 +485,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img5.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
 
             }
-            else {
+            else { //Happy 시크바만 선택되었을 때
                 img1.setColorFilter(Color.argb(max1 + 120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max1 + 120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max1 + 120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
@@ -509,24 +494,26 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
             }
         }
-        else if(max1_idx == 1)
+        else if(max1_idx == 1) //가장 큰 감정이 Surprised일 때
         {
-            if(max2 > 0 && max2_idx == 0) { //max1_index: 노랑 & max2_index: 핑크
-
+            if(max2 > 0 && max2_idx == 0) { //두번째로 큰 감정이 Happy이고 그 값이 0보다 클 때
+                // max1_index: 노랑 & max2_index: 핑크
                 img1.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 230, 140, 130), PorterDuff.Mode.SRC_IN);
             }
-            else if(max2 > 0 && max2_idx == 2) { //max1_index: 노랑 & max2_index: 연두
+            else if(max2 > 0 && max2_idx == 2) { //두번째로 큰 감정이 Angry이고 그 값이 0보다 클 때
+                // max1_index: 노랑 & max2_index: 연두
                 img1.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
             }
-            else if(max2 > 0 && max2_idx == 3){ //max1_index: 노랑 & max2_index: 하늘
+            else if(max2 > 0 && max2_idx == 3){ //두번째로 큰 감정이 Sad이고 그 값이 0보다 클 때
+                //max1_index: 노랑 & max2_index: 하늘
                 img1.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
@@ -534,7 +521,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img5.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
 
             }
-            else if(max2 > 0 && max2_idx == 4){ //max1_index: 노랑 & max2_index: 보라
+            else if(max2 > 0 && max2_idx == 4){ //두번째로 큰 감정이 Soso이고 그 값이 0보다 클 때
+                // max1_index: 노랑 & max2_index: 보라
                 img1.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
@@ -542,7 +530,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img5.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
 
             }
-            else {
+            else { //Surprised 시크바만 선택되었을 때
                 img1.setColorFilter(Color.argb(max1 + 120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max1 + 120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max1 + 120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
@@ -554,7 +542,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         }
         else if(max1_idx == 2)
         {
-            if(max2 > 0 && max2_idx == 0) { //max1_index: 연두 & max2_index: 핑크
+            if(max2 > 0 && max2_idx == 0) { //두번째로 큰 감정이 Happy이고 그 값이 0보다 클 때
+                // max1_index: 연두 & max2_index: 핑크
 
                 img1.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
@@ -562,14 +551,16 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img4.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 200, 189, 146), PorterDuff.Mode.SRC_IN);
             }
-            else if(max2 > 0 && max2_idx == 1) { //max1_index: 연두 & max2_index: 노랑
+            else if(max2 > 0 && max2_idx == 1) { //두번째로 큰 감정이 Surprised이고 그 값이 0보다 클 때
+                // max1_index: 연두 & max2_index: 노랑
                 img1.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 200, 230, 100), PorterDuff.Mode.SRC_IN);
             }
-            else if(max2 > 0 && max2_idx == 3){ //max1_index: 연두 & max2_index: 하늘
+            else if(max2 > 0 && max2_idx == 3){ //두번째로 큰 감정이 Sad이고 그 값이 0보다 클 때
+                // max1_index: 연두 & max2_index: 하늘
                 img1.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
@@ -577,7 +568,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img5.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
 
             }
-            else if(max2 > 0 && max2_idx == 4){ //max1_index: 연두 & max2_index: 보라
+            else if(max2 > 0 && max2_idx == 4){ //두번째로 큰 감정이 Soso이고 그 값이 0보다 클 때
+                // max1_index: 연두 & max2_index: 보라
                 img1.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
@@ -585,7 +577,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img5.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
 
             }
-            else {
+            else { //Angry 시크바만 선택되었을 때
                 img1.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max1+120, 147, 224, 117) , PorterDuff.Mode.SRC_IN);
@@ -596,21 +588,24 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
         }else if(max1_idx == 3)
         {
-            if(max2 > 0 && max2_idx == 0) { //max1_index: 하늘 & max2_index: 핑크
+            if(max2 > 0 && max2_idx == 0) { //두번째로 큰 감정이 Happy이고 그 값이 0보다 클 때
+                // max1_index: 하늘 & max2_index: 핑크
                 img1.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 168, 147, 214), PorterDuff.Mode.SRC_IN);
             }
-            else if(max2 > 0 && max2_idx == 1) { //max1_index: 하늘 & max2_index: 노랑
+            else if(max2 > 0 && max2_idx == 1) { //두번째로 큰 감정이 Surprised이고 그 값이 0보다 클 때
+                // max1_index: 하늘 & max2_index: 노랑
                 img1.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 155, 200, 168), PorterDuff.Mode.SRC_IN);
             }
-            else if(max2 > 0 && max2_idx == 2){ //max1_index: 하늘 & max2_index: 연두
+            else if(max2 > 0 && max2_idx == 2){ //두번째로 큰 감정이 Angry이고 그 값이 0보다 클 때
+                // max1_index: 하늘 & max2_index: 연두
                 img1.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
@@ -618,14 +613,15 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img5.setColorFilter(Color.argb(max2 + 120, 40, 200, 168), PorterDuff.Mode.SRC_IN);
 
             }
-            else if(max2 > 0 && max2_idx == 4){ //max1_index: 하늘 & max2_index: 보라
+            else if(max2 > 0 && max2_idx == 4){ //두번째로 큰 감정이 Soso이고 그 값이 0보다 클 때
+                // max1_index: 하늘 & max2_index: 보라
                 img1.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
             }
-            else {
+            else { //Sad 시크바만 선택되었을 때
                 img1.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max1+120, 117, 206, 250) , PorterDuff.Mode.SRC_IN);
@@ -636,21 +632,24 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
         }else if(max1_idx == 4)
         {
-            if(max2 > 0 && max2_idx == 0) { //max1_index: 보라 & max2_index: 핑크
+            if(max2 > 0 && max2_idx == 0) { //두번째로 큰 감정이 Happy이고 그 값이 0보다 클 때
+                // max1_index: 보라 & max2_index: 핑크
                 img1.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 232, 104, 214), PorterDuff.Mode.SRC_IN);
             }
-            else if(max2 > 0 && max2_idx == 1) { //max1_index: 보라 & max2_index: 노랑
+            else if(max2 > 0 && max2_idx == 1) { //두번째로 큰 감정이 Surprised이고 그 값이 0보다 클 때
+                // max1_index: 보라 & max2_index: 노랑
                 img1.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 227, 153, 177), PorterDuff.Mode.SRC_IN);
             }
-            else if(max2 > 0 && max2_idx == 2){ //max1_index: 보라 & max2_index: 연두
+            else if(max2 > 0 && max2_idx == 2){ //두번째로 큰 감정이 Angry이고 그 값이 0보다 클 때
+                // max1_index: 보라 & max2_index: 연두
                 img1.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
@@ -658,14 +657,15 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
                 img5.setColorFilter(Color.argb(max2 + 120, 170, 187, 177), PorterDuff.Mode.SRC_IN);
 
             }
-            else if(max2 > 0 && max2_idx == 3){ //max1_index: 보라 & max2_index: 하늘
+            else if(max2 > 0 && max2_idx == 3){ //두번째로 큰 감정이 Sad이고 그 값이 0보다 클 때
+                // max1_index: 보라 & max2_index: 하늘
                 img1.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
                 img4.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
                 img5.setColorFilter(Color.argb(max2 + 120, 90, 130, 250), PorterDuff.Mode.SRC_IN);
             }
-            else {
+            else { //Soso 시크바만 선택되었을 때
                 img1.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
                 img2.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
                 img3.setColorFilter(Color.argb(max1+120, 226, 159, 240) , PorterDuff.Mode.SRC_IN);
@@ -674,7 +674,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             }
 
         }
-        if(max1 == 0 && max2 == 0) // 모두 0이면 초기화
+        if(max1 == 0 && max2 == 0) // 모두 0이면 초기화 (아무 시크바도 선택되지 않았을 때)
         {
             img1.setColorFilter(null);
             img2.setColorFilter(null);
@@ -684,6 +684,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    //ViewFlipper 클릭 이벤트 핸들러
     public void onClick(View v) {
         if(v == prev) {
             flipper.showPrevious();
@@ -698,6 +699,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         textView_Date = (TextView)findViewById(R.id.textView_date);
     }
 
+    //Calendar
     public void InitializeListener()
     {
         callbackMethod = new DatePickerDialog.OnDateSetListener()
@@ -715,146 +717,74 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         DatePickerDialog dialog = new DatePickerDialog(this, callbackMethod, 2021, 4, 1);
         dialog.show();
     }
-    //Realtime Database에 byteString 형태로 꽃 이미지 업로드
+
+    //첫번째 디자인의 꽃 이미지에 대한 비트맵 생성 후 Uri 저장 (추후 addRecordMemo 화면으로 Uri 전달)
     public void UploadFlower1() {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imageRef = storageRef.child("images");
-        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        filename = mFirebaseUser.getUid() + "_" + timeStamp;
-        StorageReference fileRef = userRef.child(filename);
 
         img1.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(img1.getDrawingCache());
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] reviewImage = stream.toByteArray();
-        simage = byteArrayToBinaryString(reviewImage);
-//        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "simage", null);
+        uri_simage = Uri.parse(path);
 
-        //mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/surprised").child(filename).setValue(simage);
         startToast("꽃 이미지 저장");
     }
 
+    //두번째 디자인의 꽃 이미지에 대한 비트맵 생성 후 Uri 저장 (추후 addRecordMemo 화면으로 Uri 전달)
     public void UploadFlower2() {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imageRef = storageRef.child("images");
-        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        filename = mFirebaseUser.getUid() + "_" + timeStamp;
-        StorageReference fileRef = userRef.child(filename);
 
         img2.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(img2.getDrawingCache());
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] reviewImage = stream.toByteArray();
-        simage = byteArrayToBinaryString(reviewImage);
-        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "simage", null);
+        uri_simage = Uri.parse(path);
+
         startToast("꽃 이미지 저장");
     }
 
+    //세번째 디자인의 꽃 이미지에 대한 비트맵 생성 후 Uri 저장 (추후 addRecordMemo 화면으로 Uri 전달)
     public void UploadFlower3() {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imageRef = storageRef.child("images");
-        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        filename = mFirebaseUser.getUid() + "_" + timeStamp;
-        StorageReference fileRef = userRef.child(filename);
 
         img3.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(img3.getDrawingCache());
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] reviewImage = stream.toByteArray();
-        simage = byteArrayToBinaryString(reviewImage);
-        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "simage", null);
+        uri_simage = Uri.parse(path);
+
         startToast("꽃 이미지 저장");
     }
 
+    //네번째 디자인의 꽃 이미지에 대한 비트맵 생성 후 Uri 저장 (추후 addRecordMemo 화면으로 Uri 전달)
     public void UploadFlower4() {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imageRef = storageRef.child("images");
-        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        filename = mFirebaseUser.getUid() + "_" + timeStamp;
-        StorageReference fileRef = userRef.child(filename);
 
         img4.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(img4.getDrawingCache());
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] reviewImage = stream.toByteArray();
-        simage = byteArrayToBinaryString(reviewImage);
-        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "simage", null);
+        uri_simage = Uri.parse(path);
+
         startToast("꽃 이미지 저장");
     }
 
+    //다섯번째 디자인의 꽃 이미지에 대한 비트맵 생성 후 Uri 저장 (추후 addRecordMemo 화면으로 Uri 전달)
     public void UploadFlower5() {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imageRef = storageRef.child("images");
-        StorageReference userRef = imageRef.child(mFirebaseUser.getUid());
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        filename = mFirebaseUser.getUid() + "_" + timeStamp;
-        StorageReference fileRef = userRef.child(filename);
 
         img5.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(img5.getDrawingCache());
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] reviewImage = stream.toByteArray();
-        simage = byteArrayToBinaryString(reviewImage);
-        mFirebaseDataBase.getReference("flowerImages/").child(filename).setValue(simage);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "simage", null);
+        uri_simage = Uri.parse(path);
+
         startToast("꽃 이미지 저장");
     }
-
-
-    // 바이너리 바이트 배열을 스트링으로
-    public static String byteArrayToBinaryString(byte[] b) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < b.length; ++i) {
-            sb.append(byteToBinaryString(b[i]));
-        }
-        return sb.toString();
-    }
-
-    // 바이너리 바이트를 스트링으로
-    public static String byteToBinaryString(byte n) {
-        StringBuilder sb = new StringBuilder("00000000");
-        for (int bit = 0; bit < 8; bit++) {
-            if (((n >> bit) & 1) > 0) {
-                sb.setCharAt(7 - bit, '1');
-            }
-        }
-        return sb.toString();
-    }
-
-    // 스트링을 바이너리 바이트 배열로
-    public static byte[] binaryStringToByteArray(String s) {
-        int count = s.length() / 8;
-        byte[] b = new byte[count];
-        for (int i = 1; i < count; ++i) {
-            String t = s.substring((i - 1) * 8, i * 8);
-            b[i - 1] = binaryStringToByte(t);
-        }
-        return b;
-    }
-
-    // 스트링을 바이너리 바이트로
-    public static byte binaryStringToByte(String s) {
-        byte ret = 0, total = 0;
-        for (int i = 0; i < 8; ++i) {
-            ret = (s.charAt(7 - i) == '1') ? (byte) (1 << i) : 0;
-            total = (byte) (ret | total);
-        }
-        return total;
-    }
-
-
-
 }

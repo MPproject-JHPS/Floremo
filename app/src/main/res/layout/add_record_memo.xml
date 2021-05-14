@@ -64,6 +64,11 @@
             android:layout_marginBottom="24dp"
             android:src="@drawable/image" />
 
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+
         <EditText
             android:id="@+id/content"
             android:layout_width="match_parent"
