@@ -202,8 +202,8 @@ public class addRecordMemo extends AppCompatActivity {
         //업로드가 성공적으로 되면 images라는 폴더에 uid 폴더가 생성된다.
         //uid 폴더 안에 uid+날짜시간분초로 파일 이름이 생성된다.
         //UploadTask uploadTask = fileRef.putFile(selectedImageUri);
-        ImageList.add(uri_simage); //get(0)
-        ImageList.add(selectedImageUri); //get(1)
+//        ImageList.add(uri_simage); //get(0)
+//        ImageList.add(selectedImageUri); //get(1)
         //UploadTask uploadTask = fileRef.putFile(uri_simage);
 
 
@@ -215,8 +215,8 @@ public class addRecordMemo extends AppCompatActivity {
                 taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Uri downloadUrl = uri;
-                        memo.setFlowerImg(downloadUrl.toString());
+                        //Uri downloadUrl = uri;
+                        memo.setFlowerImg(uri_simage.toString());
                         //String key;
                         //받아온 감정에 따라서 분류해서 Realtime DB에 넣기
                         if (emotion == 0) {
@@ -281,85 +281,85 @@ public class addRecordMemo extends AppCompatActivity {
         String filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
 
-        image2.setImageURI(uri_simage);
+        //image2.setImageURI(uri_simage);
 
         //참조객체를 통해 이미지 파일 업로드하기
         //업로드가 성공적으로 되면 images라는 폴더에 uid 폴더가 생성된다.
         //uid 폴더 안에 uid+날짜시간분초로 파일 이름이 생성된다.
         //UploadTask uploadTask = fileRef.putFile(selectedImageUri);
-        ImageList.add(uri_simage); //get(0)
-        ImageList.add(selectedImageUri); //get(1)
+        //ImageList.add(uri_simage); //get(0)
+        //ImageList.add(selectedImageUri); //get(1)
         //UploadTask uploadTask = fileRef.putFile(uri_simage);
 
 
         //text+이미지 업로드
-            UploadTask uploadTask = fileRef.putFile(selectedImageUri);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            //Memo memo = new Memo();
-                            Uri downloadUrl = uri;
-                            //memo.setFlowerImg(downloadUrl.toString());
-                            memo.setImageUrl(downloadUrl.toString());
-                            String text = etContent.getText().toString();
-                            memo.setTxt(etContent.getText().toString());
-                            memo.setDate(date);
-                            //String key;
-                            //받아온 감정에 따라서 분류해서 Realtime DB에 넣기
-                            if (emotion == 0) {
-                                //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/happy").push().getKey();
-                                //memo.setKey(key);
-                                mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/happy").child(key).setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            } else if (emotion == 1) {
-                                //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/surprised").push().getKey();
-                                //memo.setKey(key);
-                                mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/surprised").child(key).setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            } else if (emotion == 2) {
-                                //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/angry").push().getKey();
-                                //memo.setKey(key);
-                                mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/angry").child(key).setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            } else if (emotion == 3) {
-                                //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/sad").push().getKey();
-                                //memo.setKey(key);
-                                mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/sad").child(key).setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            } else if (emotion == 4) {
-                                //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/soso").push().getKey();
-                                //memo.setKey(key);
-                                mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/soso").child(key).setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
-
+        UploadTask uploadTask = fileRef.putFile(selectedImageUri);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        //Memo memo = new Memo();
+                        Uri downloadUrl = uri;
+                        //memo.setFlowerImg(downloadUrl.toString());
+                        memo.setImageUrl(downloadUrl.toString());
+                        String text = etContent.getText().toString();
+                        memo.setTxt(etContent.getText().toString());
+                        memo.setDate(date);
+                        //String key;
+                        //받아온 감정에 따라서 분류해서 Realtime DB에 넣기
+                        if (emotion == 0) {
+                            //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/happy").push().getKey();
+                            //memo.setKey(key);
+                            mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/happy").child(key).setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        } else if (emotion == 1) {
+                            //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/surprised").push().getKey();
+                            //memo.setKey(key);
+                            mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/surprised").child(key).setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        } else if (emotion == 2) {
+                            //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/angry").push().getKey();
+                            //memo.setKey(key);
+                            mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/angry").child(key).setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        } else if (emotion == 3) {
+                            //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/sad").push().getKey();
+                            //memo.setKey(key);
+                            mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/sad").child(key).setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        } else if (emotion == 4) {
+                            //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/soso").push().getKey();
+                            //memo.setKey(key);
+                            mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/soso").child(key).setValue(memo).addOnSuccessListener(addRecordMemo.this, new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(addRecordMemo.this, "메모가 저장되었습니다.", Toast.LENGTH_LONG).show();
+                                }
+                            });
                         }
-                    });
-                }
-            });
+
+                    }
+                });
+            }
+        });
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
