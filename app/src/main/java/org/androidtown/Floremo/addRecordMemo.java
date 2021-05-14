@@ -292,7 +292,7 @@ public class addRecordMemo extends AppCompatActivity {
         //UploadTask uploadTask = fileRef.putFile(uri_simage);
 
 
-
+        //text+이미지 업로드
             UploadTask uploadTask = fileRef.putFile(selectedImageUri);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
