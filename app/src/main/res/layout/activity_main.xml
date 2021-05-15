@@ -99,7 +99,6 @@
                 android:textStyle="bold"
                 android:textSize="30dp"
                 android:gravity="center"
-                android:text="8 송이"
                 android:textColor="#39311F" />
 
         </RelativeLayout>

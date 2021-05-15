@@ -52,23 +52,6 @@
                 android:layout_marginLeft="148dp"
                 android:layout_marginTop="90dp" />
 
-
-
-            <Button
-                android:id="@+id/testBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="테스트예용"
-                android:layout_marginLeft="300dp"
-                android:layout_marginTop="90dp"/>
-
-            <ImageView
-                android:id="@+id/testImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="300dp"
-                android:layout_marginTop="190dp"/>
-
             <ImageButton
                 android:id="@+id/prev"
                 android:layout_width="wrap_content"
