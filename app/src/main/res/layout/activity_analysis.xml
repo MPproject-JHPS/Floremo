@@ -71,26 +71,26 @@
 
             <ImageView
                 android:id="@+id/aimg1"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:srcCompat="@drawable/analysis_flower" />
 
             <ImageView
                 android:id="@+id/aimg2"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:srcCompat="@drawable/analysis_flower" />
 
             <ImageView
                 android:id="@+id/aimg3"
-                android:layout_width="75dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:srcCompat="@drawable/analysis_flower" />
 
             <ImageView
                 android:id="@+id/aimg4"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:srcCompat="@drawable/analysis_flower" />
 
 
@@ -104,26 +104,26 @@
 
             <ImageView
                 android:id="@+id/aimg5"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:srcCompat="@drawable/analysis_flower" />
 
             <ImageView
                 android:id="@+id/aimg6"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:srcCompat="@drawable/analysis_flower" />
 
             <ImageView
                 android:id="@+id/aimg7"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:srcCompat="@drawable/analysis_flower" />
 
             <ImageView
                 android:id="@+id/aimg8"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:srcCompat="@drawable/analysis_flower" />
         </LinearLayout>
 
@@ -135,14 +135,14 @@
 
             <ImageView
                 android:id="@+id/aimg9"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:srcCompat="@drawable/analysis_flower" />
 
             <ImageView
                 android:id="@+id/aimg10"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:srcCompat="@drawable/analysis_flower" />
 
         </LinearLayout>
