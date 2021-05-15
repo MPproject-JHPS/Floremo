@@ -42,15 +42,9 @@ public class MainActivity extends AppCompatActivity {
     private long backBtnTime = 0; // 뒤로가기 버튼 누를 때 필요
     private long flower_number;
 
-<<<<<<< HEAD
-//    long total;
-//    int count_flag;
-=======
+
     long total;
     int count_flag;
->>>>>>> 8120076fc2219f29cd0724fc9c3dc573442b4ccb
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,42 +53,41 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
+        //count_flag = 1;
+        //기록한 꽃의 개수 세기
 
-//        //count_flag = 1;
-//        //기록한 꽃의 개수 세기
-//
-//        //if(count_flag ==1) {
-//        TextView count_flower = findViewById(R.id.myImageViewText);
-//        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-//        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
-//        DatabaseReference angry = ref.child("angry");
-//        DatabaseReference happy = ref.child("happy");
-//        DatabaseReference sad = ref.child("sad");
-//        DatabaseReference surprised = ref.child("surprised");
-//        DatabaseReference soso = ref.child("soso");
-//
-//
-//        total = 0;
-//        ValueEventListener valueEventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                long count = dataSnapshot.getChildrenCount();
-//                Log.d("TAG", "count= " + count);
-//                total = total + count;
-//                Log.d("TAG", "total= " + total);
-//                count_flower.setText(total + " 송이");
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//
-//        };
-//        happy.addListenerForSingleValueEvent(valueEventListener);
-//        surprised.addListenerForSingleValueEvent(valueEventListener);
-//        angry.addListenerForSingleValueEvent(valueEventListener);
-//        sad.addListenerForSingleValueEvent(valueEventListener);
-//        soso.addListenerForSingleValueEvent(valueEventListener);
+        //if(count_flag ==1) {
+        TextView count_flower = findViewById(R.id.myImageViewText);
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
+        DatabaseReference angry = ref.child("angry");
+        DatabaseReference happy = ref.child("happy");
+        DatabaseReference sad = ref.child("sad");
+        DatabaseReference surprised = ref.child("surprised");
+        DatabaseReference soso = ref.child("soso");
+
+
+        total = 0;
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long count = dataSnapshot.getChildrenCount();
+                Log.d("TAG", "count= " + count);
+                total = total + count;
+                Log.d("TAG", "total= " + total);
+                count_flower.setText(total + " 송이");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        };
+        happy.addListenerForSingleValueEvent(valueEventListener);
+        surprised.addListenerForSingleValueEvent(valueEventListener);
+        angry.addListenerForSingleValueEvent(valueEventListener);
+        sad.addListenerForSingleValueEvent(valueEventListener);
+        soso.addListenerForSingleValueEvent(valueEventListener);
 //        // count_flag = 2;
 //
 //        //Log.d("TAG", "total= " + total); //출력 안됨
@@ -318,43 +311,42 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        //if (count_flag == 2) {
-//        TextView count_flower = findViewById(R.id.myImageViewText);
-//        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-//        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
-//        DatabaseReference angry = ref.child("angry");
-//        DatabaseReference happy = ref.child("happy");
-//        DatabaseReference sad = ref.child("sad");
-//        DatabaseReference surprised = ref.child("surprised");
-//        DatabaseReference soso = ref.child("soso");
-//
-//
-//        total = 0;
-//        ValueEventListener valueEventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                long count = dataSnapshot.getChildrenCount();
-//                Log.d("TAG", "count= " + count);
-//                total = total + count;
-//                Log.d("TAG", "total= " + total);
-//                count_flower.setText(total + " 송이");
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//
-//        };
-//        happy.addListenerForSingleValueEvent(valueEventListener);
-//        surprised.addListenerForSingleValueEvent(valueEventListener);
-//        angry.addListenerForSingleValueEvent(valueEventListener);
-//        sad.addListenerForSingleValueEvent(valueEventListener);
-//        soso.addListenerForSingleValueEvent(valueEventListener);
-//
-//    }
-//    // }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //if (count_flag == 2) {
+        TextView count_flower = findViewById(R.id.myImageViewText);
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
+        DatabaseReference angry = ref.child("angry");
+        DatabaseReference happy = ref.child("happy");
+        DatabaseReference sad = ref.child("sad");
+        DatabaseReference surprised = ref.child("surprised");
+        DatabaseReference soso = ref.child("soso");
+
+
+        total = 0;
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long count = dataSnapshot.getChildrenCount();
+                Log.d("TAG", "count= " + count);
+                total = total + count;
+                Log.d("TAG", "total= " + total);
+                count_flower.setText(total + " 송이");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        };
+        happy.addListenerForSingleValueEvent(valueEventListener);
+        surprised.addListenerForSingleValueEvent(valueEventListener);
+        angry.addListenerForSingleValueEvent(valueEventListener);
+        sad.addListenerForSingleValueEvent(valueEventListener);
+        soso.addListenerForSingleValueEvent(valueEventListener);
+
+    }
 }

@@ -727,8 +727,9 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "simage", null);
-        uri_simage = Uri.parse(path);
-
+        if(path!=null) {
+            uri_simage = Uri.parse(path);
+        }
         startToast("꽃 이미지 저장");
     }
 

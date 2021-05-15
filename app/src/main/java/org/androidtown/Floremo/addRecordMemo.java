@@ -88,7 +88,6 @@ public class addRecordMemo extends AppCompatActivity {
             date = myBundle.getString("date");
             emotion = myBundle.getInt("emotion"); //happy, sad, ---
             uri_simage = passedIntent.getParcelableExtra("uri_simage"); //Recording 화면에서 전달한 꽃이미지에 대한 Uri 받음
-            Log.d(TAG, uri_simage.toString());
             textDate.setText(date);
         }
 
