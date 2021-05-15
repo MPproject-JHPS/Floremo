@@ -300,14 +300,12 @@ public class addRecordMemo extends AppCompatActivity {
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            //Memo memo = new Memo();
                             Uri downloadUrl = uri;
-                            //memo.setFlowerImg(downloadUrl.toString());
                             memo.setImageUrl(downloadUrl.toString());
                             String text = etContent.getText().toString();
                             memo.setTxt(etContent.getText().toString());
                             memo.setDate(date);
-                            //String key;
+
                             //받아온 감정에 따라서 분류해서 Realtime DB에 넣기
                             if (emotion == 0) {
                                 //key = mFirebaseDataBase.getReference(mFirebaseUser.getUid() + "/memos/happy").push().getKey();
