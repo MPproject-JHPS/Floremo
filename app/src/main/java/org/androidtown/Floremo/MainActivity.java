@@ -26,6 +26,11 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.security.MessageDigest;
 
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private View drawerView;
     private long backBtnTime = 0; // 뒤로가기 버튼 누를 때 필요
+    private long flower_number = 0;
+    private long count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
+
+
+        //기록한 꽃의 개수 세기
+
+        TextView count_flower = findViewById(R.id.myImageViewText);
+//        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
+//        DatabaseReference angry = ref.child("angry");
+//        DatabaseReference happy = ref.child("happy");
+//        DatabaseReference sad = ref.child("sad");
+//        DatabaseReference surprised = ref.child("surprised");
+//        DatabaseReference soso = ref.child("soso");
+//
+//        long flower_number = 0;
+//        long number = number_of_flower(angry, happy, surprised, sad, soso);
+//        Log.d("TAG", "total2= " + flower_number);
+//        String cnt_flower = number + " 송이";
+//        count_flower.setText(cnt_flower);
 
         //로딩화면 열기
         Intent intent = new Intent(this, LoadingActivity.class);
@@ -69,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                     userName.setText(name);
                     userName2.setText(name);
                     userEmail.setText(email);
-
                 }
             }
         }
@@ -258,4 +282,26 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+//    public long number_of_flower(DatabaseReference angry, DatabaseReference happy, DatabaseReference surprised, DatabaseReference sad, DatabaseReference soso){
+//        ValueEventListener valueEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                count = dataSnapshot.getChildrenCount();
+//                flower_number += count;
+//                Log.d("TAG", "count= " + count);
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {}
+//        };
+//        happy.addListenerForSingleValueEvent(valueEventListener);
+//        surprised.addListenerForSingleValueEvent(valueEventListener);
+//        angry.addListenerForSingleValueEvent(valueEventListener);
+//        sad.addListenerForSingleValueEvent(valueEventListener);
+//        soso.addListenerForSingleValueEvent(valueEventListener);
+//        long number = flower_number;
+//        Log.d("TAG", "total= " + count);
+//        //String cnt_flower = flower_number + " 송이";
+//        //count_flower.setText(cnt_flower);
+//        return flower_number;
+//    }
 }
