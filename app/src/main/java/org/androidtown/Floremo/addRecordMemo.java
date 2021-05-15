@@ -94,6 +94,8 @@ public class addRecordMemo extends AppCompatActivity {
 
         image2 = findViewById(R.id.image2); //꽃이미지 띄우는 ImageView --> width:0, height:0으로 설정하여 보이지 않게 처리하였음.
 
+        image2.setImageURI(uri_simage);
+
         image = findViewById(R.id.image);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,7 +198,6 @@ public class addRecordMemo extends AppCompatActivity {
         String filename = mFirebaseUser.getUid() + "_" + timeStamp + "flower";
         StorageReference fileRef = userRef.child(filename);
 
-        image2.setImageURI(uri_simage);
 
         //참조객체를 통해 이미지 파일 업로드하기
         //업로드가 성공적으로 되면 images라는 폴더에 uid 폴더가 생성된다.

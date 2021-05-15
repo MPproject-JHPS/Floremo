@@ -55,51 +55,7 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
 
-//        //count_flag = 1;
-//        //기록한 꽃의 개수 세기
-//
-//        //if(count_flag ==1) {
-//        TextView count_flower = findViewById(R.id.myImageViewText);
-//        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-//        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
-//        DatabaseReference angry = ref.child("angry");
-//        DatabaseReference happy = ref.child("happy");
-//        DatabaseReference sad = ref.child("sad");
-//        DatabaseReference surprised = ref.child("surprised");
-//        DatabaseReference soso = ref.child("soso");
-//
-//
-//        total = 0;
-//        ValueEventListener valueEventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                long count = dataSnapshot.getChildrenCount();
-//                Log.d("TAG", "count= " + count);
-//                total = total + count;
-//                Log.d("TAG", "total= " + total);
-//                count_flower.setText(total + " 송이");
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//
-//        };
-//        happy.addListenerForSingleValueEvent(valueEventListener);
-//        surprised.addListenerForSingleValueEvent(valueEventListener);
-//        angry.addListenerForSingleValueEvent(valueEventListener);
-//        sad.addListenerForSingleValueEvent(valueEventListener);
-//        soso.addListenerForSingleValueEvent(valueEventListener);
-//        // count_flag = 2;
-//
-//        //Log.d("TAG", "total= " + total); //출력 안됨
-//
-//        //count_flower.setText(total + " 송이");
-////
-////            Log.d("TAG", "total= " + flower_number);
-////            String cnt_flower = flower_number + " 송이";
-////            count_flower.setText(cnt_flower);
-//        //  }
+
 
         //로딩화면 열기
         Intent intent = new Intent(this, LoadingActivity.class);
@@ -118,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         }else { //현재 로그인 되어 있다면
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
+
+                countTotalFlower();
                 for (UserInfo profile : user.getProviderData()) {
                     // 사용자 이름 가져오기
                     String name = profile.getDisplayName();
@@ -313,43 +271,98 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
+    public void countTotalFlower()
+    {
+
+        //count_flag = 1;
+        //기록한 꽃의 개수 세기
+
+        //if(count_flag ==1) {
+        TextView count_flower = findViewById(R.id.myImageViewText);
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
+        DatabaseReference angry = ref.child("angry");
+        DatabaseReference happy = ref.child("happy");
+        DatabaseReference sad = ref.child("sad");
+        DatabaseReference surprised = ref.child("surprised");
+        DatabaseReference soso = ref.child("soso");
+
+
+        total = 0;
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long count = dataSnapshot.getChildrenCount();
+                Log.d("TAG", "count= " + count);
+                total = total + count;
+                Log.d("TAG", "total= " + total);
+                count_flower.setText(total + " 송이");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        };
+        happy.addListenerForSingleValueEvent(valueEventListener);
+        surprised.addListenerForSingleValueEvent(valueEventListener);
+        angry.addListenerForSingleValueEvent(valueEventListener);
+        sad.addListenerForSingleValueEvent(valueEventListener);
+        soso.addListenerForSingleValueEvent(valueEventListener);
+        // count_flag = 2;
+
+        //Log.d("TAG", "total= " + total); //출력 안됨
+
+        //count_flower.setText(total + " 송이");
 //
-//        //if (count_flag == 2) {
-//        TextView count_flower = findViewById(R.id.myImageViewText);
-//        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-//        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
-//        DatabaseReference angry = ref.child("angry");
-//        DatabaseReference happy = ref.child("happy");
-//        DatabaseReference sad = ref.child("sad");
-//        DatabaseReference surprised = ref.child("surprised");
-//        DatabaseReference soso = ref.child("soso");
-//
-//
-//        total = 0;
-//        ValueEventListener valueEventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                long count = dataSnapshot.getChildrenCount();
-//                Log.d("TAG", "count= " + count);
-//                total = total + count;
-//                Log.d("TAG", "total= " + total);
-//                count_flower.setText(total + " 송이");
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//
-//        };
-//        happy.addListenerForSingleValueEvent(valueEventListener);
-//        surprised.addListenerForSingleValueEvent(valueEventListener);
-//        angry.addListenerForSingleValueEvent(valueEventListener);
-//        sad.addListenerForSingleValueEvent(valueEventListener);
-//        soso.addListenerForSingleValueEvent(valueEventListener);
-//
-//    }
-//    // }
+//            Log.d("TAG", "total= " + flower_number);
+//            String cnt_flower = flower_number + " 송이";
+//            count_flower.setText(cnt_flower);
+        //  }
+
+
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //if (count_flag == 2) {
+        TextView count_flower = findViewById(R.id.myImageViewText);
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
+        DatabaseReference angry = ref.child("angry");
+        DatabaseReference happy = ref.child("happy");
+        DatabaseReference sad = ref.child("sad");
+        DatabaseReference surprised = ref.child("surprised");
+        DatabaseReference soso = ref.child("soso");
+
+
+        total = 0;
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long count = dataSnapshot.getChildrenCount();
+                Log.d("TAG", "count= " + count);
+                total = total + count;
+                Log.d("TAG", "total= " + total);
+                count_flower.setText(total + " 송이");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        };
+        happy.addListenerForSingleValueEvent(valueEventListener);
+        surprised.addListenerForSingleValueEvent(valueEventListener);
+        angry.addListenerForSingleValueEvent(valueEventListener);
+        sad.addListenerForSingleValueEvent(valueEventListener);
+        soso.addListenerForSingleValueEvent(valueEventListener);
+
+    }
+    // }
 }
