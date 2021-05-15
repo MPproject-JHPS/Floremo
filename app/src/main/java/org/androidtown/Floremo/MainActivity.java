@@ -40,8 +40,10 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private View drawerView;
     private long backBtnTime = 0; // 뒤로가기 버튼 누를 때 필요
+    private long flower_number;
 
     long total;
+    int count_flag;
 
 
     @Override
@@ -53,38 +55,51 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
 
-        //기록한 꽃의 개수 세기
-        TextView count_flower = findViewById(R.id.myImageViewText);
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
-        DatabaseReference angry = ref.child("angry");
-        DatabaseReference happy = ref.child("happy");
-        DatabaseReference sad = ref.child("sad");
-        DatabaseReference surprised = ref.child("surprised");
-        DatabaseReference soso = ref.child("soso");
-
-        total = 0;
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                long count = dataSnapshot.getChildrenCount();
-                Log.d("TAG", "count= " + count);
-                total = total + count;
-                Log.d("TAG", "total= " + total);
-                count_flower.setText(total + " 송이");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        };
-        happy.addListenerForSingleValueEvent(valueEventListener);
-        surprised.addListenerForSingleValueEvent(valueEventListener);
-        angry.addListenerForSingleValueEvent(valueEventListener);
-        sad.addListenerForSingleValueEvent(valueEventListener);
-        soso.addListenerForSingleValueEvent(valueEventListener);
-
+//        //count_flag = 1;
+//        //기록한 꽃의 개수 세기
+//
+//        //if(count_flag ==1) {
+//        TextView count_flower = findViewById(R.id.myImageViewText);
+//        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
+//        DatabaseReference angry = ref.child("angry");
+//        DatabaseReference happy = ref.child("happy");
+//        DatabaseReference sad = ref.child("sad");
+//        DatabaseReference surprised = ref.child("surprised");
+//        DatabaseReference soso = ref.child("soso");
+//
+//
+//        total = 0;
+//        ValueEventListener valueEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                long count = dataSnapshot.getChildrenCount();
+//                Log.d("TAG", "count= " + count);
+//                total = total + count;
+//                Log.d("TAG", "total= " + total);
+//                count_flower.setText(total + " 송이");
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//
+//        };
+//        happy.addListenerForSingleValueEvent(valueEventListener);
+//        surprised.addListenerForSingleValueEvent(valueEventListener);
+//        angry.addListenerForSingleValueEvent(valueEventListener);
+//        sad.addListenerForSingleValueEvent(valueEventListener);
+//        soso.addListenerForSingleValueEvent(valueEventListener);
+//        // count_flag = 2;
+//
+//        //Log.d("TAG", "total= " + total); //출력 안됨
+//
+//        //count_flower.setText(total + " 송이");
+////
+////            Log.d("TAG", "total= " + flower_number);
+////            String cnt_flower = flower_number + " 송이";
+////            count_flower.setText(cnt_flower);
+//        //  }
 
         //로딩화면 열기
         Intent intent = new Intent(this, LoadingActivity.class);
@@ -100,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         if (FirebaseAuth.getInstance().getCurrentUser() == null) //현재 로그인된 유저가 있는지 확인
         {
             startJoinActivity(); //로그인이 안되어 있으면 회원가입 화면으로 이동
-        } else { //현재 로그인 되어 있다면
+        }else { //현재 로그인 되어 있다면
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
                 for (UserInfo profile : user.getProviderData()) {
@@ -115,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        if (mFirebaseUser == null) {//null인 경우엔 보고있는 해당 창을 닫고 login activity를 열도록 한다.
+        if(mFirebaseUser == null){//null인 경우엔 보고있는 해당 창을 닫고 login activity를 열도록 한다.
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
             return;
@@ -164,45 +179,45 @@ public class MainActivity extends AppCompatActivity {
         ImageButton img_btn4 = (ImageButton) findViewById(R.id.emotion_vase4);
         ImageButton img_btn5 = (ImageButton) findViewById(R.id.emotion_vase5);
 
-        img_btn1.setOnClickListener(new View.OnClickListener() {
+        img_btn1.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), ShowRecord.class);
                 intent.putExtra("selected_flower", 1);
                 startActivity(intent);
             }
         });
 
-        img_btn2.setOnClickListener(new View.OnClickListener() {
+        img_btn2.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), ShowRecord.class);
                 intent.putExtra("selected_flower", 2);
                 startActivity(intent);
             }
         });
 
-        img_btn3.setOnClickListener(new View.OnClickListener() {
+        img_btn3.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), ShowRecord.class);
-                intent.putExtra("selected_flower", 3);
+                intent.putExtra("selected_flower" ,3);
                 startActivity(intent);
             }
         });
 
-        img_btn4.setOnClickListener(new View.OnClickListener() {
+        img_btn4.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), ShowRecord.class);
                 intent.putExtra("selected_flower", 4);
                 startActivity(intent);
             }
         });
 
-        img_btn5.setOnClickListener(new View.OnClickListener() {
+        img_btn5.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), ShowRecord.class);
                 intent.putExtra("selected_flower", 5);
                 startActivity(intent);
@@ -212,9 +227,9 @@ public class MainActivity extends AppCompatActivity {
 
         //감정 추가하기
         ImageButton recordingButton = (ImageButton) findViewById(R.id.recordingButton);
-        recordingButton.setOnClickListener(new View.OnClickListener() {
+        recordingButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), Recording.class);
                 startActivity(intent);
             }
@@ -248,10 +263,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
 
+
     //해당 동작을 할 때 상태값을 받아 커스터마이징 할 수 있음
+
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -279,52 +297,59 @@ public class MainActivity extends AppCompatActivity {
         long curTime = System.currentTimeMillis();
         long gapTime = curTime - backBtnTime;
 
-        if (0 <= gapTime && 2000 >= gapTime) {
+        if(0 <= gapTime && 2000 >= gapTime) {
             super.onBackPressed();
-        } else {
+        }
+        else {
             backBtnTime = curTime;
-            Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void startJoinActivity() {
+    private void startJoinActivity()
+    {
         Intent intent = new Intent(this, JoinActivity.class);
         startActivity(intent);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        TextView count_flower = findViewById(R.id.myImageViewText);
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
-        DatabaseReference angry = ref.child("angry");
-        DatabaseReference happy = ref.child("happy");
-        DatabaseReference sad = ref.child("sad");
-        DatabaseReference surprised = ref.child("surprised");
-        DatabaseReference soso = ref.child("soso");
-
-        total = 0;
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                long count = dataSnapshot.getChildrenCount();
-                Log.d("TAG", "count= " + count);
-                total = total + count;
-                Log.d("TAG", "total= " + total);
-                count_flower.setText(total + " 송이");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        };
-        happy.addListenerForSingleValueEvent(valueEventListener);
-        surprised.addListenerForSingleValueEvent(valueEventListener);
-        angry.addListenerForSingleValueEvent(valueEventListener);
-        sad.addListenerForSingleValueEvent(valueEventListener);
-        soso.addListenerForSingleValueEvent(valueEventListener);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        //if (count_flag == 2) {
+//        TextView count_flower = findViewById(R.id.myImageViewText);
+//        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
+//        DatabaseReference angry = ref.child("angry");
+//        DatabaseReference happy = ref.child("happy");
+//        DatabaseReference sad = ref.child("sad");
+//        DatabaseReference surprised = ref.child("surprised");
+//        DatabaseReference soso = ref.child("soso");
+//
+//
+//        total = 0;
+//        ValueEventListener valueEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                long count = dataSnapshot.getChildrenCount();
+//                Log.d("TAG", "count= " + count);
+//                total = total + count;
+//                Log.d("TAG", "total= " + total);
+//                count_flower.setText(total + " 송이");
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//
+//        };
+//        happy.addListenerForSingleValueEvent(valueEventListener);
+//        surprised.addListenerForSingleValueEvent(valueEventListener);
+//        angry.addListenerForSingleValueEvent(valueEventListener);
+//        sad.addListenerForSingleValueEvent(valueEventListener);
+//        soso.addListenerForSingleValueEvent(valueEventListener);
+//
+//    }
+//    // }
 }
