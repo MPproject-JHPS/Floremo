@@ -42,8 +42,13 @@ public class MainActivity extends AppCompatActivity {
     private long backBtnTime = 0; // 뒤로가기 버튼 누를 때 필요
     private long flower_number;
 
+<<<<<<< HEAD
 //    long total;
 //    int count_flag;
+=======
+    long total;
+    int count_flag;
+>>>>>>> 8120076fc2219f29cd0724fc9c3dc573442b4ccb
 
 
     @Override
