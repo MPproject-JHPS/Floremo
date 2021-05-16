@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private long flower_number;
 
     long total;
-    int count_flag;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
-
-
 
         //로딩화면 열기
         Intent intent = new Intent(this, LoadingActivity.class);
@@ -74,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
         }else { //현재 로그인 되어 있다면
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
-
-                countTotalFlower();
+                countTotalFlower(); //로그인이 되어있을 때, countTotalFlower
                 for (UserInfo profile : user.getProviderData()) {
                     // 사용자 이름 가져오기
                     String name = profile.getDisplayName();
@@ -225,9 +220,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     //해당 동작을 할 때 상태값을 받아 커스터마이징 할 수 있음
-
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -271,13 +264,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //기록한 꽃의 개수 세기
     public void countTotalFlower()
     {
-
-        //count_flag = 1;
-        //기록한 꽃의 개수 세기
-
-        //if(count_flag ==1) {
         TextView count_flower = findViewById(R.id.myImageViewText);
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
@@ -309,60 +298,13 @@ public class MainActivity extends AppCompatActivity {
         angry.addListenerForSingleValueEvent(valueEventListener);
         sad.addListenerForSingleValueEvent(valueEventListener);
         soso.addListenerForSingleValueEvent(valueEventListener);
-        // count_flag = 2;
-
-        //Log.d("TAG", "total= " + total); //출력 안됨
-
-        //count_flower.setText(total + " 송이");
-//
-//            Log.d("TAG", "total= " + flower_number);
-//            String cnt_flower = flower_number + " 송이";
-//            count_flower.setText(cnt_flower);
-        //  }
-
-
-
-
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        //if (count_flag == 2) {
-        TextView count_flower = findViewById(R.id.myImageViewText);
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = rootRef.child(mFirebaseUser.getUid()).child("memos");
-        DatabaseReference angry = ref.child("angry");
-        DatabaseReference happy = ref.child("happy");
-        DatabaseReference sad = ref.child("sad");
-        DatabaseReference surprised = ref.child("surprised");
-        DatabaseReference soso = ref.child("soso");
-
-
-        total = 0;
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                long count = dataSnapshot.getChildrenCount();
-                Log.d("TAG", "count= " + count);
-                total = total + count;
-                Log.d("TAG", "total= " + total);
-                count_flower.setText(total + " 송이");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        };
-        happy.addListenerForSingleValueEvent(valueEventListener);
-        surprised.addListenerForSingleValueEvent(valueEventListener);
-        angry.addListenerForSingleValueEvent(valueEventListener);
-        sad.addListenerForSingleValueEvent(valueEventListener);
-        soso.addListenerForSingleValueEvent(valueEventListener);
-
+        //다른 액티비티에서 메인 액티비티 돌아와서 재생될 때, 메인화면에 총 꽃개수 다시 체크해서 띄워줌
+        countTotalFlower();
     }
-    // }
 }

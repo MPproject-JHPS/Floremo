@@ -707,7 +707,7 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
             {
-                textView_Date.setText(year + "년 " + (monthOfYear+1) + "월 " + dayOfMonth + "일");
+                textView_Date.setText(" " + year + "년 " + (monthOfYear+1) + "월 " + dayOfMonth + "일");
             }
         };
     }
