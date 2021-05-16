@@ -4,7 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -38,9 +43,13 @@ public class AnalysisActivity extends AppCompatActivity {
             "9","10","11","12"};
     String year;
     String month;
-    int happy_cnt=0, surp_cnt=0, ang_cnt=0, sad_cnt=0, soso_cnt=0;
+    int happy_cnt, surp_cnt, ang_cnt, sad_cnt, soso_cnt;
     int happy, surp, ang, sad, soso, sum;
+    int[] p = {0,0,0,0,0}; //각각의 감정 개수를 받아오는 array 변수
+    int max = 0;
+
     ImageView imgView[] = new ImageView[10];
+    SharedPreferences s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,11 +128,11 @@ public class AnalysisActivity extends AppCompatActivity {
         imgView[8] = i9;
         imgView[9] = i10;
 
+
         Button btn_search = findViewById(R.id.btn_search);
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 happy = 0;
                 surp = 0;
                 ang = 0;
@@ -161,6 +170,12 @@ public class AnalysisActivity extends AppCompatActivity {
                         }
                         happy = happy_cnt;
                         Log.w("FireBaseData", "happy count" + happy_cnt);
+                        p[0] = happy_cnt;
+                        p[1] = surp_cnt;
+                        p[2] = ang_cnt;
+                        p[3] = sad_cnt;
+                        p[4] = soso_cnt;
+                        findMaxValue();
 
                     }
 
@@ -198,7 +213,12 @@ public class AnalysisActivity extends AppCompatActivity {
                         }
                         surp = surp_cnt;
                         Log.w("FireBaseData", "surp count" + surp_cnt);
-
+                        p[0] = happy_cnt;
+                        p[1] = surp_cnt;
+                        p[2] = ang_cnt;
+                        p[3] = sad_cnt;
+                        p[4] = soso_cnt;
+                        findMaxValue();
                     }
 
                     @Override
@@ -232,8 +252,13 @@ public class AnalysisActivity extends AppCompatActivity {
                                 }
                             }
                         } ang = ang_cnt;
-                        Log.w("FireBaseData", "angry count" + ang_cnt);
-
+                        Log.w("FireBaseData", "ang count" + ang_cnt);
+                        p[0] = happy_cnt;
+                        p[1] = surp_cnt;
+                        p[2] = ang_cnt;
+                        p[3] = sad_cnt;
+                        p[4] = soso_cnt;
+                        findMaxValue();
                     }
 
 
@@ -269,7 +294,12 @@ public class AnalysisActivity extends AppCompatActivity {
                             }
                         }sad = sad_cnt;
                         Log.w("FireBaseData", "sad count" + sad_cnt);
-
+                        p[0] = happy_cnt;
+                        p[1] = surp_cnt;
+                        p[2] = ang_cnt;
+                        p[3] = sad_cnt;
+                        p[4] = soso_cnt;
+                        findMaxValue();
                     }
 
 
@@ -303,9 +333,14 @@ public class AnalysisActivity extends AppCompatActivity {
                             soso_cnt++;
                         }
                     }
-                }soso = soso_cnt;
+                } soso = soso_cnt;
                 Log.w("FireBaseData", "soso count" + soso_cnt);
-
+                p[0] = happy_cnt;
+                p[1] = surp_cnt;
+                p[2] = ang_cnt;
+                p[3] = sad_cnt;
+                p[4] = soso_cnt;
+                findMaxValue();
             }
 
 
@@ -315,57 +350,109 @@ public class AnalysisActivity extends AppCompatActivity {
                 Log.w("Analysis", String.valueOf(error.toException())); //에러문 출력
             }
         });
-                Log.w("FireBaseData", "happy" + happy);
-                Log.w("FireBaseData", "surp " + surp);
-                Log.w("FireBaseData", "ang " + ang);
-                Log.w("FireBaseData", "sad " + sad);
-                Log.w("FireBaseData", "soso " + soso);
-                Integer[] arr = {happy, surp, ang, sad, soso};
-                int max = arr[0];
-
-                for (int i = 0; i < arr.length; i++) {
-
-                    if (max < arr[i]) {
-                        max = arr[i];
-                    }
-                }
-
-                TextView comment = findViewById(R.id.comment);
-                if(happy == max )
-                {
-                    comment.setText("이번 달은 기쁜 일이 많았네요");
-                }
-                if(surp == max )
-                {
-                    comment.setText("이번 달은 놀라운 일이 많았네요");
-                }
-                if(ang == max )
-                {
-                    comment.setText("이번 달은 화난 일이 많았네요");
-                }
-                if(sad == max )
-                {
-                    comment.setText("이번 달은 슬픈 일이 많았네요");
-                }
-                if(soso == max )
-                {
-                    comment.setText("이번 달은 그저그런 일이 많았네요");
-                }
-
-                // 프로그래스 바 옆에 기록 개수
-                TextView n1 = findViewById(R.id.num1);
-                n1.setText(String.valueOf(happy));
-                TextView n2 = findViewById(R.id.num2);
-                n2.setText(String.valueOf(surp));
-                TextView n3 = findViewById(R.id.num3);
-                n3.setText(String.valueOf(ang));
-                TextView n4 = findViewById(R.id.num4);
-                n4.setText(String.valueOf(sad));
-                TextView n5 = findViewById(R.id.num5);
-                n5.setText(String.valueOf(soso));
 
     }
         });
+
+    }
+
+    private void findMaxValue() {
+         max = p[0];
+
+        for (int i = 0; i < p.length; i++) {
+
+            if (max < p[i]) {
+                max = p[i];
+            }
+        }
+        happy = p[0];
+        surp = p[1];
+        ang = p[2];
+        sad = p[3];
+        soso = p[4];
+        sum = p[0] + p[1] + p[2] + p[3] + p[4];
+        Log.w("FireBaseData", "max " + max);
+
+        TextView comment = findViewById(R.id.comment);
+        if(p[0] == max )
+        {
+            comment.setText("이번 달은 기쁜 일이 많았네요");
+        }
+        if(p[1] == max )
+        {
+            comment.setText("이번 달은 놀라운 일이 많았네요");
+        }
+        if(p[2] == max )
+        {
+            comment.setText("이번 달은 화난 일이 많았네요");
+        }
+        if(p[3] == max )
+        {
+            comment.setText("이번 달은 슬픈 일이 많았네요");
+        }
+        if(p[4] == max )
+        {
+            comment.setText("이번 달은 그저그런 일이 많았네요");
+        }
+
+        // 프로그래스 바 옆에 기록 개수
+        TextView n1 = findViewById(R.id.num1);
+        n1.setText(String.valueOf(p[0]));
+        TextView n2 = findViewById(R.id.num2);
+        n2.setText(String.valueOf(p[1]));
+        TextView n3 = findViewById(R.id.num3);
+        n3.setText(String.valueOf(p[2]));
+        TextView n4 = findViewById(R.id.num4);
+        n4.setText(String.valueOf(p[3]));
+        TextView n5 = findViewById(R.id.num5);
+        n5.setText(String.valueOf(p[4]));
+
+        double happy1 =  ((double)p[0]/(double)sum)*100;
+        double surp1 =  ((double)p[1]/(double)sum)*100;
+        double ang1 =  ((double)p[2]/(double)sum)*100;
+        double sad1 =  ((double)p[3]/(double)sum)*100;
+        double soso1 =  ((double)p[4]/(double)sum)*100;
+
+        happy = Integer.parseInt(String.valueOf(Math.round(happy1)));
+        surp = Integer.parseInt(String.valueOf(Math.round(surp1)));
+        ang = Integer.parseInt(String.valueOf(Math.round(ang1)));
+        sad = Integer.parseInt(String.valueOf(Math.round(sad1)));
+        soso = Integer.parseInt(String.valueOf(Math.round(soso1)));
+
+        ProgressBar p1 = findViewById(R.id.progBar1);
+        p1.setProgress(happy);
+        //n1.setText(String.valueOf(happy));
+
+        ProgressBar p2 = findViewById(R.id.progBar2);
+        p2.setProgress(surp);
+
+        ProgressBar p3 = findViewById(R.id.progBar3);
+        p3.setProgress(ang);
+
+        ProgressBar p4 = findViewById(R.id.progBar4);
+        p4.setProgress(sad);
+
+        ProgressBar p5 = findViewById(R.id.progBar5);
+        p5.setProgress(soso);
+
+        int i = 0;
+        for (i = 0; i < p[0]; i++) {
+            imgView[i].setColorFilter(Color.argb(120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
+        }
+
+        for (i = 0; i < p[1]; i++) {
+            imgView[p[0] + i].setColorFilter(Color.argb(120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
+        }
+        for (i = 0; i < p[2]; i++) {
+            imgView[p[0] + p[1] + i].setColorFilter(Color.argb(120, 147, 224, 117), PorterDuff.Mode.SRC_IN);
+        }
+        for (i = 0; i < p[3]; i++) {
+            imgView[p[0] + p[1] + p[2] + i].setColorFilter(Color.argb(120, 117, 206, 250), PorterDuff.Mode.SRC_IN);
+        }
+        for (i = 0; i < p[4]; i++) {
+            imgView[p[0] + p[1] + p[2] + p[3] + i].setColorFilter(Color.argb(120, 226, 159, 240), PorterDuff.Mode.SRC_IN);
+        }
+
 
     }
 
