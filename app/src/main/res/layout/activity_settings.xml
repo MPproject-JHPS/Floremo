@@ -28,8 +28,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="67dp"
             android:switchMinWidth="80dp"
-            android:textStyle="bold"
-            android:text="알림 설정" />
+            android:text="알림 설정"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
 
         <Button
@@ -41,6 +42,7 @@
             android:layout_marginTop="90dp"
             android:background="#00ff0000"
             android:text="계정 관리"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
@@ -52,6 +54,7 @@
             android:layout_marginTop="90dp"
             android:background="#00ff0000"
             android:text="버전 정보"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
@@ -63,17 +66,19 @@
             android:layout_marginTop="90dp"
             android:background="#00ff0000"
             android:text="회원 탈퇴"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="35dp"
-            android:text="개인 정보 처리 방침"
-            android:textStyle="italic"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:text="Copyright ⓒ Floremo all rights reserved."
+            android:textSize="16sp"
+            android:textStyle="italic" />
 
     </RelativeLayout>
 
