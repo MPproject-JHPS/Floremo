@@ -35,17 +35,24 @@ public class AnalysisActivity extends AppCompatActivity {
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mFirebaseAuth;
 
-    public String[] Year = {"2021", "2017", "2018","2019",
-            "2020","2022","2023","2024",
+    public String[] Year = {"2021", "2017", "2018", "2019",
+            "2020", "2022", "2023", "2024",
             "2025"};
-    public String[] Month = {"1","2","3","4",
-            "5","6","7","8",
-            "9","10","11","12"};
+    public String[] Month = {"1", "2", "3", "4",
+            "5", "6", "7", "8",
+            "9", "10", "11", "12"};
     String year;
     String month;
     int happy_cnt, surp_cnt, ang_cnt, sad_cnt, soso_cnt;
     int happy, surp, ang, sad, soso, sum;
-    int[] p = {0,0,0,0,0}; //각각의 감정 개수를 받아오는 array 변수
+    int[] p = {0, 0, 0, 0, 0}; //각각의 감정 개수를 받아오는 array 변수
+
+    int[] q = {0, 0, 0, 0, 0}; //각 감정의 꽃개수 퍼센트 환산-->반올림하여 개수로 저장
+    int max1 = 0; // 꽃 개수가 가장 많은 감정의 꽃 개수
+    int max1_idx = 0; // 꽃 개수가 가장 많은 감정의 index (ex. happy=0, surp=1, ang=2 ...)
+    int max2 = 0; // 꽃 개수가 두번째로 많은 감정의 꽃 개수
+    int max2_idx = 0; // 꽃 개수가 두번째로 많은 감정의 index
+
     int max = 0;
 
     ImageView imgView[] = new ImageView[10];
@@ -251,7 +258,8 @@ public class AnalysisActivity extends AppCompatActivity {
                                     ang_cnt++;
                                 }
                             }
-                        } ang = ang_cnt;
+                        }
+                        ang = ang_cnt;
                         Log.w("FireBaseData", "ang count" + ang_cnt);
                         p[0] = happy_cnt;
                         p[1] = surp_cnt;
@@ -292,7 +300,8 @@ public class AnalysisActivity extends AppCompatActivity {
                                     sad_cnt++;
                                 }
                             }
-                        }sad = sad_cnt;
+                        }
+                        sad = sad_cnt;
                         Log.w("FireBaseData", "sad count" + sad_cnt);
                         p[0] = happy_cnt;
                         p[1] = surp_cnt;
@@ -310,54 +319,55 @@ public class AnalysisActivity extends AppCompatActivity {
                     }
                 });
 
-        databaseReference = database.getReference(mFirebaseUser.getUid() + "/memos/soso/");
-        //databaseReference.orderByChild("date").startAt(year+"년 "+month+"월 1일").endAt(year+"년 "+(month+1)+"월 1일").addValueEventListener(new ValueEventListener() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                databaseReference = database.getReference(mFirebaseUser.getUid() + "/memos/soso/");
+                //databaseReference.orderByChild("date").startAt(year+"년 "+month+"월 1일").endAt(year+"년 "+(month+1)+"월 1일").addValueEventListener(new ValueEventListener() {
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //파이어베이스 데이터베이스의 데이터를 받아오는 곳
 
-                Object value = dataSnapshot.getValue(Object.class);
-                Log.w("FireBaseData", "getData" + value.toString());
+                        Object value = dataSnapshot.getValue(Object.class);
+                        Log.w("FireBaseData", "getData" + value.toString());
 
-                String origin = value.toString();
-                String word1 = year + "년";
-                String word2 = month + "월";
-                soso_cnt = 0;
+                        String origin = value.toString();
+                        String word1 = year + "년";
+                        String word2 = month + "월";
+                        soso_cnt = 0;
 
-                String[] sarr = origin.split(" ");
-                int len = sarr.length;
-                for (int i = 0; i < len; i++) {
-                    if (word1.equals(sarr[i])) {
-                        if (word2.equals(sarr[i + 1])) {
-                            soso_cnt++;
+                        String[] sarr = origin.split(" ");
+                        int len = sarr.length;
+                        for (int i = 0; i < len; i++) {
+                            if (word1.equals(sarr[i])) {
+                                if (word2.equals(sarr[i + 1])) {
+                                    soso_cnt++;
+                                }
+                            }
                         }
+                        soso = soso_cnt;
+                        Log.w("FireBaseData", "soso count" + soso_cnt);
+                        p[0] = happy_cnt;
+                        p[1] = surp_cnt;
+                        p[2] = ang_cnt;
+                        p[3] = sad_cnt;
+                        p[4] = soso_cnt;
+                        findMaxValue();
                     }
-                } soso = soso_cnt;
-                Log.w("FireBaseData", "soso count" + soso_cnt);
-                p[0] = happy_cnt;
-                p[1] = surp_cnt;
-                p[2] = ang_cnt;
-                p[3] = sad_cnt;
-                p[4] = soso_cnt;
-                findMaxValue();
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        //DB를 가져오던 중 에러 발생시
+                        Log.w("Analysis", String.valueOf(error.toException())); //에러문 출력
+                    }
+                });
+
             }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //DB를 가져오던 중 에러 발생시
-                Log.w("Analysis", String.valueOf(error.toException())); //에러문 출력
-            }
-        });
-
-    }
         });
 
     }
 
     private void findMaxValue() {
-         max = p[0];
+        max = p[0];
 
         for (int i = 0; i < p.length; i++) {
 
@@ -374,25 +384,23 @@ public class AnalysisActivity extends AppCompatActivity {
         Log.w("FireBaseData", "max " + max);
 
         TextView comment = findViewById(R.id.comment);
-        if(p[0] == max )
-        {
+        if (p[0] == max) {
             comment.setText("이번 달은 기쁜 일이 많았네요");
         }
-        if(p[1] == max )
-        {
+        if (p[1] == max) {
             comment.setText("이번 달은 놀라운 일이 많았네요");
         }
-        if(p[2] == max )
-        {
+        if (p[2] == max) {
             comment.setText("이번 달은 화난 일이 많았네요");
         }
-        if(p[3] == max )
-        {
+        if (p[3] == max) {
             comment.setText("이번 달은 슬픈 일이 많았네요");
         }
-        if(p[4] == max )
-        {
+        if (p[4] == max) {
             comment.setText("이번 달은 그저그런 일이 많았네요");
+        }
+        if (max == 0) {
+            comment.setText("");
         }
 
         // 프로그래스 바 옆에 기록 개수
@@ -407,17 +415,39 @@ public class AnalysisActivity extends AppCompatActivity {
         TextView n5 = findViewById(R.id.num5);
         n5.setText(String.valueOf(p[4]));
 
-        double happy1 =  ((double)p[0]/(double)sum)*100;
-        double surp1 =  ((double)p[1]/(double)sum)*100;
-        double ang1 =  ((double)p[2]/(double)sum)*100;
-        double sad1 =  ((double)p[3]/(double)sum)*100;
-        double soso1 =  ((double)p[4]/(double)sum)*100;
+        // (각 감정의 꽃개수/각 감정의 꽃 개수 모두 합친 것) * 100 --> %비율로 환산
+        // happy:4개, surp:2개, ang:3개, sad:2개, soso:1개 일때
+        // 총 꽃 개수: 4+2+3+2+1 = 12개
+        // (4/12) * 100 = 33.33% ...
+        double happy1 = ((double) p[0] / (double) sum) * 100;
+        double surp1 = ((double) p[1] / (double) sum) * 100;
+        double ang1 = ((double) p[2] / (double) sum) * 100;
+        double sad1 = ((double) p[3] / (double) sum) * 100;
+        double soso1 = ((double) p[4] / (double) sum) * 100;
+
+
+        // 총 꽃의 개수가 10개이므로 나누기 10을 해서 %비율을 대략의 개수로 환산
+        // 위의 예시에서 happy는 전체 비율 중 33.33%를 차지 --> 꽃 10개 중 약 3.33개가 칠해져야 함
+        double happy2 = happy1 / 10;
+        double surp2 = surp1 / 10;
+        double ang2 = ang1 / 10;
+        double sad2 = sad1 / 10;
+        double soso2 = soso1 / 10;
+
 
         happy = Integer.parseInt(String.valueOf(Math.round(happy1)));
         surp = Integer.parseInt(String.valueOf(Math.round(surp1)));
         ang = Integer.parseInt(String.valueOf(Math.round(ang1)));
         sad = Integer.parseInt(String.valueOf(Math.round(sad1)));
         soso = Integer.parseInt(String.valueOf(Math.round(soso1)));
+
+        // happy 3.33개 칠할 수 없으므로 --> 소수점 첫째자리에서 반올림하여 10개 중 3개 happy 색으로 칠함 --> 즉, q[0] = 3
+        q[0] = Integer.parseInt(String.valueOf(Math.round(happy2)));
+        q[1] = Integer.parseInt(String.valueOf(Math.round(surp2)));
+        q[2] = Integer.parseInt(String.valueOf(Math.round(ang2)));
+        q[3] = Integer.parseInt(String.valueOf(Math.round(sad2)));
+        q[4] = Integer.parseInt(String.valueOf(Math.round(soso2)));
+
 
         ProgressBar p1 = findViewById(R.id.progBar1);
         p1.setProgress(happy);
@@ -435,32 +465,126 @@ public class AnalysisActivity extends AppCompatActivity {
         ProgressBar p5 = findViewById(R.id.progBar5);
         p5.setProgress(soso);
 
-        int i = 0;
-        for (i = 0; i < p[0]; i++) {
-            imgView[i].setColorFilter(Color.argb(120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
-        }
+        int total = q[0] + q[1] + q[2] + q[3] + q[4];
 
-        for (i = 0; i < p[1]; i++) {
-            imgView[p[0] + i].setColorFilter(Color.argb(120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
-        }
-        for (i = 0; i < p[2]; i++) {
-            imgView[p[0] + p[1] + i].setColorFilter(Color.argb(120, 147, 224, 117), PorterDuff.Mode.SRC_IN);
-        }
-        for (i = 0; i < p[3]; i++) {
-            imgView[p[0] + p[1] + p[2] + i].setColorFilter(Color.argb(120, 117, 206, 250), PorterDuff.Mode.SRC_IN);
-        }
-        for (i = 0; i < p[4]; i++) {
-            imgView[p[0] + p[1] + p[2] + p[3] + i].setColorFilter(Color.argb(120, 226, 159, 240), PorterDuff.Mode.SRC_IN);
-        }
+        if (total == 11) {
+            findTwoMaxValue();
+            q[max1_idx] = q[max1_idx] - 1; //가장 많은 개수를 가진 감정의 꽃 개수에서 -1
 
+            int i = 0;
+            for (i = 0; i < q[0]; i++) {
+                imgView[i].setColorFilter(Color.argb(120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
+            }
 
+            for (i = 0; i < q[1]; i++) {
+                imgView[q[0] + i].setColorFilter(Color.argb(120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
+            }
+            for (i = 0; i < q[2]; i++) {
+                imgView[q[0] + q[1] + i].setColorFilter(Color.argb(120, 147, 224, 117), PorterDuff.Mode.SRC_IN);
+            }
+            for (i = 0; i < q[3]; i++) {
+                imgView[q[0] + q[1] + q[2] + i].setColorFilter(Color.argb(120, 117, 206, 250), PorterDuff.Mode.SRC_IN);
+            }
+            for (i = 0; i < q[4]; i++) {
+                imgView[q[0] + q[1] + q[2] + q[3] + i].setColorFilter(Color.argb(120, 226, 159, 240), PorterDuff.Mode.SRC_IN);
+            }
+
+            if (p[0] == 0 && p[1] == 0 && p[2] == 0 && p[3] == 0 && p[4] == 0) {
+                for (i = 0; i < 10; i++) {
+                    imgView[i].setColorFilter(null);
+                }
+            }
+
+        } else if (total == 12) {
+            findTwoMaxValue();
+            q[max1_idx] = q[max1_idx] - 1; //가장 많은 개수를 가진 감정의 꽃 개수에서 -1
+            q[max2_idx] = q[max2_idx] - 1; //두번째로 많은 개수를 가진 감정의 꽃 개수에서 -1
+
+            int i = 0;
+            for (i = 0; i < q[0]; i++) {
+                imgView[i].setColorFilter(Color.argb(120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
+            }
+
+            for (i = 0; i < q[1]; i++) {
+                imgView[q[0] + i].setColorFilter(Color.argb(120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
+            }
+            for (i = 0; i < q[2]; i++) {
+                imgView[q[0] + q[1] + i].setColorFilter(Color.argb(120, 147, 224, 117), PorterDuff.Mode.SRC_IN);
+            }
+            for (i = 0; i < q[3]; i++) {
+                imgView[q[0] + q[1] + q[2] + i].setColorFilter(Color.argb(120, 117, 206, 250), PorterDuff.Mode.SRC_IN);
+            }
+            for (i = 0; i < q[4]; i++) {
+                imgView[q[0] + q[1] + q[2] + q[3] + i].setColorFilter(Color.argb(120, 226, 159, 240), PorterDuff.Mode.SRC_IN);
+            }
+
+            if (p[0] == 0 && p[1] == 0 && p[2] == 0 && p[3] == 0 && p[4] == 0) {
+                for (i = 0; i < 10; i++) {
+                    imgView[i].setColorFilter(null);
+                }
+            }
+        } else { //total의 개수가 11,12개가 아닐 때 //9개 또는 10개 될 수 있음.
+            int i = 0;
+            for (i = 0; i < q[0]; i++) {
+                imgView[i].setColorFilter(Color.argb(120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
+            }
+
+            for (i = 0; i < q[1]; i++) {
+                imgView[q[0] + i].setColorFilter(Color.argb(120, 235, 197, 129), PorterDuff.Mode.SRC_IN);
+            }
+            for (i = 0; i < q[2]; i++) {
+                imgView[q[0] + q[1] + i].setColorFilter(Color.argb(120, 147, 224, 117), PorterDuff.Mode.SRC_IN);
+            }
+            for (i = 0; i < q[3]; i++) {
+                imgView[q[0] + q[1] + q[2] + i].setColorFilter(Color.argb(120, 117, 206, 250), PorterDuff.Mode.SRC_IN);
+            }
+            for (i = 0; i < q[4]; i++) {
+                imgView[q[0] + q[1] + q[2] + q[3] + i].setColorFilter(Color.argb(120, 226, 159, 240), PorterDuff.Mode.SRC_IN);
+            }
+            if (total == 9) { //total이 9개면 나머지 꽃 1개는 흰색으로 칠함
+                imgView[9].setColorFilter(Color.WHITE);
+            }
+
+            if (p[0] == 0 && p[1] == 0 && p[2] == 0 && p[3] == 0 && p[4] == 0) //꽃의 개수 0개일 때 칠하지 않음
+            {
+                for (i = 0; i < 10; i++) {
+                    imgView[i].setColorFilter(null);
+                }
+            }
+        }
     }
 
+    private void findTwoMaxValue() { // 1번째, 2번째로 꽃 개수가 많은 감정의 index와 그때의 꽃 개수 찾는 함수
+        int i;
+        max1 = -1;
+        max1_idx = 0;
+        max2 = -1;
+        max2_idx = 0;
+
+        for (i = 0; i < 5; i++) {
+            if (i == 0) {
+                max1 = q[i];
+                max1_idx = i;
+            } else {
+                if (q[i] > max1) {
+                    max2 = max1;
+                    max2_idx = max1_idx;
+                    max1 = q[i];
+                    max1_idx = i;
+                } else {
+                    if (q[i] > max2) {
+                        max2 = q[i];
+                        max2_idx = i;
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+        switch (item.getItemId()) {
+            case android.R.id.home: { //toolbar의 back키 눌렀을 때 동작
                 finish();
                 return true;
             }
