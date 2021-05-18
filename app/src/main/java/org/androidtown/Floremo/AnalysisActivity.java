@@ -394,6 +394,10 @@ public class AnalysisActivity extends AppCompatActivity {
         {
             comment.setText("이번 달은 그저그런 일이 많았네요");
         }
+        if(max == 0 )
+        {
+            comment.setText("");
+        }
 
         // 프로그래스 바 옆에 기록 개수
         TextView n1 = findViewById(R.id.num1);
@@ -452,7 +456,12 @@ public class AnalysisActivity extends AppCompatActivity {
         for (i = 0; i < p[4]; i++) {
             imgView[p[0] + p[1] + p[2] + p[3] + i].setColorFilter(Color.argb(120, 226, 159, 240), PorterDuff.Mode.SRC_IN);
         }
-
+        if(p[0] == 0 && p[1] == 0 && p[2] == 0 && p[3] == 0 && p[4] == 0)
+        {
+            for (i = 0; i < 10; i++) {
+                imgView[i].setColorFilter(null);
+            }
+        }
 
     }
 
