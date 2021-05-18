@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.hardware.camera2.params.BlackLevelPattern;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -104,6 +105,8 @@ public class ShowRecord extends AppCompatActivity implements RecordAdapter.OnMem
         recyclerView.setAdapter(mRecordAdapter); //리사이클러뷰에 adapter 연결
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        mToolbar.setNavigationIcon(R.drawable.back);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
     }
