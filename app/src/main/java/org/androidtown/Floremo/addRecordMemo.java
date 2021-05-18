@@ -53,7 +53,7 @@ public class addRecordMemo extends AppCompatActivity {
     private final int GET_GALLERY_IMAGE = 200;
     private EditText etContent;
     private DatabaseReference databaseReference;
-    Uri selectedImageUri;
+    Uri selectedImageUri = null;
     private TextView textDate;
     private int emotion;
     private static final String TAG = "addRecordMemo";
@@ -123,6 +123,10 @@ public class addRecordMemo extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu:
+                if(selectedImageUri == null){
+                    Toast.makeText(addRecordMemo.this, "이미지를 선택해주세요", Toast.LENGTH_LONG).show();
+                    break;
+                }
                 clickUpload();
                 saveMemo();
                 return true;
@@ -280,8 +284,6 @@ public class addRecordMemo extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String filename = mFirebaseUser.getUid() + "_" + timeStamp;
         StorageReference fileRef = userRef.child(filename);
-
-        //image2.setImageURI(uri_simage);
 
         //참조객체를 통해 이미지 파일 업로드하기
         //업로드가 성공적으로 되면 images라는 폴더에 uid 폴더가 생성된다.
