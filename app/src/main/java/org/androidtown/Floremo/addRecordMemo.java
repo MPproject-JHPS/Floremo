@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -58,6 +59,7 @@ public class addRecordMemo extends AppCompatActivity {
     private int emotion;
     private static final String TAG = "addRecordMemo";
     private String date;
+
 
     Uri uri_simage;
     ImageView image2;
@@ -118,9 +120,11 @@ public class addRecordMemo extends AppCompatActivity {
     }
 
 
+
     //툴바 선택 (DB 저장, 뒤로가기 버튼)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Recording recording = (Recording) Recording.Recording;
         switch (item.getItemId()) {
             case R.id.menu:
                 if(selectedImageUri == null){
@@ -129,6 +133,8 @@ public class addRecordMemo extends AppCompatActivity {
                 }
                 clickUpload();
                 saveMemo();
+                finish();
+                recording.finish();
                 return true;
             case android.R.id.home: //toolbar의 back키 눌렀을 때 동작. recording으로 돌아가기
                 onBackPressed();

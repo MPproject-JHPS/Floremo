@@ -91,13 +91,14 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
     private FirebaseDatabase mFirebaseDataBase;
 
     private DatabaseReference databaseReference;
-
+    public static Activity Recording;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recording);
 
+        Recording = Recording.this;
 
         mFirebaseAuth = FirebaseAuth.getInstance(); //유저를 얻어온다
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
