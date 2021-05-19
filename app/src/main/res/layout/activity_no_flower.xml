@@ -27,24 +27,11 @@
             android:layout_marginTop="200dp"
             android:layout_centerHorizontal="true"
             android:textSize="50dp"
-            android:text="저장되어 있는"/>
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="앗..!\n저장되어 있는\n꽃이 없습니다😅"
+            android:gravity="center_horizontal" />
 
-        <TextView
-            android:id="@+id/textView_noflower2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView_noflower1"
-            android:layout_centerHorizontal="true"
-            android:textSize="50dp"
-            android:text="꽃이 없습니다."/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView_noflower2"
-            android:layout_centerHorizontal="true"
-            android:textSize="50dp"
-            android:text="뒤로 가십시오."/>
 
     </RelativeLayout>
 </LinearLayout>
