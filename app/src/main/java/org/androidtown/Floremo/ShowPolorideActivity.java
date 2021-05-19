@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +61,9 @@ public class ShowPolorideActivity extends AppCompatActivity {
     long happy_cnt, surprised_cnt, angry_cnt, sad_cnt, soso_cnt;
     int random_cnt;
 
+    LinearLayout capture_target_Layout;
+    String current_time;
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_poloride);
@@ -70,11 +74,22 @@ public class ShowPolorideActivity extends AppCompatActivity {
         date = findViewById(R.id.textDate);
         imageView = findViewById(R.id.image);
 
+        //툴바 기능
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
 
+        //폴로라이드 사진 캡쳐
+
+        capture_target_Layout = (LinearLayout)findViewById(R.id.layout_poloride); //캡쳐할 영역의 레이아웃
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat( "yyyyMMddHHmmss"); //년,월,일,시간 포멧 설정
+        Date time = new Date(); //파일명 중복 방지를 위해 사용될 현재시간
+        current_time = sdf.format(time); //String형 변수에 저장
+
+        //랜덤 기능
         countTotalFlower();
         Log.w("태그", String.valueOf(total));
         System.out.println(total);
@@ -94,14 +109,7 @@ public class ShowPolorideActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.menu_capture: {
-                //전체화면
-                View rootView = getWindow().getDecorView();
-
-                File screenShot = ScreenShot(rootView);
-                if(screenShot!=null){
-                    //갤러리에 추가
-                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(screenShot)));
-                }
+                new Request_Capture(capture_target_Layout, current_time + "_poloride"); //지정한 Layout 영역 사진첩 저장 요청
             }
             case R.id.menu_share: {
 
@@ -109,37 +117,6 @@ public class ShowPolorideActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    //화면 캡쳐하기
-    public File ScreenShot(View view){
-        view.setDrawingCacheEnabled(true);  //화면에 뿌릴때 캐시를 사용하게 한다
-
-        Bitmap screenBitmap = view.getDrawingCache();   //캐시를 비트맵으로 변환
-
-        String filename = "screenshot.png";
-
-        SimpleDateFormat day = new SimpleDateFormat("yyyyMMddHHmmss");
-        Date date = new Date();
-
-        File file = new File(Environment.getExternalStorageDirectory()+ day.format(date) +"/Pictures", filename);  //Pictures폴더 screenshot.png 파일
-        FileOutputStream os = null;
-        try{
-            os = new FileOutputStream(file);
-            screenBitmap.compress(Bitmap.CompressFormat.PNG, 90, os);   //비트맵을 PNG파일로 변환
-            os.close();
-        }catch (IOException e){
-            e.printStackTrace();
-            return null;
-        }
-
-        view.setDrawingCacheEnabled(false);
-
-        //view.destroyDrawingCache();
-        // 말그대로 DrawingCache를 파괴하는 거겟죠...
-
-        return file;
-    }
-
 
     //권한에 대한 응답이 있을때 작동하는 함수
     @Override
@@ -151,7 +128,7 @@ public class ShowPolorideActivity extends AppCompatActivity {
             for (int i = 0; i < length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     // 동의
-                    Log.d("MainActivity","권한 허용 : " + permissions[i]);
+                    Log.d("showPolorideActivity","권한 허용 : " + permissions[i]);
                 }
             }
         }
