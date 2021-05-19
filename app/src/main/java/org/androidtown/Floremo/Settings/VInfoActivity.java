@@ -1,4 +1,4 @@
-package org.androidtown.Floremo;
+package org.androidtown.Floremo.Settings;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,9 +9,12 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.androidtown.Floremo.R;
+
 public class VInfoActivity extends AppCompatActivity {
 
 
+    //버전 정보
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

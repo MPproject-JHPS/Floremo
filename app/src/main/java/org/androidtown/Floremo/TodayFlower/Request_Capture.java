@@ -1,8 +1,7 @@
-package org.androidtown.Floremo;
+package org.androidtown.Floremo.TodayFlower;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import java.io.File;

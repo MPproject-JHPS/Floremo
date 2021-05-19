@@ -1,4 +1,4 @@
-package org.androidtown.Floremo;
+package org.androidtown.Floremo.TodayFlower;
 import android.content.Context;
 import android.media.MediaScannerConnection;
 import android.net.Uri;

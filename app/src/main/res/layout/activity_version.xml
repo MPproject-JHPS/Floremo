@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/bg_c"
-    tools:context=".CheckActivity">
+    tools:context=".Settings.CheckActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

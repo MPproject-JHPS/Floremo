@@ -1,14 +1,15 @@
-package org.androidtown.Floremo;
+package org.androidtown.Floremo.TodayFlower;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+
+import org.androidtown.Floremo.R;
 
 public class TodayFlowerActivity extends AppCompatActivity {
 

@@ -27,7 +27,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
-
     }
     //위치정보 권한 설정
     @Override

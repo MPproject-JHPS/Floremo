@@ -4,21 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.security.MessageDigest;
+import org.androidtown.Floremo.Settings.SettingsActivity;
+import org.androidtown.Floremo.TodayFlower.TodayFlowerActivity;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;

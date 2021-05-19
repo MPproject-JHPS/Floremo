@@ -1,6 +1,5 @@
-package org.androidtown.Floremo;
+package org.androidtown.Floremo.Settings;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,10 +16,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
+
+import org.androidtown.Floremo.R;
 
 public class CheckActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -28,6 +27,8 @@ public class CheckActivity extends AppCompatActivity {
     private FirebaseAuth mAuth; //파이어베이스 인스턴스 선언
     private static final String TAG = "CheckActivity";
     private TextView userEmail;
+
+    //비밀 번호 재설정
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

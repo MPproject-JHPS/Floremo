@@ -1,4 +1,4 @@
-package org.androidtown.Floremo;
+package org.androidtown.Floremo.TodayFlower;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -16,6 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
+
+import org.androidtown.Floremo.MainActivity;
+import org.androidtown.Floremo.R;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 

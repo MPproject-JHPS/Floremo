@@ -1,6 +1,5 @@
-package org.androidtown.Floremo;
+package org.androidtown.Floremo.Settings;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,6 +13,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+
+import org.androidtown.Floremo.R;
+import org.androidtown.Floremo.Settings.CheckActivity;
 
 public class InfoActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
@@ -36,24 +38,24 @@ public class InfoActivity extends AppCompatActivity {
         TextView userEmail = findViewById(R.id.mail);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                for (UserInfo profile : user.getProviderData()) {
-                    // 사용자 이름 가져오기
-                    String name = profile.getDisplayName();
-                    String email = profile.getEmail();
-                    userName2.setText(name);
-                    userEmail.setText(email);
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                // 사용자 이름 가져오기
+                String name = profile.getDisplayName();
+                String email = profile.getEmail();
+                userName2.setText(name);
+                userEmail.setText(email);
 
-                }
             }
-        Button change_pw = findViewById(R.id.change_pw);
-            change_pw.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startCheckActivity(); // 계정 관리 버튼 누르면 상세 페이지로 이동
-                }
-            });
         }
+        Button change_pw = findViewById(R.id.change_pw);
+        change_pw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCheckActivity(); // 계정 관리 버튼 누르면 상세 페이지로 이동
+            }
+        });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -72,4 +74,4 @@ public class InfoActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    }
+}
