@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -20,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -105,7 +108,8 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
         mFirebaseDataBase = FirebaseDatabase.getInstance();
         databaseReference = mFirebaseDataBase.getReference();
 
-
+        //저장권한 물어보기
+        checkSelfPermission();
         //색 변경된 꽃 이미지 잘 저장되었는지 불러와서 ImageView에 띄우는 테스트 버튼 핸들러
 //        testBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -789,4 +793,38 @@ public class Recording extends AppCompatActivity implements View.OnClickListener
 
         startToast("꽃 이미지 저장");
     }
+
+
+    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions,
+                                          @NonNull int[] grantResults) {
+        if(requestCode==1){
+            int length = permissions.length;
+            for(int i =0; i<length; i++){
+                if(grantResults[i]== PackageManager.PERMISSION_GRANTED){
+                    //동의
+                    Log.d("addRecordMemo","권한 허용 : " +permissions[i]);
+                }
+            }
+        }
+    }
+    public void checkSelfPermission() {
+        String temp = "";
+        //파일 읽기 권한 확인
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.READ_EXTERNAL_STORAGE + " ";
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
+        }
+        if (TextUtils.isEmpty(temp) == false) {
+            //권한 요청
+            ActivityCompat.requestPermissions(this, temp.trim().split(" "), 1);
+        } else {
+            //모두 허용 상태
+            Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

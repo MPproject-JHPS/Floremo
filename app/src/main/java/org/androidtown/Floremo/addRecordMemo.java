@@ -78,7 +78,7 @@ public class addRecordMemo extends AppCompatActivity {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();//혹시 인증 유지가 안될 수 있으니 유저 확인
         mFirebaseDataBase = FirebaseDatabase.getInstance();
         databaseReference = mFirebaseDataBase.getReference();
-        checkSelfPermission();
+
         textDate = findViewById(R.id.textDate);
 
 
@@ -142,39 +142,6 @@ public class addRecordMemo extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions,
-                                          @NonNull int[] grantResults) {
-        if(requestCode==1){
-            int length = permissions.length;
-            for(int i =0; i<length; i++){
-                if(grantResults[i]== PackageManager.PERMISSION_GRANTED){
-                    //동의
-                    Log.d("addRecordMemo","권한 허용 : " +permissions[i]);
-                }
-            }
-        }
-    }
-    public void checkSelfPermission() {
-        String temp = "";
-        //파일 읽기 권한 확인
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.READ_EXTERNAL_STORAGE + " ";
-        }
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
-        }
-        if (TextUtils.isEmpty(temp) == false) {
-            //권한 요청
-            ActivityCompat.requestPermissions(this, temp.trim().split(" "), 1);
-        } else {
-            //모두 허용 상태
-            Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
-        }
     }
 
     //사진 선택하기
