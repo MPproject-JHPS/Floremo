@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private long backBtnTime = 0; // 뒤로가기 버튼 누를 때 필요
     private long flower_number;
 
-    long total;
+   long total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
