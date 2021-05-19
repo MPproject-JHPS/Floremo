@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TodayFlowerActivity"
+    android:id="@+id/todayFlower"
+    android:background="@color/bg_c">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="81dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/textView_noflower1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="50dp"
+            android:text="저장되어 있는"/>
+
+        <TextView
+            android:id="@+id/textView_noflower2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_noflower1"
+            android:layout_centerHorizontal="true"
+            android:textSize="50dp"
+            android:text="꽃이 없습니다."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_noflower2"
+            android:layout_centerHorizontal="true"
+            android:textSize="50dp"
+            android:text="뒤로 가십시오."/>
+
+    </RelativeLayout>
+</LinearLayout>
