@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_floremo1_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TP">
-        <activity android:name=".ShowPolorideActivity"></activity>
+        <activity android:name=".ShowPolorideActivity"/>
         <activity android:name=".TodayFlowerActivity" />
         <activity android:name=".AnalysisActivity" />
         <activity android:name=".SettingsActivity" />
