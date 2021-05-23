@@ -71,12 +71,5 @@ public class Memo implements Parcelable {
         dest.writeString(key);
     }
 
-//    public Map<String, Object> toMap(){
-//        HashMap<String, Object> result = new HashMap<>();
-//        result.put("txt", txt);
-//        result.put("date", date);
-//        result.put("flowerImg", flowerImg);
-//        result.put("imageUrl", imageUrl);
-//        return result;
-//    }
+
 }

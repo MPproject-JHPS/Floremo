@@ -192,8 +192,8 @@ public class addRecordMemo extends AppCompatActivity {
                 taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //Uri downloadUrl = uri;
-                        memo.setFlowerImg(uri_simage.toString());
+                        Uri downloadUrl = uri;
+                        memo.setFlowerImg(downloadUrl.toString());
                         //String key;
                         //받아온 감정에 따라서 분류해서 Realtime DB에 넣기
                         if (emotion == 0) {

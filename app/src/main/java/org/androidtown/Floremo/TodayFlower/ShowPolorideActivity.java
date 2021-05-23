@@ -45,7 +45,8 @@ public class ShowPolorideActivity extends AppCompatActivity {
 
     private EditText editText;
     private TextView date;
-    private ImageView imageView;
+    private ImageView image;
+    private ImageView flower;
 
     long[] p = {0,0,0,0,0}; //각각의 감정 개수를 받아오는 array 변수
     long happy_cnt, surprised_cnt, angry_cnt, sad_cnt, soso_cnt;
@@ -62,7 +63,8 @@ public class ShowPolorideActivity extends AppCompatActivity {
         //database.getInstance();
         editText = findViewById(R.id.content);
         date = findViewById(R.id.textDate);
-        imageView = findViewById(R.id.image);
+        image = findViewById(R.id.photo_image);
+        flower = findViewById(R.id.tf_image);
 
         //툴바 기능
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -287,7 +289,11 @@ public class ShowPolorideActivity extends AppCompatActivity {
                 editText.setText(memo.getTxt());
                 Glide.with(ShowPolorideActivity.this)
                         .load(memo.getImageUrl())
-                        .into(imageView);
+                        .into(image);
+                Glide.with(ShowPolorideActivity.this)
+                        .load(memo.getFlowerImg())
+                        .into(flower);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

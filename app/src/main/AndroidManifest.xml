@@ -18,7 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TP">
         <activity android:name=".TodayFlower.ShowPolorideActivity"/>
-        <activity android:name=".TodayFlower.TodayFlowerActivity" />
         <activity android:name=".AnalysisActivity" />
         <activity android:name=".Settings.SettingsActivity" />
         <activity
@@ -37,7 +36,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -46,6 +44,12 @@
         <activity android:name=".Settings.InfoActivity" />
         <activity android:name=".Settings.VInfoActivity" />
         <activity android:name=".Settings.CheckActivity" />
+        <activity android:name=".TodayFlower.TodayFlowerActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
