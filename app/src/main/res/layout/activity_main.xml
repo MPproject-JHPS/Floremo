@@ -23,9 +23,11 @@
 
         <RelativeLayout
             android:id="@+id/main_part0"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="31dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
             android:paddingTop="10dp">
 
             <!--닉네임 받아오기-->
@@ -37,7 +39,7 @@
                 android:layout_toLeftOf="@id/word_spacing"
                 android:gravity="right"
                 android:text=""
-                android:textSize="25sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/word_spacing"
@@ -46,7 +48,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_weight="1"
                 android:text="  "
-                android:textSize="25sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -55,7 +57,7 @@
                 android:layout_toRightOf="@id/word_spacing"
                 android:layout_weight="1"
                 android:text="님 반갑습니다"
-                android:textSize="25sp" />
+                android:textSize="22sp" />
 
         </RelativeLayout>
 
