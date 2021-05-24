@@ -386,18 +386,74 @@ public class AnalysisActivity extends AppCompatActivity {
         TextView comment = findViewById(R.id.comment);
         if (p[0] == max) {
             comment.setText("이번 달은 기쁜 일이 많았네요");
+
+            for (int i = 0; i < p.length; i++) {
+                if( i == 0 )
+                {
+                    continue;
+                }
+
+                if (p[i] == max) {
+                    comment.setText("이번 달은 다양한 감정을 느꼈네요");
+                }
+
+            }
         }
         if (p[1] == max) {
             comment.setText("이번 달은 놀라운 일이 많았네요");
+            for (int i = 0; i < p.length; i++) {
+                if( i == 1 )
+                {
+                    continue;
+                }
+
+                if (p[i] == max) {
+                    comment.setText("이번 달은 다양한 감정을 느꼈네요");
+                }
+
+            }
         }
         if (p[2] == max) {
             comment.setText("이번 달은 화난 일이 많았네요");
+            for (int i = 0; i < p.length; i++) {
+                if( i == 2 )
+                {
+                    continue;
+                }
+
+                if (p[i] == max) {
+                    comment.setText("이번 달은 다양한 감정을 느꼈네요");
+                }
+
+            }
         }
         if (p[3] == max) {
             comment.setText("이번 달은 슬픈 일이 많았네요");
+            for (int i = 0; i < p.length; i++) {
+                if( i == 3 )
+                {
+                    continue;
+                }
+
+                if (p[i] == max) {
+                    comment.setText("이번 달은 다양한 감정을 느꼈네요");
+                }
+
+            }
         }
         if (p[4] == max) {
             comment.setText("이번 달은 그저그런 일이 많았네요");
+            for (int i = 0; i < p.length; i++) {
+                if( i == 4 )
+                {
+                    continue;
+                }
+
+                if (p[i] == max) {
+                    comment.setText("이번 달은 다양한 감정을 느꼈네요");
+                }
+
+            }
         }
         if (max == 0) {
             comment.setText("");
