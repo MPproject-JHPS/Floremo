@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "user_friends"));
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile"));
                 LoginManager.getInstance().registerCallback(mCallbackManager,
                         new FacebookCallback<LoginResult>() {
                             @Override

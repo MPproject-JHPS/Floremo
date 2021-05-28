@@ -49,7 +49,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-storage'
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
     // 네이버 지도 SDK
     implementation 'com.naver.maps:map-sdk:3.11.0'
     //네이버 지도 위치추적
