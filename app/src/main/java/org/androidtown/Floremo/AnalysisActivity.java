@@ -579,7 +579,7 @@ public class AnalysisActivity extends AppCompatActivity {
                     imgView[i].setColorFilter(null);
                 }
             }
-        } else { //total의 개수가 11,12개가 아닐 때 //9개 또는 10개 될 수 있음.
+        } else { //total의 개수가 11,12개가 아닐 때 //8개 or 9개 or 10개 될 수 있음.
             int i = 0;
             for (i = 0; i < q[0]; i++) {
                 imgView[i].setColorFilter(Color.argb(120, 240, 127, 184), PorterDuff.Mode.SRC_IN);
@@ -597,10 +597,13 @@ public class AnalysisActivity extends AppCompatActivity {
             for (i = 0; i < q[4]; i++) {
                 imgView[q[0] + q[1] + q[2] + q[3] + i].setColorFilter(Color.argb(120, 226, 159, 240), PorterDuff.Mode.SRC_IN);
             }
+            if (total == 8) { //total이 8개면 나머지 꽃 2개는 흰색으로 칠함
+                imgView[8].setColorFilter(Color.WHITE);
+                imgView[9].setColorFilter(Color.WHITE);
+            }
             if (total == 9) { //total이 9개면 나머지 꽃 1개는 흰색으로 칠함
                 imgView[9].setColorFilter(Color.WHITE);
             }
-
             if (p[0] == 0 && p[1] == 0 && p[2] == 0 && p[3] == 0 && p[4] == 0) //꽃의 개수 0개일 때 칠하지 않음
             {
                 for (i = 0; i < 10; i++) {
