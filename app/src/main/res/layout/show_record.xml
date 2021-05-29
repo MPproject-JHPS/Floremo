@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar_black"
+        layout="@layout/toolbar_show_record"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="81dp" />
 
