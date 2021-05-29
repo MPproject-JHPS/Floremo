@@ -2,14 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <item
-        android:id="@+id/menu_capture"
-        android:title="search"
-        android:icon="@drawable/capture"
-        app:showAsAction="always"
-        />
-    <item
-        android:id="@+id/menu_share"
+        android:id="@+id/menu_captureNshare"
         android:title="search"
         android:icon="@drawable/share"
         app:showAsAction="always"

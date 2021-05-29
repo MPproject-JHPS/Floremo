@@ -92,7 +92,6 @@ public class ShowPolorideActivity extends AppCompatActivity {
         Date time = new Date(); //파일명 중복 방지를 위해 사용될 현재시간
         current_time = sdf.format(time); //String형 변수에 저장
 
-        Button btn_capture = (Button) findViewById(R.id.menu_capture);
         //랜덤 기능
         countTotalFlower();
         Log.w("태그", String.valueOf(total));
@@ -112,7 +111,7 @@ public class ShowPolorideActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-            case R.id.menu_capture: {
+            case R.id.menu_captureNshare: {
                 file = ScreenShotActivity(capture_target_Layout, current_time);
 
                 if(file !=null){
@@ -125,9 +124,6 @@ public class ShowPolorideActivity extends AppCompatActivity {
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_STREAM, uri); //이미지를 uri로 전송
                 startActivity(Intent.createChooser(sharingIntent, "Share 팝업"));
-            }
-            case R.id.menu_share: {
-
             }
         }
         return super.onOptionsItemSelected(item);
