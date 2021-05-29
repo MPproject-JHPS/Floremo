@@ -1,12 +1,18 @@
 package org.androidtown.Floremo.TodayFlower;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +37,9 @@ import com.google.firebase.database.ValueEventListener;
 import org.androidtown.Floremo.Memo;
 import org.androidtown.Floremo.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -54,6 +63,8 @@ public class ShowPolorideActivity extends AppCompatActivity {
 
     LinearLayout capture_target_Layout;
     String current_time;
+    File file;
+    String filename;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +92,7 @@ public class ShowPolorideActivity extends AppCompatActivity {
         Date time = new Date(); //파일명 중복 방지를 위해 사용될 현재시간
         current_time = sdf.format(time); //String형 변수에 저장
 
+        Button btn_capture = (Button) findViewById(R.id.menu_capture);
         //랜덤 기능
         countTotalFlower();
         Log.w("태그", String.valueOf(total));
@@ -101,13 +113,45 @@ public class ShowPolorideActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.menu_capture: {
-                new Request_Capture(capture_target_Layout, current_time + "_poloride"); //지정한 Layout 영역 사진첩 저장 요청
+                file = ScreenShotActivity(capture_target_Layout, current_time);
+
+                if(file !=null){
+                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
+                }
+
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND); //share 팝업나오게 하기
+                sharingIntent.setType("image/*");
+                Uri uri = Uri.parse(Environment.getExternalStorageDirectory()+"/DCIM/Floremo/" + filename);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_STREAM, uri); //이미지를 uri로 전송
+                startActivity(Intent.createChooser(sharingIntent, "Share 팝업"));
             }
             case R.id.menu_share: {
 
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public File ScreenShotActivity(View view, String date){
+        view.setDrawingCacheEnabled(true);
+
+        Bitmap screenBitmap = view.getDrawingCache();
+
+        filename = "screenshot_"+date+".png";
+        File file = new File(Environment.getExternalStorageDirectory()+"/DCIM/Floremo/", filename);
+        FileOutputStream os = null;
+        try{
+            os = new FileOutputStream(file);
+            screenBitmap.compress(Bitmap.CompressFormat.PNG, 100, os); //PNG파일로 만들기
+            os.close();
+        }catch (IOException e){
+            e.printStackTrace();
+            return null;
+        }
+
+        view.setDrawingCacheEnabled(false);
+        return file;
     }
 
     //권한에 대한 응답이 있을때 작동하는 함수
