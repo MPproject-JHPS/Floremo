@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Switch;
 
 import org.androidtown.Floremo.R;
+
+import java.util.Random;
 
 public class TodayFlowerActivity extends AppCompatActivity {
 
@@ -27,6 +31,32 @@ public class TodayFlowerActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        int max_num_value = 5;
+        int min_num_value = 1;
+
+        Random random = new Random();
+
+        int randomNum = random.nextInt(max_num_value - min_num_value + 1) + min_num_value;
+        ImageView imageView = (ImageView)findViewById(R.id.bouquet);
+        switch(randomNum) {
+
+            case 1:
+                imageView.setImageResource(R.drawable.bouquet_1);
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.bouquet_2);
+                break;
+            case 3:
+                imageView.setImageResource(R.drawable.bouquet_3);
+                break;
+            case 4:
+                imageView.setImageResource(R.drawable.bouquet_4);
+                break;
+            case 5:
+                imageView.setImageResource(R.drawable.bouquet_5);
+                break;
+        }
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
