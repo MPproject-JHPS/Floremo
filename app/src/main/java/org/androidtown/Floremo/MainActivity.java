@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerView = (View) findViewById(R.id.drawer);
         ImageButton btn_open = (ImageButton) findViewById(R.id.navigation_menu);
@@ -87,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.openDrawer(drawerView);
+            }
+        });
+
+
+        drawerLayout.addDrawerListener(listener);
+        drawerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
             }
         });
 
@@ -99,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-
         Button button = findViewById(R.id.btn_logout); //로그아웃 버튼
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,13 +118,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        drawerLayout.addDrawerListener(listener);
-        drawerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
-        });
 
         //감정꽃밭
         ImageButton img_btn1 = (ImageButton) findViewById(R.id.emotion_vase1);
